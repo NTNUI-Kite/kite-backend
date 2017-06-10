@@ -10,8 +10,8 @@ var config = {
 	port: 9005,
 	devBaseUrl: 'http://localhost',
 	paths: {
-		html: './src/*.html',
-		js: './src/**/*.js',
+		html: './app/*.html',
+		js: './app/**/*.js',
 		css: [
       		'node_modules/bootstrap/dist/css/bootstrap.min.css',
       		'node_modules/bootstrap/dist/css/bootstrap-theme.min.css'
@@ -43,7 +43,12 @@ gulp.task('css', function() {
 		.pipe(gulp.dest(config.paths.dist + '/css'));
 });
 
-gulp.task('serve', ['css','bundle','live-server'], function () {
+gulp.task('watch', function() {
+	gulp.watch(config.paths.html, ['html']);
+	gulp.watch(config.paths.js, ['bundle']);
+});
+
+gulp.task('serve', ['watch','css','bundle','live-server'], function () {
   browserSync.init(null,{
     proxy: 'http://localhost:7777',
     port: config.port,
