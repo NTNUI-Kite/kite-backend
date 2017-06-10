@@ -1,0 +1,20 @@
+{
+  "name": "ntnuikite",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "oleob <oleob@stud.ntnu.no>"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "react": "^15.5.4"
+  }
+}
