@@ -1,7 +1,7 @@
 var React = require('react');
 
-var Header = React.createClass({
-  render: function(){
+class Header extends React.Component {
+  render(){
     return (
       <nav className = "navbar navbar-default">
         <div className = "container-fluid">
@@ -19,6 +19,6 @@ var Header = React.createClass({
 
     );
   }
-});
+}
 
 module.exports = Header;
