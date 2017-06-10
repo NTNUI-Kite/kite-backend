@@ -1,7 +1,17 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
-console.log("hello");
-var HomePage = require('./components/HomePage');
+//var HomePage = require('./components/HomePage');
+var Header = require('./components/common/header');
 
-ReactDOM.render(<HomePage/>, app);
+class App extends React.Component {
+  render(){
+    return(
+      <div>
+        <Header/>
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(<App/>, app);

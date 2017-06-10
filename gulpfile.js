@@ -34,7 +34,7 @@ gulp.task('bundle', function () {
   .transform(reactify)
   .bundle()
   .pipe(source('app.js'))
-  .pipe(gulp.dest(config.paths.dist));
+  .pipe(gulp.dest(config.paths.dist + '/scripts'));
 });
 
 gulp.task('css', function() {
