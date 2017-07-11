@@ -1,56 +1,31 @@
 var gulp = require('gulp');
-var LiveServer = require('gulp-live-server');
-var browserSync = require('browser-sync');
 var browserify = require('browserify');
-var reactify = require('reactify');
+var babelify = require('babelify');
 var source = require('vinyl-source-stream');
-var concat = require('gulp-concat');
+var browserSync = require('browser-sync');
+var LiveServer = require('gulp-live-server');
 
-var config = {
-	port: 9005,
-	devBaseUrl: 'http://localhost',
-	paths: {
-		html: './app/*.html',
-		js: './app/**/*.js',
-		css: [
-      		'node_modules/bootstrap/dist/css/bootstrap.min.css',
-      		'node_modules/bootstrap/dist/css/bootstrap-theme.min.css'
-    	],
-		dist: './.tmp',
-		mainJs: './src/main.js'
-	}
-}
+gulp.task('build', function () {
+    return browserify({entries: 'app/main.js', extensions: ['.js'], debug: true})
+        .transform("babelify", {"presets": ["es2015", "react"]})
+        .bundle()
+        .pipe(source('bundle.js'))
+        .pipe(gulp.dest('dist'));
+});
 
 gulp.task('live-server', function () {
   var server = new LiveServer('server/main.js');
   server.start();
 });
 
-gulp.task('bundle', function () {
-  return browserify({
-    entries: 'app/main.js',
-    debug:true,
-  })
-  .transform(reactify)
-  .bundle()
-  .pipe(source('app.js'))
-  .pipe(gulp.dest(config.paths.dist + '/scripts'));
+gulp.task('watch', function () {
+    gulp.watch('*.js', ['build']);
 });
 
-gulp.task('css', function() {
-	gulp.src(config.paths.css)
-		.pipe(concat('bundle.css'))
-		.pipe(gulp.dest(config.paths.dist + '/css'));
-});
-
-gulp.task('watch', function() {
-	gulp.watch(config.paths.html, ['html']);
-	gulp.watch(config.paths.js, ['bundle']);
-});
-
-gulp.task('serve', ['watch','css','bundle','live-server'], function () {
+gulp.task('serve',['build','watch','live-server'], function () {
   browserSync.init(null,{
     proxy: 'http://localhost:7777',
-    port: config.port,
+    port: 9005,
   });
 });
+gulp.task('default', ['watch','serve']);
