@@ -21,6 +21,8 @@
     "gulp-live-server": "0.0.30",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
+    "react-router": "^4.1.1",
+    "react-router-dom": "^4.1.1",
     "reactify": "^1.1.1",
     "vinyl-source-stream": "^1.1.0"
   }
