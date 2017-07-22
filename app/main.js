@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import configureStore from "./utilities/store";
 
 //import HomePage from './components/common/header';
 //import Header from './components/HomePage';
+
 
 import RouteContainer from './containers/RouteContainer';
 

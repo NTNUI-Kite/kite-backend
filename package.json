@@ -29,6 +29,7 @@
     "react-tap-event-plugin": "^2.0.1",
     "reactify": "^1.1.1",
     "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0",
     "vinyl-source-stream": "^1.1.0"
   }
 }
