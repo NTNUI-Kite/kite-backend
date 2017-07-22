@@ -19,7 +19,7 @@ gulp.task('live-server', function () {
 });
 
 gulp.task('watch', function () {
-    gulp.watch('*.js', ['build']);
+    gulp.watch('./app/**/*.js', ['build']);
 });
 
 gulp.task('serve',['build','watch','live-server'], function () {
@@ -28,4 +28,4 @@ gulp.task('serve',['build','watch','live-server'], function () {
     port: 9005,
   });
 });
-gulp.task('default', ['watch','serve']);
+gulp.task('default', ['serve']);
