@@ -6,5 +6,5 @@ How to run:
 2. run "npm install -g bower"
 3. run "npm install -g gulp"
 4. run "npm install"
-5. run "gulp serve"
+5. run "gulp"
 6. Look at nice page. 
