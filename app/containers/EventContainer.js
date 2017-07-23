@@ -1,12 +1,17 @@
 import React, {Component} from 'react';
 
-import TripEntry from '../components/TripEntry';
+import EventEntry from '../components/EventEntry';
 
-class TripContainer extends Component {
+class EventContainer extends Component {
 
   render(){
     return(
-      
+      <div className="container">
+        <EventEntry/>
+        <EventEntry/>
+      </div>
     );
   }
 }
+
+export default EventContainer;
