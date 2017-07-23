@@ -9,7 +9,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import NavBarContainer from '../containers/NavBarContainer';
 import TestContainer from '../containers/TestContainer';
-
+import BlogContainer from '../containers/BlogContainer';
 
 const muiTheme = getMuiTheme({
     palette: {
@@ -23,7 +23,10 @@ const RouteContainer = ({store}) => (
       <div>
         <NavBarContainer/>
         <HashRouter>
-          <Route path = "/" component={TestContainer}/>
+          <Switch>
+            <Route path = "/blog" component = {BlogContainer}/>
+            <Route path = "/" component={TestContainer}/>
+          </Switch>
         </HashRouter>
       </div>
     </MuiThemeProvider>
