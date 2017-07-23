@@ -1,6 +1,11 @@
 .blogEntry {
-  margin-top: 100px;
-  margin-bottom: 100px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.eventEntry {
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
 
 .navigationBar {
@@ -8,8 +13,8 @@
 }
 
 .container {
-  margin-left: 350px;
-  margin-right: 350px;
+  margin-top: 50px;
+  width: 700px;
 }
 
 .logo{

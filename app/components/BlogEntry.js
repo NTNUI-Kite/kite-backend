@@ -7,7 +7,7 @@ class BlogEntry extends Component {
     return(
       <Card  className="blogEntry">
         <CardMedia overlay={<CardTitle title="Overlay title" subtitle="Overlay subtitle" />}>
-          <img src = "http://via.placeholder.com/400x300"/>
+          <img src = "http://via.placeholder.com/400x200"/>
         </CardMedia>
         <CardText>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit.
