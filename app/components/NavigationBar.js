@@ -1,7 +1,7 @@
 import React from 'react';
 import {AppBar, FlatButton} from 'material-ui'
 
-const logo = <div className="logo"><img src="http://via.placeholder.com/167x100" /></div>;
+const logo = <div className="logo"><img src="http://www.ntnuikite.no/uploads/cache/c4/56/c4567c0fc3d93687d3e90c8eb82835da.jpg" /></div>;
 
 const NavigationBar = () => {
   return(
