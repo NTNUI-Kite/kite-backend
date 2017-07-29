@@ -11,35 +11,35 @@ import LessonIcon from 'material-ui/svg-icons/social/school';
 
 const PaperExampleSimple = () => (
   <Paper className = "boardLinks">
-    <Paper className="boardLinkItem" zDepth={1} >
+    <Paper className="boardLinkItem" zDepth={2} >
       <EventIcon className="boardLinkIcon"/>
       <p>Arrangement</p>
     </Paper>
-    <Paper className="boardLinkItem" zDepth={1} >
+    <Paper className="boardLinkItem" zDepth={2} >
       <SettingsIcon className="boardLinkIcon"/>
       <p>Instillinger</p>
     </Paper>
-    <Paper className="boardLinkItem" zDepth={1} >
+    <Paper className="boardLinkItem" zDepth={2} >
       <BlogIcon className="boardLinkIcon"/>
       <p>Nyheter</p>
     </Paper>
-    <Paper className="boardLinkItem" zDepth={1} >
+    <Paper className="boardLinkItem" zDepth={2} >
       <InfoIcon className="boardLinkIcon"/>
       <p>Om oss</p>
     </Paper>
-    <Paper className="boardLinkItem" zDepth={1} >
+    <Paper className="boardLinkItem" zDepth={2} >
       <HMSIcon className="boardLinkIcon"/>
       <p>HMS</p>
     </Paper>
-    <Paper className="boardLinkItem" zDepth={1} >
+    <Paper className="boardLinkItem" zDepth={2} >
       <DocIcon className="boardLinkIcon"/>
       <p>Dokumenter</p>
     </Paper>
-    <Paper className="boardLinkItem" zDepth={1} >
+    <Paper className="boardLinkItem" zDepth={2} >
       <MemberIcon className="boardLinkIcon"/>
       <p>Medlemmer</p>
     </Paper>
-    <Paper className="boardLinkItem" zDepth={1} >
+    <Paper className="boardLinkItem" zDepth={2} >
       <LessonIcon className="boardLinkIcon"/>
       <p>Erfaringer</p>
   </Paper>
