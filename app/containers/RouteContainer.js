@@ -11,6 +11,7 @@ import NavBarContainer from '../containers/NavBarContainer';
 import TestContainer from '../containers/TestContainer';
 import BlogContainer from '../containers/BlogContainer';
 import EventContainer from '../containers/EventContainer';
+import BoardContainer from '../containers/BoardContainer';
 const muiTheme = getMuiTheme({
     palette: {
         primary1Color: 'rgb(10, 79, 117)',
@@ -24,6 +25,7 @@ const RouteContainer = ({store}) => (
         <NavBarContainer/>
         <HashRouter>
           <Switch>
+            <Route path = "/board" component = {BoardContainer}/>
             <Route path = "/blog" component = {BlogContainer}/>
             <Route path = "/events" component = {EventContainer}/>
             <Route path = "/" component={TestContainer}/>

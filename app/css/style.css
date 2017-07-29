@@ -20,3 +20,22 @@
 .logo{
   margin-left: 20px;
 }
+
+.boardLinkIcon {
+  width: 50 !important;
+  height: 50 !important;
+  margin: 10 !important;
+  color: #444 !important;
+}
+
+.boardLinkItem {
+  height: 100;
+  width: 100;
+  margin: 20;
+  text-align:center;
+  display: inline-block;
+}
+
+.boardLinks {
+  text-align: center;
+}
