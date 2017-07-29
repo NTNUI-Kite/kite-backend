@@ -1,15 +1,17 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import configureStore from "./utilities/store";
 
-//var HomePage = require('./components/HomePage');
-var Header = require('./components/common/header');
+//import HomePage from './components/common/header';
+//import Header from './components/HomePage';
+
+
+import RouteContainer from './containers/RouteContainer';
 
 class App extends React.Component {
   render(){
     return(
-      <div>
-        <Header/>
-      </div>
+      <RouteContainer/>
     );
   }
 }

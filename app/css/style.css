@@ -1,0 +1,41 @@
+.blogEntry {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.eventEntry {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.navigationBar {
+  padding: 20px;
+}
+
+.container {
+  margin-top: 50px;
+  width: 700px;
+}
+
+.logo{
+  margin-left: 20px;
+}
+
+.boardLinkIcon {
+  width: 50 !important;
+  height: 50 !important;
+  margin: 10 !important;
+  color: #444 !important;
+}
+
+.boardLinkItem {
+  height: 100;
+  width: 100;
+  margin: 20;
+  text-align:center;
+  display: inline-block;
+}
+
+.boardLinks {
+  text-align: center;
+}
