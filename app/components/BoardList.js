@@ -23,6 +23,12 @@ class BoardList extends Component {
             <TableRowColumn>emil@bikbok.no</TableRowColumn>
             <TableRowColumn>12121212</TableRowColumn>
           </TableRow>
+          <TableRow>
+            <TableRowColumn>Ole Barsch</TableRowColumn>
+            <TableRowColumn>Transpiser</TableRowColumn>
+            <TableRowColumn>ole@omega3.no</TableRowColumn>
+            <TableRowColumn>69696969</TableRowColumn>
+          </TableRow>
         </TableBody>
       </Table>
     </Paper>
