@@ -12,7 +12,6 @@ class EventEntry extends Component {
 
 
   render(){
-    console.log(this.props);
     return(
       <Card  className="eventEntry">
         <CardMedia overlay={<CardTitle title={this.state.name} subtitle="Stevne 4" />}>
