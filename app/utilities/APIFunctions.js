@@ -1,5 +1,9 @@
 import axios from 'axios';
 
+export function getAllBlogPosts(){
+  return fetchFromServer("/api/allBlogPosts");
+}
+
 export function getAllEvents(){
   return fetchFromServer("/api/allEvents");
 }
