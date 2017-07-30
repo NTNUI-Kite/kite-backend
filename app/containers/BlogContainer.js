@@ -29,7 +29,7 @@ class BlogContainer extends Component {
       <div className = "container">
         {
           this.state.posts.map((post,id) => (
-            <BlogEntry key={id} post ={post}/>
+            <BlogEntry key={id} {...post}/>
           ))
         }
       </div>

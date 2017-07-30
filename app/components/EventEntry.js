@@ -7,14 +7,12 @@ class EventEntry extends Component {
 
   constructor(props){
     super(props);
-    this.state = props.event;
   }
-
 
   render(){
     return(
       <Card  className="eventEntry">
-        <CardMedia overlay={<CardTitle title={this.state.name} subtitle="Stevne 4" />}>
+        <CardMedia overlay={<CardTitle title={this.props.name} subtitle="Stevne 4" />}>
           <img src = "http://via.placeholder.com/400x200"/>
         </CardMedia>
         <CardText>
@@ -22,15 +20,15 @@ class EventEntry extends Component {
         </CardText>
         <Divider/>
         <CardText>
-          Fra: {this.state.start}, til: {this.state.end}
+          Fra: {this.props.start}, til: {this.props.end}
         </CardText>
         <Divider/>
         <CardText>
-          Plasser: {this.state.capacity}
+          Plasser: {this.props.capacity}
         </CardText>
         <Divider/>
         <CardText>
-          Pris: {this.state.price},-
+          Pris: {this.props.price},-
         </CardText>
         <CardActions>
           <RaisedButton label="Påmelding" primary={true}/>
