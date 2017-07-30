@@ -29,7 +29,7 @@ class EventContainer extends Component {
       <div className="container">
         {
           this.state.events.map((event,id) =>(
-            <EventEntry key = {id} event = {event}/>
+            <EventEntry key = {id}  event = {event}/>
           ))
         }
       </div>
