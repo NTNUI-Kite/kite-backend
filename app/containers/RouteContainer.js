@@ -8,6 +8,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 
 
 import NavBarContainer from '../containers/NavBarContainer';
+import Footer from '../components/Footer';
 import TestContainer from '../containers/TestContainer';
 import BlogContainer from '../containers/BlogContainer';
 import EventContainer from '../containers/EventContainer';
@@ -31,6 +32,7 @@ const RouteContainer = ({store}) => (
             <Route path = "/" component={TestContainer}/>
           </Switch>
         </HashRouter>
+        <Footer/>
       </div>
     </MuiThemeProvider>
 );

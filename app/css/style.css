@@ -12,6 +12,16 @@
   padding: 20px;
 }
 
+.footer{
+    position:relative;
+    bottom:0;
+    width:100%;
+    text-align: center;
+    background-color: #333333 !important;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
 .container {
   margin-top: 50px;
   width: 700px;
