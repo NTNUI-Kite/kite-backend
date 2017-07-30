@@ -1,3 +1,5 @@
+//TODO: import dbConnection and replace with actual db-calls
+
 var Event = {
   getAllEvents: function(callback){
     return ({

@@ -22,3 +22,7 @@ app.get('/', function (req,res) {
 app.get('/api/allEvents',function(req,res){
   res.json(Event.getAllEvents());
 });
+
+app.get('/api/eventById', function(req,res){
+  res.json(Event.getEventById(0)); //TODO: replace 0 with actual Id
+});
