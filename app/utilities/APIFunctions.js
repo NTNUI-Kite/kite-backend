@@ -12,6 +12,10 @@ export function getEventById(id){
   return fetchFromServer("/api/eventById");
 }
 
+export function getBoardMembers(){
+  return fetchFromServer("/api/boardMembers");
+}
+
 function fetchFromServer(query) {
     return axios.get(query, {
         credentials: "same-origin"
