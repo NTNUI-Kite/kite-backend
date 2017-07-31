@@ -28,11 +28,10 @@ const RouteContainer = ({store}) => (
         <NavBarContainer/>
         <HashRouter>
           <Switch>
+            <Route exact path = "/" component={TestContainer}/>
             <Route path = "/board" component = {BoardContainer}/>
             <Route path = "/blog" component = {BlogContainer}/>
             <Route path = "/events" component = {EventContainer}/>
-            <Route path = "/" component={TestContainer}/>
-            <Route path = "/about" component = {AboutContainer}/>
           </Switch>
         </HashRouter>
         <Footer/>
