@@ -4,10 +4,15 @@ import Divider from 'material-ui/Divider';
 import RaisedButton from 'material-ui/RaisedButton';
 
 class EventEntry extends Component {
+
+  constructor(props){
+    super(props);
+  }
+
   render(){
     return(
       <Card  className="eventEntry">
-        <CardMedia overlay={<CardTitle title="Tur til Storwartz" subtitle="Stevne 4" />}>
+        <CardMedia overlay={<CardTitle title={this.props.name} subtitle="Stevne 4" />}>
           <img src = "http://via.placeholder.com/400x200"/>
         </CardMedia>
         <CardText>
@@ -15,15 +20,15 @@ class EventEntry extends Component {
         </CardText>
         <Divider/>
         <CardText>
-          Dato: 23. August - 24. Desember
+          Fra: {this.props.start}, til: {this.props.end}
         </CardText>
         <Divider/>
         <CardText>
-          Plasser: 24/45
+          Plasser: {this.props.capacity}
         </CardText>
         <Divider/>
         <CardText>
-          Pris: 600,-
+          Pris: {this.props.price},-
         </CardText>
         <CardActions>
           <RaisedButton label="Påmelding" primary={true}/>

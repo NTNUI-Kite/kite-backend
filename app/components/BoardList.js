@@ -4,6 +4,12 @@ import Paper from 'material-ui/Paper';
 
 
 class BoardList extends Component {
+
+  constructor(props){
+    super(props);
+    console.log(props);
+  }
+
   render(){
     return(
     <Paper>
@@ -17,12 +23,16 @@ class BoardList extends Component {
           </TableRow>
         </TableHeader>
         <TableBody displayRowCheckbox={false}>
-          <TableRow>
-            <TableRowColumn>Emil Schrøder</TableRowColumn>
-            <TableRowColumn>Tacospiser</TableRowColumn>
-            <TableRowColumn>emil@bikbok.no</TableRowColumn>
-            <TableRowColumn>12121212</TableRowColumn>
-          </TableRow>
+          {
+            this.props.members.map((member,id) =>(
+              <TableRow>
+                <TableRowColumn>{member.name}</TableRowColumn>
+                <TableRowColumn>{member.title}</TableRowColumn>
+                <TableRowColumn>{member.email}</TableRowColumn>
+                <TableRowColumn>{member.phoneNumber}</TableRowColumn>
+              </TableRow>
+            ))
+          }
         </TableBody>
       </Table>
     </Paper>

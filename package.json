@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.16.2",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babelify": "^7.3.0",
@@ -24,6 +25,7 @@
     "gulp-minify-css": "^1.2.4",
     "gulp-rename": "^1.2.2",
     "material-ui": "^0.18.6",
+    "mysql": "^2.14.0",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.5",
