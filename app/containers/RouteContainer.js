@@ -13,6 +13,8 @@ import TestContainer from '../containers/TestContainer';
 import BlogContainer from '../containers/BlogContainer';
 import EventContainer from '../containers/EventContainer';
 import BoardContainer from '../containers/BoardContainer';
+import AboutContainer from '../containers/AboutContainer';
+
 const muiTheme = getMuiTheme({
     palette: {
         primary1Color: 'rgb(10, 79, 117)',
@@ -30,6 +32,7 @@ const RouteContainer = ({store}) => (
             <Route path = "/blog" component = {BlogContainer}/>
             <Route path = "/events" component = {EventContainer}/>
             <Route path = "/" component={TestContainer}/>
+            <Route path = "/about" component = {AboutContainer}/>
           </Switch>
         </HashRouter>
         <Footer/>
