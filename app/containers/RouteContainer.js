@@ -32,6 +32,7 @@ const RouteContainer = ({store}) => (
             <Route path = "/board" component = {BoardContainer}/>
             <Route path = "/blog" component = {BlogContainer}/>
             <Route path = "/events" component = {EventContainer}/>
+            <Route path = "/about" component = {AboutContainer}/>
           </Switch>
         </HashRouter>
         <Footer/>
