@@ -7,7 +7,6 @@ class BoardList extends Component {
 
   constructor(props){
     super(props);
-    console.log(props);
   }
 
   render(){
@@ -25,7 +24,7 @@ class BoardList extends Component {
         <TableBody displayRowCheckbox={false}>
           {
             this.props.members.map((member,id) =>(
-              <TableRow>
+              <TableRow key={id}>
                 <TableRowColumn>{member.name}</TableRowColumn>
                 <TableRowColumn>{member.title}</TableRowColumn>
                 <TableRowColumn>{member.email}</TableRowColumn>
