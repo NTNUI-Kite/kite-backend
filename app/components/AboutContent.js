@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Card,CardHeader, CardMedia, CardText, CardTitle} from 'material-ui/Card';
 
-class AboutEntry extends Component {
+class AboutContent extends Component {
 
   constructor(props){
     super(props);
@@ -15,4 +15,4 @@ class AboutEntry extends Component {
   }
 }
 
-export default AboutEntry;
+export default AboutContent;

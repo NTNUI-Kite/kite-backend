@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import AboutEntry from '../components/AboutEntry';
+import AboutContent from '../components/AboutContent';
 
 
 class AboutContainer extends Component{
