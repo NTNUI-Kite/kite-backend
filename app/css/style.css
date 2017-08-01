@@ -24,6 +24,7 @@
 
 .container {
   margin-top: 50px;
+  margin-bottom: 50px;
   width: 700px;
 }
 
@@ -48,5 +49,19 @@
 }
 
 .boardLinks {
+  text-align: center;
+}
+
+.instaImage{
+  height: 150px;
+  width: 150px;
+}
+
+.instaPost{
+  display: inline-block;
+  margin: 10px;
+}
+
+.instaContainer{
   text-align: center;
 }
