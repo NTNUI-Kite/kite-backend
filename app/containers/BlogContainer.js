@@ -14,9 +14,11 @@ class BlogContainer extends Component {
 
   getPosts(){
     getAllBlogPosts().then((res) =>{
+      console.log(res.data.posts)
       this.setState({
         posts: res.data.posts
       })
+      console.log(this.state.posts);
     });
   }
 
