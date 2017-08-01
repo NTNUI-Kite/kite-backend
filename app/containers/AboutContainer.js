@@ -13,10 +13,11 @@ class AboutContainer extends Component{
 
   getAbout(){
     getAboutInfo().then((res) =>{
-      console.log("Test")
+      console.log(res.data.info)
       this.setState({
         info: res.data.info
       })
+      console.log(this.state)
     })
   }
 
@@ -27,7 +28,11 @@ class AboutContainer extends Component{
   render(){
     return(
       <div className = "container">
-        <h1>{this.state.info}</h1>
+        {
+          this.state.info.map((id, info) => (
+            <AboutContent key={id} {...info}/>
+          ))
+        }
       </div>)
   }
 

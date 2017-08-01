@@ -39,6 +39,6 @@ app.get('/api/boardMembers', function(req,res){
   res.json(Board.getBoardMembers());
 });
 
-app.get('api/aboutInfo', function(req,res){
+app.get('/api/aboutInfo', function(req,res){
   res.json(About.getAllAbout());
 })
