@@ -10,7 +10,9 @@ class InstaWidget extends Component {
         {
           this.props.posts.map((info,id) =>(
             <div key={id} className = "instaPost">
-              <img className = "instaImage" src = {info.thumbnail_src}></img>
+              <a href = {"https://www.instagram.com/p/" + info.code}>
+                <img className = "instaImage" src = {info.thumbnail_src}></img>
+              </a>
             </div>
           ))
         }
