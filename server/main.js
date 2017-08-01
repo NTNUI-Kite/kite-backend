@@ -3,6 +3,7 @@ var express = require('express');
 var Event =  require('./models/Event');
 var Blog = require('./models/Blog');
 var Board = require('./models/Board');
+var About = require('./models/About')
 
 // var mysql = require('mysql');
 //
@@ -37,3 +38,7 @@ app.get('/api/allBlogPosts', function(req,res){
 app.get('/api/boardMembers', function(req,res){
   res.json(Board.getBoardMembers());
 });
+
+app.get('api/aboutInfo', function(req,res){
+  res.json(About.getAllAbout());
+})

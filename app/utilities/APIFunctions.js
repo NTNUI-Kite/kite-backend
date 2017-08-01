@@ -16,6 +16,10 @@ export function getBoardMembers(){
   return fetchFromServer("/api/boardMembers");
 }
 
+export function getAboutInfo(){
+  return fetchFromServer("/api/aboutInfo")
+}
+
 function fetchFromServer(query) {
     return axios.get(query, {
         credentials: "same-origin"

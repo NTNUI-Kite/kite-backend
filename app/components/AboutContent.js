@@ -10,7 +10,7 @@ class AboutContent extends Component {
 
   render() {
     return(
-      <h1>About us</h1>
+      <h1>{this.props.title}</h1>
     );
   }
 }
