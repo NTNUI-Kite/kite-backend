@@ -4,6 +4,8 @@ var Event =  require('./models/Event');
 var Blog = require('./models/Blog');
 var Board = require('./models/Board');
 
+var getInstaFeed = require("./utilities/InstaScraper");
+
 // var mysql = require('mysql');
 //
 // var con = mysql.createConnection({
@@ -36,4 +38,10 @@ app.get('/api/allBlogPosts', function(req,res){
 
 app.get('/api/boardMembers', function(req,res){
   res.json(Board.getBoardMembers());
+});
+
+app.get('/api/instaFeed',function(req,res){
+  getInstaFeed.then((feed) =>{
+    res.json(feed);
+  });
 });
