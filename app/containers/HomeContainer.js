@@ -20,7 +20,6 @@ class HomeContainer extends Component {
 
   getFeed(){
     getInstaFeed().then((res)=>{
-      console.log(res.data.entry_data.TagPage[0]);
       this.setState({
         posts: res.data.entry_data.TagPage[0].tag.media.nodes
       });
