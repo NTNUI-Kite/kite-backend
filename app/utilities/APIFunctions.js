@@ -16,8 +16,12 @@ export function getBoardMembers(){
   return fetchFromServer("/api/boardMembers");
 }
 
+
 export function getAboutInfo(){
   return fetchFromServer("/api/aboutInfo")
+
+export function getInstaFeed(){
+  return fetchFromServer("/api/instaFeed");
 }
 
 function fetchFromServer(query) {

@@ -10,10 +10,12 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import NavBarContainer from '../containers/NavBarContainer';
 import Footer from '../components/Footer';
 import TestContainer from '../containers/TestContainer';
+import HomeContainer from '../containers/HomeContainer';
 import BlogContainer from '../containers/BlogContainer';
 import EventContainer from '../containers/EventContainer';
 import BoardContainer from '../containers/BoardContainer';
 import AboutContainer from '../containers/AboutContainer';
+import InstaFeedContainer from '../containers/InstaFeedContainer';
 
 const muiTheme = getMuiTheme({
     palette: {
@@ -28,11 +30,12 @@ const RouteContainer = ({store}) => (
         <NavBarContainer/>
         <HashRouter>
           <Switch>
-            <Route exact path = "/" component={TestContainer}/>
+            <Route exact path = "/" component={HomeContainer}/>
             <Route path = "/board" component = {BoardContainer}/>
             <Route path = "/blog" component = {BlogContainer}/>
             <Route path = "/events" component = {EventContainer}/>
             <Route path = "/about" component = {AboutContainer}/>
+            <Route path = "/images" component = {InstaFeedContainer}/>
           </Switch>
         </HashRouter>
         <Footer/>
