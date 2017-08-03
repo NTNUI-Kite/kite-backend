@@ -14,6 +14,8 @@ import HomeContainer from '../containers/HomeContainer';
 import BlogContainer from '../containers/BlogContainer';
 import EventContainer from '../containers/EventContainer';
 import BoardContainer from '../containers/BoardContainer';
+import InstaFeedContainer from '../containers/InstaFeedContainer';
+
 const muiTheme = getMuiTheme({
     palette: {
         primary1Color: 'rgb(10, 79, 117)',
@@ -31,6 +33,7 @@ const RouteContainer = ({store}) => (
             <Route path = "/board" component = {BoardContainer}/>
             <Route path = "/blog" component = {BlogContainer}/>
             <Route path = "/events" component = {EventContainer}/>
+            <Route path = "/images" component = {InstaFeedContainer}/>
           </Switch>
         </HashRouter>
         <Footer/>
