@@ -16,6 +16,10 @@ export function getBoardMembers(){
   return fetchFromServer("/api/boardMembers");
 }
 
+export function getInstaFeed(){
+  return fetchFromServer("/api/instaFeed");
+}
+
 function fetchFromServer(query) {
     return axios.get(query, {
         credentials: "same-origin"

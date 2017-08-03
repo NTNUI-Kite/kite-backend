@@ -26,7 +26,7 @@ class EventContainer extends Component {
   render(){
 
     return(
-      <div className="container">
+      <div className="baseContainer">
         {
           this.state.events.map((event,id) =>(
             <EventEntry key = {id}  {...event}/>
