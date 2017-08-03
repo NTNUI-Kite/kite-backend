@@ -19,6 +19,7 @@ export function getBoardMembers(){
 
 export function getAboutInfo(){
   return fetchFromServer("/api/aboutInfo")
+}
 
 export function getInstaFeed(){
   return fetchFromServer("/api/instaFeed");
