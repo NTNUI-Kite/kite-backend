@@ -10,7 +10,14 @@ class AboutContent extends Component {
 
   render() {
     return(
-      <h1>{this.props.abstract}</h1>
+      <Card className="AboutContent">
+        <CardTitle titleColor={"red"}>
+          {this.props.title}
+        </CardTitle>
+        <CardText>
+          {this.props.abstract}
+        </CardText>
+      </Card>
     );
   }
 }
