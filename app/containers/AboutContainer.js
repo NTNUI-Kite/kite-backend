@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
 
 import AboutContent from '../components/AboutContent';
+import AboutLinks from '../components/AboutLinks';
+
 import {getAboutInfo} from '../utilities/APIFunctions';
+
 
 class AboutContainer extends Component{
   constructor(){
@@ -24,8 +27,11 @@ class AboutContainer extends Component{
 
   render(){
     return(
-      <div className = "container">
-            <AboutContent {...this.state.info}/>
+      <div className = "baseContainer">
+
+            <AboutContent informasjon = {this.state.info}/>
+            <AboutLinks/>
+
       </div>)
   }
 

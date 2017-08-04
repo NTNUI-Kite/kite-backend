@@ -12,7 +12,7 @@ class AboutContent extends Component {
     return(
       <Card className="AboutContent">
         <CardText>
-          {this.props.abstract}
+          {this.props.informasjon.abstract}
         </CardText>
       </Card>
     );
