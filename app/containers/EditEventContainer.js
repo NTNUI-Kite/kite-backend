@@ -12,10 +12,10 @@ class EditEventContainer extends Component {
         <Card className = "fieldContainer">
           <TextField className="fieldItem" hintText = "Tittel"/>
           <TextField className="fieldItem" hintText = "Kapasitet"/>
-          <TextField className="fieldItem" hintText = "Pris" />
           <DatePicker className="fieldItem" hintText="Start-dato" mode="landscape" />
           <DatePicker className="fieldItem" hintText="Slutt-dato" mode="landscape" />
           <DatePicker className="fieldItem" hintText="frist-dato" mode="landscape" />
+          <TextField className="fieldItem" hintText = "Pris" />
         </Card>
         <Card className = "editContainer">
           <EditView/>
