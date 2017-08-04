@@ -50,6 +50,7 @@
   height: 50 !important;
   margin: 10 !important;
   color: #444 !important;
+  display: inline-block;
 }
 
 .boardLinkItem {
@@ -92,9 +93,18 @@
 }
 
 .aboutLinkIcon {
-
+  cursor: pointer;
   width: 50 !important;
   height: 50 !important;
   margin: 10 !important;
   color: #444 !important;
+}
+
+.aboutLinkItem {
+  cursor: pointer;
+  height: 100;
+  width: 100;
+  margin: 25;
+  text-align:center;
+  display: inline-block;
 }
