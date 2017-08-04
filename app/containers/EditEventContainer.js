@@ -3,6 +3,10 @@ import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import DatePicker from 'material-ui/DatePicker';
 
+import { EditorState, convertToRaw, ContentState } from 'draft-js';
+import draftToHtml from 'draftjs-to-html';
+import htmlToDraft from 'html-to-draftjs';
+
 import EditView from '../components/EditView';
 import EventEntry from '../components/EventEntry';
 
@@ -14,13 +18,6 @@ class EditEventContainer extends Component {
     super();
 
     this.state = {
-      name: "",
-      abstract: "",
-      start: new Date("2000-01-01"),
-      end: new Date("2000-01-01"),
-      capacity: "",
-      price: "0",
-      registration: new Date("2000-01-01"),
       hasRecievedData: false
     }
 
@@ -28,11 +25,22 @@ class EditEventContainer extends Component {
     this.handleDateStartChange = this.handleDateStartChange.bind(this);
     this.handleDateEndChange = this.handleDateEndChange.bind(this);
     this.handleDateRegistrationChange = this.handleDateRegistrationChange.bind(this);
+    this.onEditorStateChange = this.onEditorStateChange.bind(this);
+  }
+
+  onEditorStateChange(editorState){
+    this.setState({
+      editorState,
+    });
   }
 
   getData(){
     getEventById(0).then((res)=>{
       const data = res.data;
+      const blocksFromHtml = htmlToDraft(data.abstract);
+      const content = ContentState.createFromBlockArray(blocksFromHtml);
+
+
       this.setState({
         name: data.name,
         abstract: data.abstract,
@@ -41,7 +49,8 @@ class EditEventContainer extends Component {
         capacity: data.capacity,
         price: data.price,
         registration: new Date(data.registration),
-        hasRecievedData:true
+        hasRecievedData:true,
+        editorState: EditorState.createWithContent(content),
       });
     });
   }
@@ -93,9 +102,9 @@ class EditEventContainer extends Component {
           <TextField className="fieldItem" name = "price" floatingLabelText = "Pris" defaultValue = {this.state.price} onChange = {this.handleChange}/>
         </Paper>
         <Paper className = "editContainer">
-          <EditView/>
+          <EditView editorState = {this.state.editorState} onEditorStateChange = {this.onEditorStateChange}/>
         </Paper>
-        <EventEntry/>
+        <EventEntry abstract = {draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()))}/>
       </div>
     );
   }
