@@ -90,3 +90,11 @@
 .instaContainer{
   text-align: center;
 }
+
+.aboutLinkIcon {
+
+  width: 50 !important;
+  height: 50 !important;
+  margin: 10 !important;
+  color: #444 !important;
+}
