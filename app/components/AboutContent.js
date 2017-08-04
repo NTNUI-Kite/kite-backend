@@ -11,9 +11,6 @@ class AboutContent extends Component {
   render() {
     return(
       <Card className="AboutContent">
-        <CardTitle titleColor={"red"}>
-          {this.props.title}
-        </CardTitle>
         <CardText>
           {this.props.abstract}
         </CardText>

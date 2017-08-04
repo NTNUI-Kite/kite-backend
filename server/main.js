@@ -37,7 +37,7 @@ router.get('/boardMembers', function(req,res){
   res.json(Board.getBoardMembers());
 });
 
-app.get('/aboutInfo', function(req,res){
+router.get('/aboutInfo', function(req,res){
   res.json(About.getAllAbout());
 })
 
