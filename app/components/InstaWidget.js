@@ -7,18 +7,20 @@ class InstaWidget extends Component {
     this.state = {
       index: 0,
       maxIndex: props.posts.length -1,
-      currentPost: props.posts[0]
+      currentPost: props.posts[0],
     }
 
     this.changeImage = this.changeImage.bind(this);
   }
 
   componentDidMount(){
-    setTimeout(this.changeImage,4000);
+    this.setState({
+      interval: setInterval(this.changeImage,4000)
+    });
   }
 
-  componentDidUpdate(){
-    setTimeout(this.changeImage,4000);
+  componentWillUnmount(){
+    clearInterval(this.state.interval);
   }
 
   changeImage(){
