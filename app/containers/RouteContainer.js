@@ -38,11 +38,8 @@ const RouteContainer = ({store}) => (
             <Route path = "/events" component = {EventContainer}/>
             <Route path = "/about" component = {AboutContainer}/>
             <Route path = "/images" component = {InstaFeedContainer}/>
-<<<<<<< HEAD
             <Route path = "/editabout" component = {EditAbout}/>
-=======
             <Route path = "/editEvent" component = {EditEventContainer}/>
->>>>>>> c891fb40591bde500e2bbea447b1b3655cc38abc
           </Switch>
         </HashRouter>
         <Footer/>
