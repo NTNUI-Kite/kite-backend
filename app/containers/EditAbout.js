@@ -50,13 +50,10 @@ class EditAbout extends Component{
   }
 */
   getData(){
-    console.log("kommer hit")
     getAboutInfo().then((res) =>{
-      console.log("1")
       const data = res.data.info;
       const blocksFromHtml = htmlToDraft(data.abstract);
       const content = ContentState.createFromBlockArray(blocksFromHtml);
-      console.log("2")
       this.setState({
         title: data.title,
         abstract: data.abstract,
