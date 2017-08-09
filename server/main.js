@@ -2,7 +2,8 @@ var express = require('express');
 var router = express.Router();
 
 var Event =  require('./models/Event');
-var Blog = require('./models/Blog');
+//var Blog = require('./models/Blog');
+import Blog from './models/Blog';
 var Board = require('./models/Board');
 
 var getInstaFeed = require("./utilities/InstaScraper");
