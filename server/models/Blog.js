@@ -1,6 +1,6 @@
 //TODO: import dbConnection and replace with actual db-calls
 
-var Blog = {
+const Blog = {
   getAllPosts: function(callback){
     return(
       {
@@ -21,4 +21,4 @@ var Blog = {
   }
 }
 
-module.exports = Blog;
+export default Blog;

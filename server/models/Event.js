@@ -1,6 +1,6 @@
 //TODO: import dbConnection and replace with actual db-calls
 
-var Event = {
+const Event = {
   getAllEvents: function(callback){
     return ({
       events: [
@@ -44,4 +44,4 @@ var Event = {
   }
 }
 
-module.exports = Event;
+export default Event;
