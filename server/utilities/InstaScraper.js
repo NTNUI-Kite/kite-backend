@@ -1,5 +1,3 @@
-//var request = require("request");
-//var cheerio = require("cheerio");
 import request from 'request';
 import cheerio from 'cheerio';
 
