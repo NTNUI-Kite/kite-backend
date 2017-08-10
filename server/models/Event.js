@@ -29,7 +29,7 @@ const Event = {
       ]
     });
   },
-  getEventById: function(callback){
+  getEventById: function(id){
     return({
             id: 1,
             name: "tur til gokk",
