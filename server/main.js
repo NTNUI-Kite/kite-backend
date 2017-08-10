@@ -1,4 +1,6 @@
 import express, {Router} from 'express';
+import jwt from 'express-jwt';
+import cors from 'cors';
 
 
 import Event from './models/Event';
@@ -6,6 +8,8 @@ import Blog from './models/Blog';
 import Board from './models/Board';
 
 import getInstaFeed from './utilities/InstaScraper';
+
+import AuthConfig from './config/AuthConfig';
 
 // var mysql = require('mysql');
 //
@@ -20,12 +24,16 @@ import getInstaFeed from './utilities/InstaScraper';
 let app = express();
 let router = Router();
 
+app.use(cors());
+
+const authCheck = jwt(AuthConfig);
+
 router.get('/allEvents',function(req,res){
   res.json(Event.getAllEvents());
 });
 
-router.get('/eventById', function(req,res){
-  res.json(Event.getEventById(0)); //TODO: replace 0 with actual Id
+router.get('/eventById/:id',authCheck, function(req,res){
+  res.json(Event.getEventById(req.params.id)); //TODO: replace 0 with actual Id
 });
 
 router.get('/allBlogPosts', function(req,res){
