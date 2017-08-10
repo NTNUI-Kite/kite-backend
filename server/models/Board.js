@@ -1,6 +1,6 @@
 //TODO: import dbConnection and replace with actual db-calls
 
-var Board = {
+const Board = {
   getBoardMembers: function (callback) {
     return(
       {
@@ -30,4 +30,4 @@ var Board = {
 
 }
 
-module.exports = Board;
+export default Board;

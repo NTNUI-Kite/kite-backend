@@ -1,11 +1,11 @@
-var express = require('express');
-var router = express.Router();
+import express, {Router} from 'express';
 
-var Event =  require('./models/Event');
-var Blog = require('./models/Blog');
-var Board = require('./models/Board');
 
-var getInstaFeed = require("./utilities/InstaScraper");
+import Event from './models/Event';
+import Blog from './models/Blog';
+import Board from './models/Board';
+
+import getInstaFeed from './utilities/InstaScraper';
 
 // var mysql = require('mysql');
 //
@@ -17,8 +17,8 @@ var getInstaFeed = require("./utilities/InstaScraper");
 // });
 //
 // con.connect();
-
-var app = express();
+let app = express();
+let router = Router();
 
 router.get('/allEvents',function(req,res){
   res.json(Event.getAllEvents());

@@ -1,7 +1,8 @@
-var request = require("request");
-var cheerio = require("cheerio");
+import request from 'request';
+import cheerio from 'cheerio';
 
-var getInstaFeed= new Promise((resolve,reject) =>{
+
+let getInstaFeed= new Promise((resolve,reject) =>{
   var url = "https://www.instagram.com/explore/tags/ntnuikite/";
 
   request(url,function(error,response,html){
@@ -14,4 +15,4 @@ var getInstaFeed= new Promise((resolve,reject) =>{
 });
 
 
-module.exports = getInstaFeed;
+export default getInstaFeed;
