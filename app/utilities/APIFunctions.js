@@ -2,18 +2,6 @@ import axios from 'axios';
 import request from 'superagent/lib/client';
 import AuthStore from '../stores/AuthStore';
 
-export function getAllBlogPosts(){
-  return fetchFromServer("/api/allBlogPosts");
-}
-
-export function getAllEvents(){
-  return fetchFromServer("/api/allEvents");
-}
-
-export function getEventById(id){
-  return fetchFromServer("/api/eventById");
-}
-
 export function getBoardMembers(){
   return fetchFromServer("/api/boardMembers");
 }
