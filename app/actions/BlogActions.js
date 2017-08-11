@@ -12,7 +12,6 @@ const Actions = {
       });
     })
     .catch(message =>{
-      console.log(message);
       AppDispatcher.dispatch({
         actionType: BlogConstants.RECIEVE_POSTS_ERROR,
         message: message

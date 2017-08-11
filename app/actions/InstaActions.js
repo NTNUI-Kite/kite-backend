@@ -12,7 +12,6 @@ const Actions = {
       });
     })
     .catch(message =>{
-      console.log(message);
       AppDispatcher.dispatch({
         actionType: InstaConstants.RECIEVE_FEED_ERROR,
         message: message
