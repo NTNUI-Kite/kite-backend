@@ -1,0 +1,79 @@
+.blogEntry {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.eventEntry {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.navigationBar {
+  padding: 20px;
+}
+
+.footer{
+    position:relative;
+    bottom:0;
+    width:100%;
+    text-align: center;
+    background-color: #333333 !important;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.baseContainer {
+  margin: 50 auto 50 auto;
+  width: 700px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.homeContainer {
+  margin: 50 auto 50 auto;
+}
+
+.logo{
+  margin-left: 20px;
+}
+
+.boardLinkIcon {
+  width: 50 !important;
+  height: 50 !important;
+  margin: 10 !important;
+  color: #444 !important;
+}
+
+.boardLinkItem {
+  cursor: pointer;
+  height: 100;
+  width: 100;
+  margin: 20;
+  text-align:center;
+  display: inline-block;
+}
+
+.boardLinks {
+  text-align: center;
+}
+
+
+.fieldContainer{
+  margin-top: 20px;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  text-align: center;
+}
+
+.demo-editor{
+  padding: 10px;
+}
+
+.editContainer{
+
+}
+
+.fieldItem{
+  display: inline-block;
+  margin: 10px;
+}
