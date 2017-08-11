@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 
 import BlogEntry from '../components/BlogEntry';
-import{getAllBlogPosts} from '../utilities/APIFunctions';
+
+import BlogActions from '../actions/BlogActions';
+import BlogStore from '../stores/BlogStore';
 
 class BlogContainer extends Component {
 
@@ -10,18 +12,25 @@ class BlogContainer extends Component {
     this.state = {
       posts: []
     }
+    this.onChange = this.onChange.bind(this);
   }
 
-  getPosts(){
-    getAllBlogPosts().then((res) =>{
-      this.setState({
-        posts: res.data.posts
-      })
-    });
+  componentWillMount(){
+    BlogStore.addChangeListener(this.onChange);
   }
 
   componentDidMount(){
-    this.getPosts();
+    BlogActions.getPosts();
+  }
+
+  componentWillUnmount(){
+    BlogStore.removeChangeListener(this.onChange);
+  }
+
+  onChange(){
+    this.setState({
+      posts: BlogStore.getPosts()
+    });
   }
 
   render(){

@@ -2,8 +2,7 @@
 
 const Event = {
   getAllEvents: function(callback){
-    return ({
-      events: [
+    return ([
         {
           id: 1,
           name: "tur til gokk",
@@ -26,8 +25,7 @@ const Event = {
           price: "1001",
           registration: "2018-03-20"
         },
-      ]
-    });
+      ]);
   },
   getEventById: function(id){
     return({

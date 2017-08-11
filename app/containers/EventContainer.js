@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 
 import EventEntry from '../components/EventEntry';
 
-import {getAllEvents, getEventById} from '../utilities/APIFunctions';
+import EventActions from '../actions/EventActions';
+import EventStore from '../stores/EventStore';
 
 class EventContainer extends Component {
 
@@ -11,16 +12,26 @@ class EventContainer extends Component {
     this.state = {
       events: []
     }
+
+    this.onChange = this.onChange.bind(this);
   }
 
-  getEvents(){
-    getAllEvents().then((res) =>{
-      this.setState({events: res.data.events});
-    });
+  componentWillMount(){
+    EventStore.addChangeListener(this.onChange);
+  }
+
+  componentWillUnmount(){
+    EventStore.removeChangeListener(this.onChange);
   }
 
   componentDidMount(){
-    this.getEvents();
+    EventActions.getEvents();
+  }
+
+  onChange(){
+    this.setState({
+      events: EventStore.getEvents()
+    })
   }
 
   render(){

@@ -1,11 +1,10 @@
 import AppDispatcher from '../dispatcher/AppDispatcher';
 import EventConstants from '../constants/EventConstants';
-import EventsAPI from '../utilities/EventsAPI';
+import {getRequest, authorizedGetRequest} from '../utilities/APIFunctions';
 
 const Actions = {
-  recieveEvents: () =>{
-    EventsAPI
-    .getEvents('/api/allEvents')
+  getEvents: () =>{
+    getRequest('/api/allEvents')
     .then(events =>{
       AppDispatcher.dispatch({
         actionType: EventConstants.RECIEVE_EVENTS,
@@ -20,8 +19,7 @@ const Actions = {
     });
   },
   getEvent: (id) => {
-    EventsAPI
-    .getEvent('/api/eventById/' + id)
+    authorizedGetRequest('/api/eventById/' + id)
     .then(event =>{
       AppDispatcher.dispatch({
         actionType: EventConstants.RECIEVE_EVENT,

@@ -54,7 +54,7 @@ EventStore.dispatchToken = AppDispatcher.register(action => {
       EventStore.emitChange();
       break
 
-    case EventConstants.RECIEVE_CONTACT_ERROR:
+    case EventConstants.RECIEVE_EVENT_ERROR:
       alert(action.message);
       EventStore.emitChange();
       break
