@@ -3,7 +3,8 @@ import React ,{Component} from 'react';
 import BlogContainer from './BlogContainer';
 import InstaWidget from '../components/InstaWidget';
 
-import {getInstaFeed} from '../utilities/APIFunctions';
+import InstaActions from '../actions/InstaActions';
+import InstaStore from '../stores/InstaStore';
 
 class HomeContainer extends Component {
 
@@ -12,18 +13,26 @@ class HomeContainer extends Component {
     this.state = {
       posts: []
     }
+
+    this.onChange = this.onChange.bind(this);
+  }
+
+  componentWillMount(){
+    InstaStore.addChangeListener(this.onChange);
+  }
+
+  componentWillUnmount(){
+    InstaStore.removeChangeListener(this.onChange);
   }
 
   componentDidMount(){
-    this.getFeed();
+    InstaActions.getFeed();
   }
 
-  getFeed(){
-    getInstaFeed().then((res)=>{
-      this.setState({
-        posts: res.data.entry_data.TagPage[0].tag.media.nodes
-      });
-    });
+  onChange(){
+    this.setState({
+      posts: InstaStore.getFeed().entry_data.TagPage[0].tag.media.nodes
+    })
   }
 
   renderWidget(){
@@ -31,7 +40,7 @@ class HomeContainer extends Component {
       return <InstaWidget posts = {this.state.posts}/>;
     }
   }
-
+  
   render(){
     return(
       <div className = "homeContainer">
