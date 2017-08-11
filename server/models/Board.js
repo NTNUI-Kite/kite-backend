@@ -2,9 +2,7 @@
 
 const Board = {
   getBoardMembers: function (callback) {
-    return(
-      {
-        members:[
+    return([
           {
             name: "Emil Schrøder",
             title: "Tacospiser",
@@ -24,7 +22,6 @@ const Board = {
             phoneNumber: "69696969"
           }
         ]
-      }
     )
   },
 

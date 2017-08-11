@@ -3,34 +3,43 @@ import React, {Component} from 'react';
 import BoardLinks from '../components/BoardLinks';
 import BoardList from '../components/BoardList';
 
-import {getBoardMembers} from '../utilities/APIFunctions';
+import BoardActions from '../actions/BoardActions';
+import BoardStore from '../stores/BoardStore';
 
 class BoardContainer extends Component{
 
   constructor(){
     super();
     this.state = {
-      members: []
+      boardMembers: []
     }
+
+    this.onChange = this.onChange.bind(this);
   }
 
-  getMembers(){
-    getBoardMembers().then((res)=>{
-      this.setState({
-        members: res.data.members
-      });
-    });
+  componentWillMount(){
+    BoardStore.addChangeListener(this.onChange);
+  }
+
+  componentWillUnmount(){
+    BoardStore.removeChangeListener(this.onChange);
   }
 
   componentDidMount(){
-    this.getMembers();
+    BoardActions.getBoardMembers()
+  }
+
+  onChange(){
+    this.setState({
+      boardMembers: BoardStore.getBoardMembers()
+    })
   }
 
   render(){
     return(
       <div className="baseContainer">
         <BoardLinks/>
-        <BoardList members = {this.state.members}/>
+        <BoardList members = {this.state.boardMembers}/>
       </div>
     );
   }
