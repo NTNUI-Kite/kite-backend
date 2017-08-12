@@ -26,7 +26,7 @@ const muiTheme = getMuiTheme({
 
 const RouteContainer = ({store}) => (
     <MuiThemeProvider muiTheme = {muiTheme}>
-      <div>
+      <div className = "routeContainer">
         <NavBarContainer/>
         <HashRouter>
           <Switch>
