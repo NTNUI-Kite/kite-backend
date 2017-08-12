@@ -1,0 +1,53 @@
+html,body{
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.routeContainer{
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+html,body{
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+
+.routeContainer{
+  height: 100%;
+  width: 100%;
+  display:grid;
+  grid-template-rows: auto  1fr auto;
+  grid-template-columns: 2fr 5fr 2fr;
+}
+
+.navigationBar{
+  padding: 20px;
+  grid-column-start: 1;
+  grid-column-end: 4;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+
+.baseContainer{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 2;
+  grid-row-end: 3;
+}
+
+.footer{
+  grid-column-start: 1;
+  grid-column-end: 4;
+  grid-row-start: 3;
+  grid-row-end: 4;
+  padding: 10px;
+  text-align: center;
+  background-color: #333333 !important;
+}
