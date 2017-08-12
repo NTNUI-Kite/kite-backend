@@ -40,10 +40,10 @@ class HomeContainer extends Component {
       return <InstaWidget posts = {this.state.posts}/>;
     }
   }
-  
+
   render(){
     return(
-      <div className = "homeContainer">
+      <div className = "baseContainer">
         {
           this.renderWidget()
         }

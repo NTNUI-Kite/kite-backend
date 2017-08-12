@@ -45,7 +45,9 @@ class TestContainer extends Component {
   render() {
     console.log(this.state);
     return(
-      <h1>Hello</h1>
+      <div className="baseContainer">
+        <h1>Hello</h1>
+      </div>
     );
   }
 }
