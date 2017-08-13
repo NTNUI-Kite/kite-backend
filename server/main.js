@@ -2,17 +2,10 @@ import express, {Router} from 'express';
 import jwt from 'express-jwt';
 import cors from 'cors';
 
-<<<<<<< HEAD
-var Event =  require('./models/Event');
-var Blog = require('./models/Blog');
-var Board = require('./models/Board');
-var About = require('./models/About')
-=======
->>>>>>> 19feb6f61ed79076e0e6066b55679a54a8296447
-
 import Event from './models/Event';
 import Blog from './models/Blog';
 import Board from './models/Board';
+import About from './models/About';
 
 import getInstaFeed from './utilities/InstaScraper';
 

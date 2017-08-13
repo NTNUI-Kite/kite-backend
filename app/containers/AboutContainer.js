@@ -3,33 +3,43 @@ import React, {Component} from 'react';
 import AboutContent from '../components/AboutContent';
 import AboutLinks from '../components/AboutLinks';
 
-import {getAboutInfo} from '../utilities/APIFunctions';
+import AboutActions from '../actions/AboutActions';
+import AboutStore from '../stores/AboutStore';
+
 
 
 class AboutContainer extends Component{
   constructor(){
     super()
     this.state = {
-      info: []
+      text: []
     }
+    this.onChange = this.onChange.bind(this);
   }
-  getAbout(){
-    getAboutInfo().then((res) =>{
-      this.setState({
-        info: res.data.info
-      })
-    })
+
+  componentWillMount(){
+    AboutStore.addChangeListener(this.onChange);
   }
 
   componentDidMount(){
-      this.getAbout();
+    AboutActions.getText();
+  }
+
+  componentWillUnmount(){
+    AboutStore.removeChangeListener(this.onChange);
+  }
+
+  onChange(){
+    this.setState({
+      text: AboutStore.getText()
+    });
   }
 
   render(){
     return(
       <div className = "baseContainer">
 
-            <AboutContent informasjon = {this.state.info}/>
+            <AboutContent informasjon = {this.state.text}/>
             <AboutLinks/>
 
       </div>)
