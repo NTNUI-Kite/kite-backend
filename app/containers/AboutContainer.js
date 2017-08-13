@@ -12,7 +12,7 @@ class AboutContainer extends Component{
   constructor(){
     super()
     this.state = {
-      text: []
+      text: {}
     }
     this.onChange = this.onChange.bind(this);
   }

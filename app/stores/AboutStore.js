@@ -4,7 +4,7 @@ import { EventEmitter } from 'events';
 
 const CHANGE_EVENT = 'change';
 
-let _text = "";
+let _text = {};
 
 function setText(text){
   _text = text;
