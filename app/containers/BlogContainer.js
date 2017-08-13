@@ -15,6 +15,7 @@ class BlogContainer extends Component {
     this.onChange = this.onChange.bind(this);
   }
 
+
   componentWillMount(){
     BlogStore.addChangeListener(this.onChange);
   }

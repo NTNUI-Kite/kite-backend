@@ -2,10 +2,10 @@ import express, {Router} from 'express';
 import jwt from 'express-jwt';
 import cors from 'cors';
 
-
 import Event from './models/Event';
 import Blog from './models/Blog';
 import Board from './models/Board';
+import About from './models/About';
 
 import getInstaFeed from './utilities/InstaScraper';
 
@@ -43,6 +43,10 @@ router.get('/allBlogPosts', function(req,res){
 router.get('/boardMembers', function(req,res){
   res.json(Board.getBoardMembers());
 });
+
+router.get('/aboutInfo', function(req,res){
+  res.json(About.getAllAbout());
+})
 
 router.get('/instaFeed',function(req,res){
   getInstaFeed.then((feed) =>{
