@@ -29,15 +29,17 @@ const RouteContainer = ({store}) => (
       <div className = "routeContainer">
         <NavBarContainer/>
         <HashRouter>
-          <Switch>
-            <Route exact path = "/" component={HomeContainer}/>
-            <Route path = "/board" component = {BoardContainer}/>
-            <Route path = "/blog" component = {BlogContainer}/>
-            <Route path = "/events" component = {EventContainer}/>
-            <Route path = "/images" component = {InstaFeedContainer}/>
-            <Route path = "/editEvent" component = {EditEventContainer}/>
-            <Route path = "/test" component = {TestContainer}/>
-          </Switch>
+          <div className = "baseContainer">
+            <Switch>
+              <Route exact path = "/" component={HomeContainer}/>
+              <Route path = "/board" component = {BoardContainer}/>
+              <Route path = "/blog" component = {BlogContainer}/>
+              <Route path = "/events" component = {EventContainer}/>
+              <Route path = "/images" component = {InstaFeedContainer}/>
+              <Route path = "/editEvent" component = {EditEventContainer}/>
+              <Route path = "/test" component = {TestContainer}/>
+            </Switch>
+          </div>
         </HashRouter>
         <Footer/>
       </div>

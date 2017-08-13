@@ -39,7 +39,7 @@ class InstaWidget extends Component {
   render(){
     return(
       <div className = "instaSlide">
-        <a target="_blank" href = {"https://www.instagram.com/p/" + this.state.currentPost.code}>
+        <a className = "instaLink" target="_blank" href = {"https://www.instagram.com/p/" + this.state.currentPost.code}>
           <div className = "slideShow" style = {{backgroundImage: "url(" + this.state.currentPost.thumbnail_src +")"}}></div>
         </a>
       </div>

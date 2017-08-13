@@ -1,5 +1,4 @@
 .blogEntry {
-  margin-top: 50px;
   margin-bottom: 50px;
 }
 
@@ -51,4 +50,9 @@
 .fieldItem{
   display: inline-block;
   margin: 10px;
+}
+
+.eventList{
+  grid-column: 1/2;
+  grid-row: 1/2;
 }

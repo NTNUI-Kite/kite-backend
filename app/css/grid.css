@@ -27,27 +27,28 @@ html,body{
 
 .navigationBar{
   padding: 20px;
-  grid-column-start: 1;
-  grid-column-end: 4;
-  grid-row-start: 1;
-  grid-row-end: 2;
+  grid-column: 1/4;
+  grid-row: 1/2;
 }
 
 .baseContainer{
-  margin-top: 20px;
+  margin-top: 70px;
   margin-bottom: 20px;
-  grid-column-start: 2;
-  grid-column-end: 3;
-  grid-row-start: 2;
-  grid-row-end: 3;
+  grid-column: 2/3;
+  grid-row: 2/3;
 }
 
 .footer{
-  grid-column-start: 1;
-  grid-column-end: 4;
-  grid-row-start: 3;
-  grid-row-end: 4;
+  grid-column: 1/4;
+  grid-row: 3/4;
   padding: 10px;
   text-align: center;
   background-color: #333333 !important;
+}
+
+.homeContainer{
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: 1fr  auto;
+  grid-gap: 7px;
 }
