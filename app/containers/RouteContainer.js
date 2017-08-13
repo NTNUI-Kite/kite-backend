@@ -40,6 +40,7 @@ const RouteContainer = ({store}) => (
             <Route path = "/images" component = {InstaFeedContainer}/>
             <Route path = "/editabout" component = {EditAbout}/>
             <Route path = "/editEvent" component = {EditEventContainer}/>
+            <Route path = "/test" component = {TestContainer}/>
           </Switch>
         </HashRouter>
         <Footer/>

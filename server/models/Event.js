@@ -1,9 +1,8 @@
 //TODO: import dbConnection and replace with actual db-calls
 
-var Event = {
+const Event = {
   getAllEvents: function(callback){
-    return ({
-      events: [
+    return ([
         {
           id: 1,
           name: "tur til gokk",
@@ -26,10 +25,9 @@ var Event = {
           price: "1001",
           registration: "2018-03-20"
         },
-      ]
-    });
+      ]);
   },
-  getEventById: function(callback){
+  getEventById: function(id){
     return({
             id: 1,
             name: "tur til gokk",
@@ -44,4 +42,4 @@ var Event = {
   }
 }
 
-module.exports = Event;
+export default Event;

@@ -1,10 +1,8 @@
 //TODO: import dbConnection and replace with actual db-calls
 
-var Board = {
+const Board = {
   getBoardMembers: function (callback) {
-    return(
-      {
-        members:[
+    return([
           {
             name: "Emil Schrøder",
             title: "Tacospiser",
@@ -24,10 +22,9 @@ var Board = {
             phoneNumber: "69696969"
           }
         ]
-      }
     )
   },
 
 }
 
-module.exports = Board;
+export default Board;
