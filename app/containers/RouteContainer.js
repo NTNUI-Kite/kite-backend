@@ -16,6 +16,7 @@ import EventContainer from '../containers/EventContainer';
 import BoardContainer from '../containers/BoardContainer';
 import InstaFeedContainer from '../containers/InstaFeedContainer';
 import EditEventContainer from '../containers/EditEventContainer';
+import SingleEventContainer from '../containers/SingleEventContainer';
 
 const muiTheme = getMuiTheme({
     palette: {
@@ -35,8 +36,9 @@ const RouteContainer = ({store}) => (
               <Route path = "/board" component = {BoardContainer}/>
               <Route path = "/blog" component = {BlogContainer}/>
               <Route path = "/events" component = {EventContainer}/>
+              <Route path = "/event/:eventId" component = {SingleEventContainer}/>
               <Route path = "/images" component = {InstaFeedContainer}/>
-              <Route path = "/editEvent" component = {EditEventContainer}/>
+              <Route path = "/editEvent/:eventId" component = {EditEventContainer}/>
               <Route path = "/test" component = {TestContainer}/>
             </Switch>
           </div>
