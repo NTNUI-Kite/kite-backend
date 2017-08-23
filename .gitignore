@@ -3,3 +3,4 @@ bower_components
 .dist
 app/config/AuthConfig.js
 server/config/AuthConfig.js
+server/config/DBConfig.js
