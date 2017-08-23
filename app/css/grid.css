@@ -32,8 +32,8 @@ html,body{
 }
 
 .baseContainer{
-  margin-top: 70px;
-  margin-bottom: 20px;
+  width: 100%;
+  height: 100%;
   grid-column: 2/3;
   grid-row: 2/3;
 }
