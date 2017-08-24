@@ -23,3 +23,20 @@ export function getRequest(url){
     })
   });
 }
+
+export function postRequest(url,body){
+  return new Promise((resolve,reject) =>{
+    request
+    .post(url)
+    .send(body)
+    .set('Accept', 'application/json')
+    .end(function(err, res){
+     if (err || !res.ok) {
+       reject(err);
+     }
+     else {
+       resolve("updated");
+     }
+   })
+  });
+}

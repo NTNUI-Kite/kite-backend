@@ -1,6 +1,6 @@
 import AppDispatcher from '../dispatcher/AppDispatcher';
 import EventConstants from '../constants/EventConstants';
-import {getRequest, authorizedGetRequest} from '../utilities/APIFunctions';
+import {getRequest, authorizedGetRequest, postRequest} from '../utilities/APIFunctions';
 
 const Actions = {
   getEvents: () =>{
@@ -29,6 +29,21 @@ const Actions = {
     .catch(message =>{
       AppDispatcher.dispatch({
         actionType: EventConstants.RECIEVE_EVENT_ERROR,
+        message: message
+      });
+    });
+  },
+  updateEvent: (body) => {
+    postRequest('/api/updateEvent', body)
+    .then( response =>{
+      AppDispatcher.dispatch({
+        actionType: EventConstants.UPDATE_EVENT,
+        event: body
+      });
+    })
+    .catch(message =>{
+      AppDispatcher.dispatch({
+        actionType: EventConstants.UPDATE_EVENT_ERROR,
         message: message
       });
     });
