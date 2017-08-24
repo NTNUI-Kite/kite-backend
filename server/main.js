@@ -52,6 +52,10 @@ router.get('/instaFeed',function(req,res){
   });
 });
 
+router.get('/user', authCheck,function(req,res){
+  res.json(req.user);
+});
+
 app.use('/api',router);
 
 app.get('/', function (req,res) {
