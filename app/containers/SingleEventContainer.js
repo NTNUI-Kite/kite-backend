@@ -8,6 +8,7 @@ import EventStore from '../stores/EventStore';
 import AbstractBox from '../components/AbstractBox';
 import InfoBox from '../components/InfoBox';
 import AttendeeList from '../components/AttendeeList';
+import SignupBox from '../components/SignupBox';
 
 const userList = [
   {
@@ -55,6 +56,7 @@ class SingleEventContainer extends Component {
         <AbstractBox abstract = {this.state.event.abstract}/>
         <InfoBox {...this.state.event}/>
         <AttendeeList userList = {userList}/>
+        <SignupBox/>
       </div>
     );
   }
