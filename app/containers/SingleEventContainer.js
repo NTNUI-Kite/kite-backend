@@ -5,6 +5,7 @@ import Paper from 'material-ui/Paper';
 import EventActions from '../actions/EventActions';
 import EventStore from '../stores/EventStore';
 
+import AbstractBox from '../components/AbstractBox';
 import InfoBox from '../components/InfoBox';
 import AttendeeList from '../components/AttendeeList';
 
@@ -39,7 +40,7 @@ class SingleEventContainer extends Component {
   }
 
   componentDidMount(){
-    EventActions.getEvent(this.props.eventId);
+    EventActions.getEvent(this.props.match.params.eventId);
   }
 
   onChange(){
@@ -51,7 +52,7 @@ class SingleEventContainer extends Component {
   render(){
     return(
       <div className = "singleEventContainer">
-        <Paper className = "abstractBox">Abstract</Paper>
+        <AbstractBox abstract = {this.state.event.abstract}/>
         <InfoBox {...this.state.event}/>
         <AttendeeList userList = {userList}/>
       </div>
