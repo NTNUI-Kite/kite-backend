@@ -6,6 +6,7 @@ import bodyParser from 'body-parser';
 import Event from './models/Event';
 import Blog from './models/Blog';
 import Board from './models/Board';
+import User from './models/User';
 
 import getInstaFeed from './utilities/InstaScraper';
 
@@ -52,8 +53,8 @@ router.get('/instaFeed',function(req,res){
   });
 });
 
-router.get('/user', authCheck,function(req,res){
-  res.json(req.user);
+router.post('/login', authCheck,function(req,res){
+  User.Login(req.body, req.user.sub, res);
 });
 
 app.use('/api',router);
