@@ -7,6 +7,7 @@ import Event from './models/Event';
 import Blog from './models/Blog';
 import Board from './models/Board';
 import User from './models/User';
+import About from './models/About';
 
 import getInstaFeed from './utilities/InstaScraper';
 import Security from './utilities/Security';
@@ -52,6 +53,10 @@ router.get('/allBlogPosts', function(req,res){
 router.get('/boardMembers',adminCheck, function(req,res){
   res.json(Board.getBoardMembers());
 });
+
+router.get('/aboutInfo', function(req,res){
+  res.json(About.getAllAbout());
+})
 
 router.get('/instaFeed',function(req,res){
   getInstaFeed.then((feed) =>{
