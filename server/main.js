@@ -50,7 +50,7 @@ router.get('/allBlogPosts', function(req,res){
   res.json(Blog.getAllPosts());
 });
 
-router.get('/boardMembers',adminCheck, function(req,res){
+router.get('/boardMembers',boardCheck, function(req,res){
   res.json(Board.getBoardMembers());
 });
 
