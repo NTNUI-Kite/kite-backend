@@ -1,10 +1,10 @@
 import AppDispatcher from '../dispatcher/AppDispatcher';
 import BoardConstants from '../constants/BoardConstants.js'
-import {getRequest} from '../utilities/APIFunctions';
+import {authorizedGetRequest} from '../utilities/APIFunctions';
 
 const Actions = {
   getBoardMembers: () => {
-    getRequest('/api/boardMembers')
+    authorizedGetRequest('/api/boardMembers')
     .then(boardMembers =>{
       AppDispatcher.dispatch({
         actionType: BoardConstants.RECIEVE_MEMBERS,
@@ -12,6 +12,7 @@ const Actions = {
       });
     })
     .catch(message =>{
+      console.log(message);
       AppDispatcher.dispatch({
         actionType: BoardConstants.RECIEVE_MEMBERS_ERROR,
         message: message
