@@ -11,7 +11,7 @@ import About from './models/About';
 
 import getInstaFeed from './utilities/InstaScraper';
 import Security from './utilities/Security';
-import AdminSecurity from './utilities/AdminSecurity';
+import BoardSecurity from './utilities/BoardSecurity';
 
 import Auth0Config from './config/AuthConfig';
 import LocalAuthConfig from './config/LocalAuthConfig';
@@ -28,7 +28,7 @@ app.use(bodyParser.urlencoded({
 //const authCheck = jwt(AuthConfig);
 const auth0Check = Security(Auth0Config);
 const authCheck = Security(LocalAuthConfig);
-const adminCheck = AdminSecurity(LocalAuthConfig);
+const boardCheck = BoardSecurity(LocalAuthConfig);
 
 router.get('/allEvents',function(req,res){
   Event.getAllEvents(res);
