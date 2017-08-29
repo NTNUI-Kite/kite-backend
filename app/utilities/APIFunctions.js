@@ -54,7 +54,7 @@ export function AuthorizedPostRequest(url,body){
        reject(err);
      }
      else {
-       resolve(resolve(JSON.parse(res.text)));
+       resolve(JSON.parse(res.text));
      }
    })
   });
@@ -72,7 +72,7 @@ export function PostRequestWithAuth(url,body,token){
        reject(err);
      }
      else {
-       resolve(resolve(JSON.parse(res.text)));
+       resolve(JSON.parse(res.text));
      }
    })
   });
