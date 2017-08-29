@@ -1,5 +1,5 @@
 import express, {Router} from 'express';
-import jwt from 'express-jwt';
+//import jwt from 'express-jwt';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 
@@ -9,8 +9,11 @@ import Board from './models/Board';
 import User from './models/User';
 
 import getInstaFeed from './utilities/InstaScraper';
+import Security from './utilities/Security';
+import AdminSecurity from './utilities/AdminSecurity';
 
-import AuthConfig from './config/AuthConfig';
+import Auth0Config from './config/AuthConfig';
+import LocalAuthConfig from './config/LocalAuthConfig';
 
 let app = express();
 let router = Router();
@@ -21,7 +24,10 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-const authCheck = jwt(AuthConfig);
+//const authCheck = jwt(AuthConfig);
+const auth0Check = Security(Auth0Config);
+const authCheck = Security(LocalAuthConfig);
+const adminCheck = AdminSecurity(LocalAuthConfig);
 
 router.get('/allEvents',function(req,res){
   Event.getAllEvents(res);
@@ -43,7 +49,7 @@ router.get('/allBlogPosts', function(req,res){
   res.json(Blog.getAllPosts());
 });
 
-router.get('/boardMembers', function(req,res){
+router.get('/boardMembers',adminCheck, function(req,res){
   res.json(Board.getBoardMembers());
 });
 
@@ -53,7 +59,7 @@ router.get('/instaFeed',function(req,res){
   });
 });
 
-router.post('/login', authCheck,function(req,res){
+router.post('/login', auth0Check,function(req,res){
   User.Login(req.body, req.user.sub, res);
 });
 
