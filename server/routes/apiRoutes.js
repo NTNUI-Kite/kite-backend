@@ -23,7 +23,7 @@ router.get('/allEvents',function(req,res){
   Event.getAllEvents(res);
 });
 
-router.get('/eventById/:id',authCheck, function(req,res){
+router.get('/eventById/:id', function(req,res){
   Event.getEventById(res,req.params.id);
 });
 
@@ -33,6 +33,14 @@ router.post('/addEvent', function(req,res){
 
 router.post('/updateEvent', function(req,res){
   Event.updateEvent(req.body,res);
+});
+
+router.post('/eventSignup',authCheck,function(req,res){
+  Event.signup(req.user.userId,req.body,res);
+})
+
+router.post('/eventSignoff', authCheck,function(req,res){
+  Event.signoff(req.user.userId,req.body,res);
 });
 
 router.get('/allBlogPosts', function(req,res){
