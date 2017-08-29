@@ -10,17 +10,7 @@ import InfoBox from '../components/InfoBox';
 import AttendeeList from '../components/AttendeeList';
 import SignupBox from '../components/SignupBox';
 
-const userList = [
-  {
-    name: "Nils Bærlaug"
-  },
-  {
-    name: "Bjornebær Johansen"
-  },
-  {
-    name: "Chicken David"
-  }
-]
+import AuthStore from '../stores/AuthStore';
 
 class SingleEventContainer extends Component {
   constructor(){
@@ -44,6 +34,10 @@ class SingleEventContainer extends Component {
     EventActions.getEvent(this.props.match.params.eventId);
   }
 
+  componentWillReceiveProps(nextProps){
+    EventActions.getEvent(nextProps.match.params.eventId);
+  }
+
   onChange(){
     this.setState({
       event: EventStore.getEvent()
@@ -51,12 +45,23 @@ class SingleEventContainer extends Component {
   }
 
   render(){
+
+    let hasSignedUp = false;
+    let userInfo = JSON.parse(AuthStore.getUser());
+    if(this.state.event.signups && AuthStore.isAuthenticated()){
+      this.state.event.signups.forEach(function(element){
+        if(element.name == userInfo.name){
+          hasSignedUp = true;
+        }
+      });
+    }
+
     return(
       <div className = "singleEventContainer">
         <AbstractBox abstract = {this.state.event.abstract}/>
         <InfoBox {...this.state.event}/>
-        <AttendeeList userList = {userList}/>
-        <SignupBox/>
+        <AttendeeList userList = {this.state.event.signups}/>
+        <SignupBox hasSignedUp = {hasSignedUp} eventId = {this.props.match.params.eventId}/>
       </div>
     );
   }
