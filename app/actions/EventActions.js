@@ -1,6 +1,6 @@
 import AppDispatcher from '../dispatcher/AppDispatcher';
 import EventConstants from '../constants/EventConstants';
-import {getRequest, authorizedGetRequest, postRequest} from '../utilities/APIFunctions';
+import {getRequest, authorizedGetRequest, postRequest, AuthorizedPostRequest} from '../utilities/APIFunctions';
 
 const Actions = {
   getEvents: () =>{
@@ -47,7 +47,24 @@ const Actions = {
         message: message
       });
     });
+  },
+  signup: (body) => {
+    AuthorizedPostRequest('/api/eventSignup',body).then(response => {
+      //console.log(response);
+    })
+    .catch(message => {
+      console.log(message);
+    })
+  },
+  signoff: (body) => {
+    AuthorizedPostRequest('/api/eventSignoff',body).then(response => {
+      //console.log(response);
+    })
+    .catch(message => {
+      console.log(message);
+    })
   }
+
 }
 
 export default Actions;
