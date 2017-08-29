@@ -44,6 +44,13 @@ class EditEventContainer extends Component {
     EventActions.getEvent(this.props.match.params.eventId);
   }
 
+  componentWillReceiveProps(nextProps){
+    EventActions.getEvent(nextProps.match.params.eventId);
+    this.setState({
+      hasRecievedData: false
+    });
+  }
+
   onChange(){
     const event = EventStore.getEvent();
     event.hasRecievedData = true;
