@@ -1,7 +1,7 @@
 import request from 'superagent/lib/client';
 import AuthStore from '../stores/AuthStore';
 
-export function authorizedGetRequest(url){
+export function AuthorizedGetRequest(url){
   return new Promise((resolve, reject) => {
     request
       .get(url)
@@ -14,7 +14,7 @@ export function authorizedGetRequest(url){
 }
 
 
-export function getRequest(url){
+export function GetRequest(url){
   return new Promise((resolve,reject)=>{
     request
     .get(url)
@@ -25,7 +25,7 @@ export function getRequest(url){
   });
 }
 
-export function postRequest(url,body){
+export function PostRequest(url,body){
   return new Promise((resolve,reject) =>{
     request
     .post(url)
