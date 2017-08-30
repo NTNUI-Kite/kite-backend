@@ -36,7 +36,7 @@ class InstaFeedContainer extends Component {
 
   render(){
     return(
-      <div className = "instaFeedContainer">
+      <div className = "baseContainer">
         <InstaFeed posts = {this.state.posts}/>
       </div>
     );

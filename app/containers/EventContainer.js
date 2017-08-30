@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {withRouter} from 'react-router-dom';
 
 import EventEntry from '../components/EventEntry';
 
@@ -14,6 +15,7 @@ class EventContainer extends Component {
     }
 
     this.onChange = this.onChange.bind(this);
+    this.onRegistrationClick = this.onRegistrationClick.bind(this);
   }
 
   componentWillMount(){
@@ -34,13 +36,17 @@ class EventContainer extends Component {
     })
   }
 
+  onRegistrationClick(id){
+    this.props.history.push("/event/" + id);
+  }
+
   render(){
 
     return(
       <div className="baseContainer">
         {
           this.state.events.map((event,id) =>(
-            <EventEntry key = {id}  {...event}/>
+            <EventEntry key = {id}  {...event} onRegistrationClick = {this.onRegistrationClick}/>
           ))
         }
       </div>

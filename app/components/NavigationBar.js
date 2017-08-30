@@ -42,11 +42,11 @@ class NavigationBar extends Component {
         alert(err);
         return;
       }
-      AuthActions.logUserIn(profile, token);
+      AuthActions.logUserIn(profile,token);
       this.setState(
         {
           authenticated: true,
-          userInfo: JSON.parse(AuthStore.getUser())
+          userInfo: profile,
         });
       });
     }

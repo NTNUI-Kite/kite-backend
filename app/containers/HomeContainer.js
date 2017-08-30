@@ -1,4 +1,6 @@
 import React ,{Component} from 'react';
+import Paper from 'material-ui/Paper'
+
 
 import BlogContainer from './BlogContainer';
 import InstaWidget from '../components/InstaWidget';
@@ -40,7 +42,7 @@ class HomeContainer extends Component {
       return <InstaWidget posts = {this.state.posts}/>;
     }
   }
-  
+
   render(){
     return(
       <div className = "homeContainer">

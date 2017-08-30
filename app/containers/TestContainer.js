@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Paper from 'material-ui/Paper';
 
 import EventActions from '../actions/EventActions';
 import EventStore from '../stores/EventStore';
@@ -45,7 +46,9 @@ class TestContainer extends Component {
   render() {
     console.log(this.state);
     return(
-      <h1>Hellos</h1>
+      <Paper className="baseContainer">
+        <h1>Hello</h1>
+      </Paper>
     );
   }
 }

@@ -1,10 +1,10 @@
 import AppDispatcher from '../dispatcher/AppDispatcher';
 import AboutConstants from '../constants/AboutConstants';
-import {getRequest} from '../utilities/APIFunctions';
+import {GetRequest} from '../utilities/APIFunctions';
 
 const Actions = {
   getText: () => {
-    getRequest('/api/aboutInfo')
+    GetRequest('/api/aboutInfo')
     .then(text =>{
       AppDispatcher.dispatch({
         actionType: AboutConstants.RECIEVE_TEXT,

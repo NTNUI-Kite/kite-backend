@@ -36,7 +36,7 @@ class BlogContainer extends Component {
 
   render(){
     return(
-      <div className = "baseContainer">
+      <div>
         {
           this.state.posts.map((post,id) => (
             <BlogEntry key={id} {...post}/>
