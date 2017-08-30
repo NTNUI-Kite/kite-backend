@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 
-import BoardLinks from '../components/BoardLinks';
-import BoardList from '../components/BoardList';
+import BoardLinks from '../../components/board/BoardLinks';
+import BoardList from '../../components/board/BoardList';
 
-import BoardActions from '../actions/BoardActions';
-import BoardStore from '../stores/BoardStore';
+import BoardActions from '../../actions/BoardActions';
+import BoardStore from '../../stores/BoardStore';
 
 class BoardContainer extends Component{
 
