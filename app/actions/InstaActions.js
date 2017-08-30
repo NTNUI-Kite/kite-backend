@@ -1,10 +1,10 @@
 import AppDispatcher from '../dispatcher/AppDispatcher';
 import InstaConstants from '../constants/InstaConstants.js'
-import {getRequest} from '../utilities/APIFunctions';
+import {GetRequest} from '../utilities/APIFunctions';
 
 const Actions = {
   getFeed: () => {
-    getRequest('/api/instaFeed')
+    GetRequest('/api/instaFeed')
     .then(feed =>{
       AppDispatcher.dispatch({
         actionType: InstaConstants.RECIEVE_FEED,
