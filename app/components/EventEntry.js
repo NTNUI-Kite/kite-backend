@@ -11,15 +11,9 @@ class EventEntry extends Component {
     this.state = {
       expanded: false
     }
-
-    this.toggleExpanded = this.toggleExpanded.bind(this);
   }
 
-  toggleExpanded(){
-    this.setState({
-      expanded: !this.state.expanded
-    })
-  }
+
 
   render(){
     return(
@@ -28,7 +22,7 @@ class EventEntry extends Component {
           <img src = "http://via.placeholder.com/400x200"/>
         </CardMedia>
         <CardText>
-          Sted: Storwartz
+          Sted: {this.props.location}
         </CardText>
         <Divider/>
         <CardText>
@@ -36,18 +30,15 @@ class EventEntry extends Component {
         </CardText>
         <Divider/>
         <CardText>
-          Plasser: {this.props.capacity}
+          Plasser tatt: {this.props.spots_taken}/{this.props.capacity}
         </CardText>
         <Divider/>
         <CardText>
           Pris: {this.props.price},-
         </CardText>
         <Divider/>
-        <CardText expandable = {true} >
-          <div dangerouslySetInnerHTML={{__html:this.props.abstract}}></div>
-        </CardText>
         <CardActions>
-          <RaisedButton label="Påmelding" primary={true} onClick = {this.toggleExpanded}/>
+          <RaisedButton label="Påmelding" primary={true} onClick = {() => this.props.onRegistrationClick(this.props.id)}/>
         </CardActions>
       </Card>
     );
