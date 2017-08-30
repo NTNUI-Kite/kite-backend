@@ -1,10 +1,10 @@
 import AppDispatcher from '../dispatcher/AppDispatcher';
 import EventConstants from '../constants/EventConstants';
-import {getRequest, authorizedGetRequest, postRequest, AuthorizedPostRequest} from '../utilities/APIFunctions';
+import {GetRequest, AuthorizedGetRequest, PostRequest, AuthorizedPostRequest} from '../utilities/APIFunctions';
 
 const Actions = {
   getEvents: () =>{
-    getRequest('/api/allEvents')
+    GetRequest('/api/allEvents')
     .then(events =>{
       AppDispatcher.dispatch({
         actionType: EventConstants.RECIEVE_EVENTS,
@@ -19,7 +19,7 @@ const Actions = {
     });
   },
   getEvent: (id) => {
-    authorizedGetRequest('/api/eventById/' + id)
+    AuthorizedGetRequest('/api/eventById/' + id)
     .then(event =>{
       AppDispatcher.dispatch({
         actionType: EventConstants.RECIEVE_EVENT,
@@ -34,7 +34,7 @@ const Actions = {
     });
   },
   updateEvent: (body) => {
-    postRequest('/api/updateEvent', body)
+    PostRequest('/api/updateEvent', body)
     .then( response =>{
       AppDispatcher.dispatch({
         actionType: EventConstants.UPDATE_EVENT,
@@ -49,19 +49,27 @@ const Actions = {
     });
   },
   signup: (body) => {
-    AuthorizedPostRequest('/api/eventSignup',body).then(response => {
-      //console.log(response);
-    })
-    .catch(message => {
-      console.log(message);
+    return new Promise((resolve,reject) =>{
+      AuthorizedPostRequest('/api/eventSignup',body).then(response => {
+        //console.log(response);
+        resolve(response);
+      })
+      .catch(message => {
+        reject(response);
+        //console.log(message);
+      })
     })
   },
   signoff: (body) => {
-    AuthorizedPostRequest('/api/eventSignoff',body).then(response => {
-      //console.log(response);
-    })
-    .catch(message => {
-      console.log(message);
+    return new Promise((resolve,reject) => {
+      AuthorizedPostRequest('/api/eventSignoff',body).then(response => {
+        //console.log(response);
+        resolve(response)
+      })
+      .catch(message => {
+        reject(message);
+        //console.log(message);
+      })
     })
   }
 
