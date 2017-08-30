@@ -5,13 +5,17 @@ import AuthStore from '../stores/AuthStore';
 import EventActions from '../actions/EventActions';
 
 const signUp = (eventId) =>{
-  EventActions.signup({eventId});
-  EventActions.getEvent(eventId);
+  EventActions.signup({eventId})
+  .then((response) => {
+    EventActions.getEvent(eventId)
+  });
 }
 
 const signOut = (eventId) => {
-  EventActions.signoff({eventId});
-  EventActions.getEvent(eventId);
+  EventActions.signoff({eventId})
+  .then((response)=>{
+    EventActions.getEvent(eventId)
+  });
 }
 
 const login = () =>{
