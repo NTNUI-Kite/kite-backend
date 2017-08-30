@@ -8,7 +8,7 @@ import { EditorState, convertToRaw, ContentState } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
 
-import EditView from '../components/EditView';
+import EditView from '../components/board/EditView';
 
 import {getAboutInfo} from '../utilities/APIFunctions';
 
