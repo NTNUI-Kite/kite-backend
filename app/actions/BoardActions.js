@@ -1,10 +1,10 @@
 import AppDispatcher from '../dispatcher/AppDispatcher';
 import BoardConstants from '../constants/BoardConstants.js'
-import {authorizedGetRequest} from '../utilities/APIFunctions';
+import {AuthorizedGetRequest, AuthorizedPostRequest} from '../utilities/APIFunctions';
 
 const Actions = {
   getBoardMembers: () => {
-    authorizedGetRequest('/api/boardMembers')
+    AuthorizedGetRequest('/api/boardMembers')
     .then(boardMembers =>{
       AppDispatcher.dispatch({
         actionType: BoardConstants.RECIEVE_MEMBERS,
@@ -18,6 +18,17 @@ const Actions = {
         message: message
       });
     });
+  },
+  addNewEvent: () => {
+    return new Promise((resolve,reject) => {
+      AuthorizedPostRequest('/api/board/addEvent')
+      .then(response => {
+        resolve(response);
+      })
+      .catch(message => {
+        reject(message);
+      })
+    })
   }
 }
 
