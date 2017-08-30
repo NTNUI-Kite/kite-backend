@@ -31,15 +31,24 @@ const Event = {
     );
   },
 
-  addEvent: function(body, res){
-    db.query("INSERT INTO events SET ?", body, (err)=>{
+  addEvent: function(res){
+    let today = new Date()
+    const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    let info = {
+      title: "",
+      abstract: "",
+      start: date,
+      end: date,
+      deadline: date
+    }
+    db.query("INSERT INTO events SET ?", info, (err,rows)=>{
       if (err) throw err;
-      res.json({message: "event saved"});
+      res.json({id: rows.insertId});
     })
   },
 
   updateEvent: function(body, res){
-    db.query("UPDATE events SET ? where id = ?", [body, body.ID], (err) =>{
+    db.query("UPDATE events SET ? where id = ?", [body, body.id], (err) =>{
       if(err) throw err;
       res.json({message: "event updated"});
     })
@@ -47,7 +56,7 @@ const Event = {
 
   signup: function(userId,body,res){
     let today = new Date()
-    let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
     let info = {
       event_id: body.eventId,
       user_id: userId,
@@ -55,13 +64,19 @@ const Event = {
     }
     db.query("INSERT INTO event_signups SET ?", info, (err)=>{
       if(err) throw err;
-      res.json({message: "success"});
+      db.query("UPDATE events SET spots_taken = spots_taken + 1 WHERE id = ?", [body.eventId], (err) => {
+        if(err) throw err;
+        res.json({message: "success"});
+      })
     })
   },
   signoff: function(userId,body,res){
     db.query("DELETE FROM event_signups WHERE event_id = ? AND user_id = ?", [body.eventId,userId], (err)=>{
       if(err) throw err;
-      res.json({message: "Signed off"});
+      db.query("UPDATE events SET spots_taken = spots_taken - 1 WHERE id = ?", [body.eventId], (err) => {
+        if(err) throw err;
+        res.json({message: "Signed off"});
+      })
     })
   }
 }
