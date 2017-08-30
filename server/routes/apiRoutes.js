@@ -27,10 +27,6 @@ router.get('/eventById/:id', function(req,res){
   Event.getEventById(res,req.params.id);
 });
 
-router.post('/addEvent', function(req,res){
-  Event.addEvent(req.body,res);
-});
-
 router.post('/updateEvent', function(req,res){
   Event.updateEvent(req.body,res);
 });
