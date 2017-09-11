@@ -1,19 +1,19 @@
 import AppDispatcher from '../dispatcher/AppDispatcher';
-import BlogConstants from '../constants/BlogConstants';
+import AboutConstants from '../constants/AboutConstants';
 import {GetRequest} from '../utilities/APIFunctions';
 
 const Actions = {
-  getPosts: () => {
-    GetRequest('/api/allBlogPosts')
-    .then(posts =>{
+  getText: () => {
+    GetRequest('/api/aboutInfo')
+    .then(text =>{
       AppDispatcher.dispatch({
-        actionType: BlogConstants.RECIEVE_POSTS,
-        posts: posts
+        actionType: AboutConstants.RECIEVE_TEXT,
+        text: text
       });
     })
     .catch(message =>{
       AppDispatcher.dispatch({
-        actionType: BlogConstants.RECIEVE_POSTS_ERROR,
+        actionType: AboutConstants.RECIEVE_TEXT_ERROR,
         message: message
       });
     });

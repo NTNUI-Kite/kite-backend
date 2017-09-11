@@ -8,11 +8,11 @@ import { EditorState, convertToRaw, ContentState } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
 
-import EditView from '../components/EditView';
-import EventEntry from '../components/EventEntry';
+import EditView from '../../components/board/EditView';
+//import EventEntry from '../components/EventEntry';
 
-import EventActions from '../actions/EventActions';
-import EventStore from '../stores/EventStore';
+import EventActions from '../../actions/EventActions';
+import EventStore from '../../stores/EventStore';
 
 class EditEventContainer extends Component {
 
@@ -42,6 +42,13 @@ class EditEventContainer extends Component {
 
   componentDidMount(){
     EventActions.getEvent(this.props.match.params.eventId);
+  }
+
+  componentWillReceiveProps(nextProps){
+    EventActions.getEvent(nextProps.match.params.eventId);
+    this.setState({
+      hasRecievedData: false
+    });
   }
 
   onChange(){
@@ -110,7 +117,7 @@ class EditEventContainer extends Component {
     const markup = draftToHtml(rawState);
 
     const body = {
-      ID: this.state.ID,
+      id: this.state.id,
       title: this.state.title,
       abstract: markup,
       capacity: this.state.capacity,
