@@ -1,19 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import configureStore from "./utilities/store";
 
-//import HomePage from './components/common/header';
-//import Header from './components/HomePage';
-
+// import HomePage from './components/common/header';
+// import Header from './components/HomePage';
 
 import RouteContainer from './containers/RouteContainer';
 
-class App extends React.Component {
-  render(){
-    return(
-      <RouteContainer/>
-    );
-  }
-}
+const App = () => <RouteContainer />;
 
-ReactDOM.render(<App/>, app);
+ReactDOM.render(<App />, app);

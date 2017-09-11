@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Paper from 'material-ui/Paper';
 
 import EventActions from '../actions/EventActions';
@@ -24,7 +24,7 @@ class TestContainer extends Component {
     BlogStore.addChangeListener(this.onChange);
   }
 
-  componentDidMount(){
+  componentDidMount() {
     //EventActions.getEvent(0); //TODO replace with param
     //EventActions.getEvents();
     BlogActions.getPosts();
