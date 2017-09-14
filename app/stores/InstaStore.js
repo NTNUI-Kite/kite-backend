@@ -1,47 +1,46 @@
+import { EventEmitter } from 'events';
 import AppDispatcher from '../dispatcher/AppDispatcher';
 import InstaConstants from '../constants/InstaConstants';
-import { EventEmitter } from 'events';
 
 const CHANGE_EVENT = 'change';
 
-let _feed = {};
+let feed = {};
 
-function setFeed(feed){
-  _feed = feed;
+function setFeed(newFeed) {
+  feed = newFeed;
 }
 
+/* eslint class-methods-use-this: ["error", { "exceptMethods": ["getFeed"] }] */
 class InstaStoreClass extends EventEmitter {
-
   emitChange() {
     this.emit(CHANGE_EVENT);
   }
 
   addChangeListener(callback) {
-    this.on(CHANGE_EVENT, callback)
+    this.on(CHANGE_EVENT, callback);
   }
 
   removeChangeListener(callback) {
-    this.removeListener(CHANGE_EVENT, callback)
+    this.removeListener(CHANGE_EVENT, callback);
   }
 
-  getFeed(){
-    return _feed;
+  getFeed() {
+    return feed;
   }
 }
 
 const InstaStore = new InstaStoreClass();
 
-InstaStore.dispatchToken = AppDispatcher.register(action =>{
-  switch(action.actionType) {
+InstaStore.dispatchToken = AppDispatcher.register((action) => {
+  switch (action.actionType) {
     case InstaConstants.RECIEVE_FEED:
       setFeed(action.feed);
       InstaStore.emitChange();
-      break
+      break;
 
     case InstaConstants.RECIEVE_FEED_ERROR:
-      alert(action.message);
       InstaStore.emitChange();
-      break
+      break;
 
     default:
   }

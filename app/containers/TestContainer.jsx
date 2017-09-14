@@ -1,51 +1,49 @@
 import React, { Component } from 'react';
 import Paper from 'material-ui/Paper';
 
-import EventActions from '../actions/EventActions';
-import EventStore from '../stores/EventStore';
+// import EventActions from '../actions/EventActions';
+// import EventStore from '../stores/EventStore';
 
 import BlogActions from '../actions/BlogActions';
 import BlogStore from '../stores/BlogStore';
 
 class TestContainer extends Component {
-
-  constructor(){
+  constructor() {
     super();
     this.state = {
       event: {},
       events: [],
-      posts: []
-    }
+      posts: [],
+    };
     this.onChange = this.onChange.bind(this);
   }
 
-  componentWillMount(){
-    //EventStore.addChangeListener(this.onChange);
+  componentWillMount() {
+    // EventStore.addChangeListener(this.onChange);
     BlogStore.addChangeListener(this.onChange);
   }
 
   componentDidMount() {
-    //EventActions.getEvent(0); //TODO replace with param
-    //EventActions.getEvents();
+    // EventActions.getEvent(0); //TODO replace with param
+    // EventActions.getEvents();
     BlogActions.getPosts();
   }
 
-  componentWillUnmount(){
-    //EventStore.removeChangeListener(this.onChange);
+  componentWillUnmount() {
+    // EventStore.removeChangeListener(this.onChange);
     BlogStore.removeChangeListener(this.onChange);
   }
 
-  onChange(){
+  onChange() {
     this.setState({
-      //event: EventStore.getEvent(),
-      //events: EventStore.getEvents(),
-      posts: BlogStore.getPosts()
+      // event: EventStore.getEvent(),
+      // events: EventStore.getEvents(),
+      posts: BlogStore.getPosts(),
     });
   }
 
   render() {
-    console.log(this.state);
-    return(
+    return (
       <Paper className="baseContainer">
         <h1>Hello</h1>
       </Paper>

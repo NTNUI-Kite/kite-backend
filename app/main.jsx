@@ -8,4 +8,5 @@ import RouteContainer from './containers/RouteContainer';
 
 const App = () => <RouteContainer />;
 
+// eslint-disable-next-line no-undef 
 ReactDOM.render(<App />, app);

@@ -1,5 +1,6 @@
 import mysql from 'mysql';
-import dbConfig from '../config/dbConfig';
-let connection=mysql.createPool(dbConfig);
+import dbConfig from '../config/DBConfig';
+
+const connection = mysql.createPool(dbConfig);
 
 export default connection;

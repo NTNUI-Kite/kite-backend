@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Paper from 'material-ui/Paper';
-import {Card} from 'material-ui/Card'
+import { Card } from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import DatePicker from 'material-ui/DatePicker';
 
@@ -10,24 +10,24 @@ import htmlToDraft from 'html-to-draftjs';
 
 import EditView from '../components/board/EditView';
 
-import {getAboutInfo} from '../utilities/APIFunctions';
+import { getAboutInfo } from '../utilities/APIFunctions';
 
-class EditAbout extends Component{
-  constructor(){
-    super()
+class EditAbout extends Component {
+  constructor() {
+    super();
     this.state = {
-      hasRecievedData: false
-    }
+      hasRecievedData: false,
+    };
 
     this.onEditorStateChange = this.onEditorStateChange.bind(this);
   }
 
-  onEditorStateChange(editorState){
+  onEditorStateChange(editorState) {
     this.setState({
       editorState,
     });
   }
-/*
+  /*
   getData(){
     getAboutInfo(0).then((res)=>{
       const data = res.data;
@@ -49,46 +49,42 @@ class EditAbout extends Component{
     });
   }
 */
-  getData(){
-    getAboutInfo().then((res) =>{
+  getData() {
+    getAboutInfo().then((res) => {
       const data = res.data.info;
       const blocksFromHtml = htmlToDraft(data.abstract);
       const content = ContentState.createFromBlockArray(blocksFromHtml);
       this.setState({
         title: data.title,
         abstract: data.abstract,
-        editorState: EditorState.createWithContent(content)
-      })
-    })
+        editorState: EditorState.createWithContent(content),
+      });
+    });
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.getData();
   }
 
 
-  render(){
-    return(
+  render() {
+    return (
       <div className="baseContainer">
         <Card>
           <p>
-            This is the edit about page, here it will be a rich text editor and some fancy graphics.<br/>
+            This is the edit about page, here it will be a rich text editor and some fancy graphics.<br />
             <strong>Soon to come</strong>
           </p>
         </Card>
-        <Paper className = "editContainer">
-          <EditView editorState = {this.state.editorState} onEditorStateChange = {this.onEditorStateChange}/>
+        <Paper className="editContainer">
+          <EditView editorState={this.state.editorState} onEditorStateChange={this.onEditorStateChange} />
         </Paper>
       </div>
 
 
-
-    )
+    );
   }
-
-
-
 }
 
 
-export default EditAbout
+export default EditAbout;

@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 import BoardLinks from '../../components/board/BoardLinks';
 import BoardList from '../../components/board/BoardList';
@@ -6,40 +6,39 @@ import BoardList from '../../components/board/BoardList';
 import BoardActions from '../../actions/BoardActions';
 import BoardStore from '../../stores/BoardStore';
 
-class BoardContainer extends Component{
-
-  constructor(){
+class BoardContainer extends Component {
+  constructor() {
     super();
     this.state = {
-      boardMembers: []
-    }
+      boardMembers: [],
+    };
 
     this.onChange = this.onChange.bind(this);
   }
 
-  componentWillMount(){
+  componentWillMount() {
     BoardStore.addChangeListener(this.onChange);
   }
 
-  componentWillUnmount(){
+  componentDidMount() {
+    BoardActions.getBoardMembers();
+  }
+
+  componentWillUnmount() {
     BoardStore.removeChangeListener(this.onChange);
   }
 
-  componentDidMount(){
-    BoardActions.getBoardMembers()
-  }
-
-  onChange(){
+  onChange() {
     this.setState({
-      boardMembers: BoardStore.getBoardMembers()
-    })
+      boardMembers: BoardStore.getBoardMembers(),
+    });
   }
 
-  render(){
-    return(
+  render() {
+    return (
       <div className="baseContainer">
-        <BoardLinks/>
-        <BoardList members = {this.state.boardMembers}/>
+        <BoardLinks />
+        <BoardList members={this.state.boardMembers} />
       </div>
     );
   }

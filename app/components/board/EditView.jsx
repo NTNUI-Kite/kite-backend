@@ -1,14 +1,9 @@
-import React, {Component} from 'react';
-
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Editor } from 'react-draft-wysiwyg';
 
 class EditView extends Component {
-
-  constructor(props){
-    super(props);
-  }
-
-  onEditorStateChange(editorState){
+  onEditorStateChange(editorState) {
     this.setState({
       editorState,
     });
@@ -25,9 +20,15 @@ class EditView extends Component {
             onEditorStateChange={this.props.onEditorStateChange}
           />
         </div>
-    </div>
+      </div>
     );
   }
 }
+
+
+EditView.propTypes = {
+  editorState: PropTypes.shape({}).isRequired,
+  onEditorStateChange: PropTypes.func.isRequired,
+};
 
 export default EditView;

@@ -6,5 +6,5 @@ export default keyMirror({
   RECIEVE_EVENT_ERROR: null,
   RECIEVE_EVENTS_ERROR: null,
   UPDATE_EVENT: null,
-  UPDATE_EVENT_ERROR: null
+  UPDATE_EVENT_ERROR: null,
 });

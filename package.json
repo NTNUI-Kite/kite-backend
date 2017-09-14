@@ -38,6 +38,7 @@
     "lodash.set": "^4.3.2",
     "material-ui": "^0.18.6",
     "mysql": "^2.14.0",
+    "prop-types": "^15.5.10",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-draft-wysiwyg": "^1.10.7",
