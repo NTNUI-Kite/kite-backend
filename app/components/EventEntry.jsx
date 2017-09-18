@@ -4,39 +4,48 @@ import Divider from 'material-ui/Divider';
 import RaisedButton from 'material-ui/RaisedButton';
 import PropTypes from 'prop-types';
 
-const EventEntry = props => (
-  <Card className="eventEntry">
-    <CardMedia overlay={<CardTitle title={props.title} subtitle="Stevne 4" />}>
-      <img alt="eventImage" src="http://via.placeholder.com/400x200" />
-    </CardMedia>
-    <CardText>
-      Sted: {props.location}
-    </CardText>
-    <Divider />
-    <CardText>
-      Fra: {props.start}, til: {props.end}
-    </CardText>
-    <Divider />
-    <CardText>
-      Plasser tatt: {props.spots_taken}/{props.capacity}
-    </CardText>
-    <Divider />
-    <CardText>
-      Pris: {props.price},-
-    </CardText>
-    <Divider />
-    <CardActions>
-      <RaisedButton label="Påmelding" primary onClick={() => props.onRegistrationClick(props.id)} />
-    </CardActions>
-  </Card>
-);
+const createDate = (mysqlDate) => {
+  const dateParts = mysqlDate.split('-');
+  return new Date(dateParts[0], dateParts[1] - 1, dateParts[2].substr(0, 2));
+};
+
+const EventEntry = (props) => {
+  const start = createDate(props.start);
+  const end = createDate(props.end);
+  return (
+    <Card className="eventEntry">
+      <CardMedia overlay={<CardTitle title={props.title} subtitle="Stevne 4" />}>
+        <img alt="eventImage" src="http://via.placeholder.com/400x200" />
+      </CardMedia>
+      <CardText>
+        Sted: {props.location}
+      </CardText>
+      <Divider />
+      <CardText>
+        Dato: {start.toDateString()} - {end.toDateString()}
+      </CardText>
+      <Divider />
+      <CardText>
+        Plasser tatt: {props.spotsTaken}/{props.capacity}
+      </CardText>
+      <Divider />
+      <CardText>
+        Pris: {props.price},-
+      </CardText>
+      <Divider />
+      <CardActions>
+        <RaisedButton label="Påmelding" primary onClick={() => props.onRegistrationClick(props.id)} />
+      </CardActions>
+    </Card>
+  );
+};
 
 EventEntry.propTypes = {
   title: PropTypes.string.isRequired,
   location: PropTypes.string.isRequired,
   start: PropTypes.string.isRequired,
   end: PropTypes.string.isRequired,
-  spots_taken: PropTypes.number.isRequired,
+  spotsTaken: PropTypes.number.isRequired,
   capacity: PropTypes.number.isRequired,
   price: PropTypes.number.isRequired,
   onRegistrationClick: PropTypes.func.isRequired,
