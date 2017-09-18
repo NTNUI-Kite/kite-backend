@@ -51,7 +51,7 @@ const SignupBox = (props) => {
 
 SignupBox.propTypes = {
   hasSignedUp: PropTypes.bool.isRequired,
-  eventId: PropTypes.number.isRequired,
+  eventId: PropTypes.string.isRequired,
 };
 
 export default SignupBox;
