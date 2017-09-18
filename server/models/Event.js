@@ -3,7 +3,7 @@ import db from '../utilities/dbConnection';
 const Event = {
   getAllEvents(res) {
     return (
-      db.query('SELECT * FROM events', (err, rows) => {
+      db.query('select e.id, e.title, e.abstract, e.start, e.end, e.deadline, e.price, e.location, e.capacity, IFNULL(es.spots_taken,0) as spots_taken from events as e left join (select event_id, count(*) as spots_taken from event_signups group by event_id) as es on e.id = es.event_id', (err, rows) => {
         if (err) throw err;
 
         res.json(rows);
@@ -63,19 +63,13 @@ const Event = {
     };
     db.query('INSERT INTO event_signups SET ?', info, (err) => {
       if (err) throw err;
-      db.query('UPDATE events SET spots_taken = spots_taken + 1 WHERE id = ?', [body.eventId], (error) => {
-        if (error) throw error;
-        res.json({ message: 'success' });
-      });
+      res.json({ message: 'success' });
     });
   },
   signoff(userId, body, res) {
     db.query('DELETE FROM event_signups WHERE event_id = ? AND user_id = ?', [body.eventId, userId], (err) => {
       if (err) throw err;
-      db.query('UPDATE events SET spots_taken = spots_taken - 1 WHERE id = ?', [body.eventId], (error) => {
-        if (error) throw error;
-        res.json({ message: 'Signed off' });
-      });
+      res.json({ message: 'Signed off' });
     });
   },
 };
