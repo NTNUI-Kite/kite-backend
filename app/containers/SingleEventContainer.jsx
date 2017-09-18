@@ -8,6 +8,7 @@ import EventStore from '../stores/EventStore';
 import AbstractBox from '../components/AbstractBox';
 import InfoBox from '../components/InfoBox';
 import AttendeeList from '../components/AttendeeList';
+import WaitingList from '../components/WaitingList';
 import SignupBox from '../components/SignupBox';
 
 import AuthStore from '../stores/AuthStore';
@@ -17,6 +18,8 @@ class SingleEventContainer extends Component {
     super();
     this.state = {
       event: {},
+      attendeeList: [],
+      waitingList: [],
     };
 
     this.onChange = this.onChange.bind(this);
@@ -38,12 +41,18 @@ class SingleEventContainer extends Component {
     EventStore.removeChangeListener(this.onChange);
   }
   onChange() {
+    const event = EventStore.getEvent();
+    const attendeeList = event.signups.slice(0, event.capacity);
+    const waitingList = event.signups.slice(event.capacity, event.signups.length);
     this.setState({
-      event: EventStore.getEvent(),
+      event,
+      attendeeList,
+      waitingList,
     });
   }
 
   render() {
+    console.log(this.state);
     let hasSignedUp = false;
     const userInfo = JSON.parse(AuthStore.getUser());
     if (this.state.event.signups && AuthStore.isAuthenticated()) {
@@ -57,8 +66,9 @@ class SingleEventContainer extends Component {
     return (
       <div className="singleEventContainer">
         <AbstractBox abstract={this.state.event.abstract} />
-        <InfoBox {...this.state.event} />
-        <AttendeeList userList={this.state.event.signups} />
+        <InfoBox {...this.state.event} spotsTaken={this.state.attendeeList.length} />
+        <AttendeeList userList={this.state.attendeeList} />
+        <WaitingList userList={this.state.waitingList} />
         <SignupBox hasSignedUp={hasSignedUp} eventId={this.props.match.params.eventId} />
       </div>
     );
