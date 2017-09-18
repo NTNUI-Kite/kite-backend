@@ -44,7 +44,12 @@ class EventContainer extends Component {
       <div className="baseContainer">
         {
           this.state.events.map(event => (
-            <EventEntry key={event.id} {...event} onRegistrationClick={this.onRegistrationClick} />
+            <EventEntry
+              key={event.id}
+              {...event}
+              spotsTaken={Math.min(event.spots_taken, event.capacity)}
+              onRegistrationClick={this.onRegistrationClick}
+            />
           ))
         }
       </div>
