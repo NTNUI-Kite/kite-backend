@@ -4,6 +4,7 @@ import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import DatePicker from 'material-ui/DatePicker';
 import Button from 'material-ui/RaisedButton';
+import Snackbar from 'material-ui/Snackbar';
 
 import { EditorState, convertToRaw, ContentState } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
@@ -27,6 +28,7 @@ class EditEventContainer extends Component {
 
     this.state = {
       hasRecievedData: false,
+      showSnackbar: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -36,6 +38,7 @@ class EditEventContainer extends Component {
     this.onEditorStateChange = this.onEditorStateChange.bind(this);
     this.onChange = this.onChange.bind(this);
     this.saveChanges = this.saveChanges.bind(this);
+    this.handleRequestClose = this.handleRequestClose.bind(this);
   }
 
   componentWillMount() {
@@ -129,6 +132,15 @@ class EditEventContainer extends Component {
       price: this.state.price,
     };
     EventActions.updateEvent(body);
+    this.setState({
+      showSnackbar: true,
+    });
+  }
+
+  handleRequestClose() {
+    this.setState({
+      showSnackbar: false,
+    });
   }
 
   render() {
@@ -152,6 +164,7 @@ class EditEventContainer extends Component {
           />
         </Paper>
         <Button label="Lagre endringer" onClick={this.saveChanges} />
+        <Snackbar open={this.state.showSnackbar} message="Saved changes" autoHideDuration={2500} onRequestClose={this.handleRequestClose} />
       </div>
     );
   }
