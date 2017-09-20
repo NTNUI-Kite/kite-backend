@@ -5,6 +5,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 // import {Provider} from "react-redux";
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
+import PrivateRoute from '../components/baseComponents/PrivateRoute';
 import NavBarContainer from '../containers/NavBarContainer';
 import Footer from '../components/Footer';
 import TestContainer from '../containers/TestContainer';
@@ -28,28 +29,31 @@ const muiTheme = getMuiTheme({
 
 const RouteContainer = () => (
   <MuiThemeProvider muiTheme={muiTheme}>
-    <div className="routeContainer">
-      <NavBarContainer />
+    <div >
       <BrowserRouter history={browserHistory}>
-        <div className="baseContainer">
-          <Switch>
-            <Route exact path="/" component={HomeContainer} />
+        <div className="routeContainer">
+          <NavBarContainer />
+          <div className="baseContainer">
+            <Switch>
+              <Route exact path="/" component={HomeContainer} />
 
-            <Route path="/blog" component={BlogContainer} />
-            <Route path="/events" component={EventContainer} />
-            <Route path="/about" component={AboutContainer} />
-            <Route path="/event/:eventId" component={SingleEventContainer} />
-            <Route path="/images" component={InstaFeedContainer} />
+              <Route path="/blog" component={BlogContainer} />
+              <Route path="/events" component={EventContainer} />
+              <Route path="/about" component={AboutContainer} />
+              <Route path="/event/:eventId" component={SingleEventContainer} />
+              <Route path="/images" component={InstaFeedContainer} />
 
-            <Route path="/editabout" component={EditAbout} />
-            <Route path="/test" component={TestContainer} />
-            <Route exact path="/board" component={BoardContainer} />
-            <Route path="/board/events" component={EventListContainer} />
-            <Route path="/board/editEvent/:eventId" component={EditEventContainer} />
-          </Switch>
+              <Route path="/editabout" component={EditAbout} />
+              <Route path="/test" component={TestContainer} />
+              <PrivateRoute exact path="/board" component={BoardContainer} />
+              <PrivateRoute path="/board/events" component={EventListContainer} />
+              <PrivateRoute path="/board/editEvent/:eventId" component={EditEventContainer} />
+            </Switch>
+          </div>
+          <Footer />
         </div>
       </BrowserRouter>
-      <Footer />
+
     </div>
   </MuiThemeProvider>
 );
