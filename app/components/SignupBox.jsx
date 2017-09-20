@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Paper from 'material-ui/Paper';
 import Button from 'material-ui/RaisedButton';
-import AuthStore from '../stores/AuthStore';
 import EventActions from '../actions/EventActions';
 
 
@@ -35,7 +34,7 @@ const SignupBox = (props) => {
     onClick = signOut;
   }
 
-  if (!AuthStore.isAuthenticated()) {
+  if (!props.authenticated) {
     text = 'You are not logged in';
     label = 'Login';
     onClick = login;
@@ -52,6 +51,7 @@ const SignupBox = (props) => {
 SignupBox.propTypes = {
   hasSignedUp: PropTypes.bool.isRequired,
   eventId: PropTypes.string.isRequired,
+  authenticated: PropTypes.bool.isRequired,
 };
 
 export default SignupBox;

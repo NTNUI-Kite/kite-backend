@@ -20,13 +20,17 @@ class SingleEventContainer extends Component {
       event: {},
       attendeeList: [],
       waitingList: [],
+      authenticated: AuthStore.isAuthenticated(),
+      userInfo: AuthStore.getUser(),
     };
 
     this.onChange = this.onChange.bind(this);
+    this.onAuthChange = this.onAuthChange.bind(this);
   }
 
   componentWillMount() {
     EventStore.addChangeListener(this.onChange);
+    AuthStore.addChangeListener(this.onAuthChange);
   }
 
   componentDidMount() {
@@ -39,6 +43,14 @@ class SingleEventContainer extends Component {
 
   componentWillUnmount() {
     EventStore.removeChangeListener(this.onChange);
+    AuthStore.removeChangeListener(this.onAuthChange);
+  }
+
+  onAuthChange() {
+    this.setState({
+      authenticated: AuthStore.isAuthenticated(),
+      userInfo: AuthStore.getUser(),
+    });
   }
   onChange() {
     const event = EventStore.getEvent();
@@ -52,12 +64,10 @@ class SingleEventContainer extends Component {
   }
 
   render() {
-    console.log(this.state);
     let hasSignedUp = false;
-    const userInfo = JSON.parse(AuthStore.getUser());
-    if (this.state.event.signups && AuthStore.isAuthenticated()) {
+    if (this.state.event.signups && this.state.authenticated) {
       this.state.event.signups.forEach((element) => {
-        if (element.name === userInfo.name) {
+        if (element.name === this.state.userInfo.name) {
           hasSignedUp = true;
         }
       });
@@ -69,7 +79,11 @@ class SingleEventContainer extends Component {
         <InfoBox {...this.state.event} spotsTaken={this.state.attendeeList.length} />
         <AttendeeList userList={this.state.attendeeList} />
         <WaitingList userList={this.state.waitingList} />
-        <SignupBox hasSignedUp={hasSignedUp} eventId={this.props.match.params.eventId} />
+        <SignupBox
+          authenticated={this.state.authenticated}
+          hasSignedUp={hasSignedUp}
+          eventId={this.props.match.params.eventId}
+        />
       </div>
     );
   }
