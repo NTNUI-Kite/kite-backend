@@ -3,15 +3,40 @@ import NavigationBar from '../components/NavigationBar';
 
 import AuthConfig from '../config/AuthConfig';
 
+import AuthStore from '../stores/AuthStore';
+
 class NavBarContainer extends Component {
+  constructor() {
+    super();
+    this.onChange = this.onChange.bind(this);
+    this.state = {
+      authenticated: AuthStore.isAuthenticated(),
+      boardMember: AuthStore.isBoardMember(),
+      userInfo: AuthStore.getUser(),
+    };
+  }
+
   componentWillMount() {
     // eslint-disable-next-line no-undef
     this.lock = new Auth0Lock(AuthConfig.id, AuthConfig.domain);
+    AuthStore.addChangeListener(this.onChange);
+  }
+
+  componentWillUnmount() {
+    AuthStore.removeChangeListener(this.onChange);
+  }
+
+  onChange() {
+    this.setState({
+      authenticated: AuthStore.isAuthenticated(),
+      boardMember: AuthStore.isBoardMember(),
+      userInfo: AuthStore.getUser(),
+    });
   }
 
   render() {
     return (
-      <NavigationBar lock={this.lock} />
+      <NavigationBar lock={this.lock} {...this.state} />
     );
   }
 }

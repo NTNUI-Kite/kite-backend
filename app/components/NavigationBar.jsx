@@ -1,12 +1,39 @@
 import React, { Component } from 'react';
 import { AppBar, FlatButton } from 'material-ui';
 import PropTypes from 'prop-types';
+import { Link, withRouter } from 'react-router-dom';
 
 import AuthActions from '../actions/AuthActions';
-import AuthStore from '../stores/AuthStore';
 
+const logo = (
+  <div className="logo">
+    <Link to="/">
+      <img alt="logo" src="http://via.placeholder.com/167x100" />
+    </Link>
+  </div>
+);
 
-const logo = <div className="logo"><img alt="logo" src="http://via.placeholder.com/167x100" /></div>;
+const navLinks = (boardMember) => {
+  if (boardMember) {
+    return (
+      <div>
+        <Link className="navLink" to="/events">Events</Link>
+        <Link className="navLink" to="/blog">Blog</Link>
+        <Link className="navLink" to="/about">About</Link>
+        <Link className="navLink" to="/images">Images</Link>
+        <Link className="navLink" to="/board">Board</Link>
+      </div>
+    );
+  }
+  return (
+    <div>
+      <Link className="navLink" to="/events">Events</Link>
+      <Link className="navLink" to="/blog">Blog</Link>
+      <Link className="navLink" to="/about">About</Link>
+      <Link className="navLink" to="/images">Images</Link>
+    </div>
+  );
+};
 
 const loginButton = (authenticated, login, logout, userInfo) => {
   if (!authenticated) {
@@ -26,29 +53,10 @@ const loginButton = (authenticated, login, logout, userInfo) => {
 };
 
 class NavigationBar extends Component {
-  constructor() {
-    super();
-    this.state = {
-      authenticated: false,
-      userInfo: {},
-    };
+  constructor(props) {
+    super(props);
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
-  }
-
-  componentDidMount() {
-    const authenticated = AuthStore.isAuthenticated;
-    /* eslint-disable react/no-did-mount-set-state */
-    if (authenticated) {
-      this.setState({
-        userInfo: JSON.parse(AuthStore.getUser()),
-        authenticated: AuthStore.isAuthenticated(),
-      });
-    } else {
-      this.setState({
-        authenticated: AuthStore.isAuthenticated(),
-      });
-    }
   }
 
   login() {
@@ -57,21 +65,12 @@ class NavigationBar extends Component {
         return;
       }
       AuthActions.logUserIn(profile, token);
-      this.setState(
-        {
-          authenticated: true,
-          userInfo: profile,
-        });
     });
   }
 
   logout() {
     AuthActions.logUserOut();
-    this.setState(
-      {
-        authenticated: false,
-        userInfo: {},
-      });
+    this.props.history.push('/');
   }
 
   render() {
@@ -79,8 +78,9 @@ class NavigationBar extends Component {
       <AppBar
         className="navigationBar"
         iconElementLeft={logo}
-        iconElementRight={loginButton(this.state.authenticated,
-          this.login, this.logout, this.state.userInfo)}
+        title={navLinks(this.props.boardMember)}
+        iconElementRight={loginButton(this.props.authenticated,
+          this.login, this.logout, this.props.userInfo)}
       />
     );
   }
@@ -90,6 +90,12 @@ NavigationBar.propTypes = {
   lock: PropTypes.shape({
     show: PropTypes.func.isRequired,
   }),
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+  boardMember: PropTypes.bool.isRequired,
+  authenticated: PropTypes.bool.isRequired,
+  userInfo: PropTypes.shape({}).isRequired,
 };
 
-export default NavigationBar;
+export default withRouter(NavigationBar);
