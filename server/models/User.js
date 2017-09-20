@@ -49,7 +49,18 @@ const User = {
           expiresIn: AuthConfig.expireTime,
         },
       );
-      res.json(token);
+      if (userData.board_member) {
+        res.json({
+          token,
+          boardMember: true,
+        });
+      } else {
+        res.json(
+          {
+            token,
+            boardMember: false,
+          });
+      }
     });
   },
 };
