@@ -4,13 +4,15 @@ import AuthConstants from '../constants/AuthConstants';
 
 const CHANGE_EVENT = 'change';
 
-function setUser(profile, token) {
+function setUser(profile, info) {
   // eslint-disable-next-line no-undef
   if (!localStorage.getItem('id_token')) {
     // eslint-disable-next-line no-undef
     localStorage.setItem('profile', JSON.stringify(profile));
     // eslint-disable-next-line no-undef
-    localStorage.setItem('id_token', token);
+    localStorage.setItem('id_token', info.token);
+    // eslint-disable-next-line no-undef
+    localStorage.setItem('boardMember', info.boardMember);
   }
 }
 
@@ -19,6 +21,8 @@ function removeUser() {
   localStorage.removeItem('profile');
   // eslint-disable-next-line no-undef
   localStorage.removeItem('id_token');
+  // eslint-disable-next-line no-undef
+  localStorage.removeItem('boardMember');
 }
 
 /* eslint class-methods-use-this:
@@ -44,9 +48,17 @@ class AuthStoreClass extends EventEmitter {
     return false;
   }
 
+  isBoardMember() {
+    if (this.isAuthenticated()) {
+      // eslint-disable-next-line no-undef
+      return localStorage.getItem('boardMember');
+    }
+    return false;
+  }
+
   getUser() {
     // eslint-disable-next-line no-undef
-    return localStorage.getItem('profile');
+    return JSON.parse(localStorage.getItem('profile'));
   }
 
   getJwt() {
