@@ -4,15 +4,15 @@ import AuthConstants from '../constants/AuthConstants';
 
 const CHANGE_EVENT = 'change';
 
-function setUser(profile, info) {
+function setUser(profile, token) {
   // eslint-disable-next-line no-undef
   if (!localStorage.getItem('id_token')) {
     // eslint-disable-next-line no-undef
     localStorage.setItem('profile', JSON.stringify(profile));
     // eslint-disable-next-line no-undef
-    localStorage.setItem('id_token', info.token);
+    localStorage.setItem('id_token', token);
     // eslint-disable-next-line no-undef
-    localStorage.setItem('boardMember', info.boardMember);
+    localStorage.setItem('boardMember', profile.board_member);
   }
 }
 
@@ -24,6 +24,11 @@ function removeUser() {
   // eslint-disable-next-line no-undef
   localStorage.removeItem('boardMember');
 }
+
+const updateUser = (profile) => {
+  // eslint-disable-next-line no-undef
+  localStorage.setItem('profile', JSON.stringify(profile));
+};
 
 /* eslint class-methods-use-this:
 ["error", { "exceptMethods": ["isAuthenticated", "getUser", "getJwt"] }] */
@@ -51,14 +56,17 @@ class AuthStoreClass extends EventEmitter {
   isBoardMember() {
     if (this.isAuthenticated()) {
       // eslint-disable-next-line no-undef
-      return localStorage.getItem('boardMember');
+      return localStorage.getItem('boardMember') === '1';
     }
     return false;
   }
 
   getUser() {
-    // eslint-disable-next-line no-undef
-    return JSON.parse(localStorage.getItem('profile'));
+    if (this.isAuthenticated()) {
+      // eslint-disable-next-line no-undef
+      return JSON.parse(localStorage.getItem('profile'));
+    }
+    return {};
   }
 
   getJwt() {
@@ -78,6 +86,11 @@ AuthStore.dispatchToken = AppDispatcher.register((action) => {
 
     case AuthConstants.LOGOUT_USER:
       removeUser();
+      AuthStore.emitChange();
+      break;
+
+    case AuthConstants.UPDATE_USER:
+      updateUser(action.profile);
       AuthStore.emitChange();
       break;
 
