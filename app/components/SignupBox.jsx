@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Paper from 'material-ui/Paper';
 import Button from 'material-ui/RaisedButton';
@@ -23,30 +23,52 @@ const login = () => {
 
 };
 
-const SignupBox = (props) => {
-  let text = 'You have not signed up';
-  let label = 'Sign up';
-  let onClick = signUp;
-
-  if (props.hasSignedUp) {
-    text = 'You are signed up';
-    label = 'Sign out';
-    onClick = signOut;
+class SignupBox extends Component {
+  constructor(props) {
+    super(props);
+    const text = 'You have not signed up';
+    const label = 'Sign up';
+    const onClick = signUp;
+    this.state = {
+      text,
+      label,
+      onClick,
+    };
   }
 
-  if (!props.authenticated) {
-    text = 'You are not logged in';
-    label = 'Login';
-    onClick = login;
+  componentWillReceiveProps(nextProps) {
+    let text = 'You have not signed up';
+    let label = 'Sign up';
+    let onClick = signUp;
+
+    if (nextProps.hasSignedUp) {
+      text = 'You are signed up';
+      label = 'Sign out';
+      onClick = signOut;
+    }
+
+    if (!nextProps.authenticated) {
+      text = 'You are not logged in';
+      label = 'Login';
+      onClick = login;
+    }
+
+    this.setState({
+      text,
+      label,
+      onClick,
+    });
   }
 
-  return (
-    <Paper className="signupBox">
-      <p>{text}</p>
-      <Button label={label} onClick={() => onClick(props.eventId)} />
-    </Paper>
-  );
-};
+  render() {
+    return (
+      <Paper className="signupBox">
+        <p>{this.state.text}</p>
+        <Button label={this.state.label} onClick={() => this.state.onClick(this.props.eventId)} />
+      </Paper>
+    );
+  }
+}
 
 SignupBox.propTypes = {
   hasSignedUp: PropTypes.bool.isRequired,
