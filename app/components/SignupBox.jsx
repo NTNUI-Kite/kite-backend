@@ -90,7 +90,7 @@ class SignupBox extends Component {
         <TextField
           key={this.state.userInfo}
           name="comment"
-          hintText="Comment here"
+          hintText="Allergies etc."
           floatingLabelText="Comment"
           defaultValue={this.state.comment}
           onChange={this.handleChange}
