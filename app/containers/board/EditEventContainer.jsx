@@ -70,7 +70,7 @@ class EditEventContainer extends Component {
       id: event.id,
       title: event.title,
       abstract: event.abstract,
-      capacity: this.state.capacity,
+      capacity: event.capacity,
       start: createDate(event.start),
       end: createDate(event.end),
       deadline: createDate(event.deadline),
