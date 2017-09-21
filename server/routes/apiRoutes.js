@@ -39,6 +39,11 @@ router.post('/eventSignoff', authCheck, (req, res) => {
   Event.signoff(req.user.userId, req.body, res);
 });
 
+router.post('/updateUser', authCheck, (req, res) => {
+  const token = req.headers.authorization.split(' ')[1];
+  User.UpdateUser(token, req.body, res);
+});
+
 router.get('/allBlogPosts', (req, res) => {
   res.json(Blog.getAllPosts());
 });
