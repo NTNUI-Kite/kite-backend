@@ -8,6 +8,7 @@ import EventStore from '../stores/EventStore';
 import AbstractBox from '../components/AbstractBox';
 import InfoBox from '../components/InfoBox';
 import AttendeeList from '../components/AttendeeList';
+import WaitingList from '../components/WaitingList';
 import SignupBox from '../components/SignupBox';
 
 import AuthStore from '../stores/AuthStore';
@@ -17,13 +18,19 @@ class SingleEventContainer extends Component {
     super();
     this.state = {
       event: {},
+      attendeeList: [],
+      waitingList: [],
+      authenticated: AuthStore.isAuthenticated(),
+      userInfo: AuthStore.getUser(),
     };
 
     this.onChange = this.onChange.bind(this);
+    this.onAuthChange = this.onAuthChange.bind(this);
   }
 
   componentWillMount() {
     EventStore.addChangeListener(this.onChange);
+    AuthStore.addChangeListener(this.onAuthChange);
   }
 
   componentDidMount() {
@@ -36,20 +43,37 @@ class SingleEventContainer extends Component {
 
   componentWillUnmount() {
     EventStore.removeChangeListener(this.onChange);
+    AuthStore.removeChangeListener(this.onAuthChange);
+  }
+
+  onAuthChange() {
+    this.setState({
+      authenticated: AuthStore.isAuthenticated(),
+      userInfo: AuthStore.getUser(),
+    });
   }
   onChange() {
+    const event = EventStore.getEvent();
+    const attendeeList = event.signups.slice(0, event.capacity);
+    const waitingList = event.signups.slice(event.capacity, event.signups.length);
     this.setState({
-      event: EventStore.getEvent(),
+      event,
+      attendeeList,
+      waitingList,
     });
   }
 
   render() {
     let hasSignedUp = false;
-    const userInfo = JSON.parse(AuthStore.getUser());
-    if (this.state.event.signups && AuthStore.isAuthenticated()) {
+    let userInfo = {
+      comment: '',
+      has_car: 0,
+    };
+    if (this.state.event.signups && this.state.authenticated) {
       this.state.event.signups.forEach((element) => {
-        if (element.name === userInfo.name) {
+        if (element.name === this.state.userInfo.name) {
           hasSignedUp = true;
+          userInfo = element;
         }
       });
     }
@@ -57,9 +81,15 @@ class SingleEventContainer extends Component {
     return (
       <div className="singleEventContainer">
         <AbstractBox abstract={this.state.event.abstract} />
-        <InfoBox {...this.state.event} />
-        <AttendeeList userList={this.state.event.signups} />
-        <SignupBox hasSignedUp={hasSignedUp} eventId={this.props.match.params.eventId} />
+        <InfoBox {...this.state.event} spotsTaken={this.state.attendeeList.length} />
+        <AttendeeList userList={this.state.attendeeList} />
+        <WaitingList userList={this.state.waitingList} />
+        <SignupBox
+          authenticated={this.state.authenticated}
+          hasSignedUp={hasSignedUp}
+          eventId={this.props.match.params.eventId}
+          userInfo={userInfo}
+        />
       </div>
     );
   }

@@ -1,22 +1,13 @@
 import React from 'react';
-import Paper from 'material-ui/Paper';
+import UserList from './baseComponents/UserList';
 
 const AttendeeList = (info) => {
   if (!info.userList) {
-    return (<Paper className="attendeeList" />);
+    return (<UserList title="Deltagere" cssName="attendeeList" />);
   }
 
   return (
-    <Paper className="attendeeList">
-      <h3>Deltagere</h3>
-      {
-        info.userList.map(user => (
-          <div key={user.id}>
-            <p>{user.name}</p>
-          </div>
-        ))
-      }
-    </Paper>
+    <UserList {...info} title="Deltagere" cssName="attendeeList" />
   );
 };
 

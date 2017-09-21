@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 import Button from 'material-ui/RaisedButton';
@@ -87,4 +88,4 @@ EventListContainer.propTypes = {
   }).isRequired,
 };
 
-export default EventListContainer;
+export default withRouter(EventListContainer);

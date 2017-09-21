@@ -4,6 +4,7 @@ import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import DatePicker from 'material-ui/DatePicker';
 import Button from 'material-ui/RaisedButton';
+import Snackbar from 'material-ui/Snackbar';
 
 import { EditorState, convertToRaw, ContentState } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
@@ -14,12 +15,20 @@ import EditView from '../../components/board/EditView';
 import EventActions from '../../actions/EventActions';
 import EventStore from '../../stores/EventStore';
 
+const createDate = (mysqlDate) => {
+  const dateParts = mysqlDate.split('-');
+  dateParts[2] = dateParts[2].split('T')[0];
+  const d = new Date(dateParts[0], dateParts[1] - 1, dateParts[2], 12, 0, 0);
+  return d;
+};
+
 class EditEventContainer extends Component {
   constructor() {
     super();
 
     this.state = {
       hasRecievedData: false,
+      showSnackbar: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -29,6 +38,7 @@ class EditEventContainer extends Component {
     this.onEditorStateChange = this.onEditorStateChange.bind(this);
     this.onChange = this.onChange.bind(this);
     this.saveChanges = this.saveChanges.bind(this);
+    this.handleRequestClose = this.handleRequestClose.bind(this);
   }
 
   componentWillMount() {
@@ -52,11 +62,25 @@ class EditEventContainer extends Component {
 
   onChange() {
     const event = EventStore.getEvent();
-    event.hasRecievedData = true;
     const blocksFromHtml = htmlToDraft(event.abstract);
     const content = ContentState.createFromBlockArray(blocksFromHtml);
-    event.editorState = EditorState.createWithContent(content);
-    this.setState(event);
+    const editorState = EditorState.createWithContent(content);
+
+    const body = {
+      id: event.id,
+      title: event.title,
+      abstract: event.abstract,
+      capacity: event.capacity,
+      start: createDate(event.start),
+      end: createDate(event.end),
+      deadline: createDate(event.deadline),
+      location: event.location,
+      price: event.price,
+      editorState,
+      hasRecievedData: true,
+    };
+
+    this.setState(body);
   }
 
   onEditorStateChange(editorState) {
@@ -72,20 +96,23 @@ class EditEventContainer extends Component {
   }
 
   handleDateStartChange(event, date) {
+    const newDate = new Date(date.getTime() - (date.getTimezoneOffset() * 60000));
     this.setState({
-      start: date,
+      start: newDate,
     });
   }
 
   handleDateEndChange(event, date) {
+    const newDate = new Date(date.getTime() - (date.getTimezoneOffset() * 60000));
     this.setState({
-      end: date,
+      end: newDate,
     });
   }
 
   handleDateDeadlineChange(event, date) {
+    const newDate = new Date(date.getTime() - (date.getTimezoneOffset() * 60000));
     this.setState({
-      deadline: date,
+      deadline: newDate,
     });
   }
 
@@ -98,13 +125,22 @@ class EditEventContainer extends Component {
       title: this.state.title,
       abstract: markup,
       capacity: this.state.capacity,
-      start: this.state.start,
-      end: this.state.end,
-      deadline: this.state.deadline,
+      start: this.state.start.toISOString(),
+      end: this.state.end.toISOString(),
+      deadline: this.state.deadline.toISOString(),
       location: this.state.location,
       price: this.state.price,
     };
     EventActions.updateEvent(body);
+    this.setState({
+      showSnackbar: true,
+    });
+  }
+
+  handleRequestClose() {
+    this.setState({
+      showSnackbar: false,
+    });
   }
 
   render() {
@@ -116,9 +152,9 @@ class EditEventContainer extends Component {
         <Paper className="fieldContainer">
           <TextField className="fieldItem" name="title" floatingLabelText="Tittel" defaultValue={this.state.title} onChange={this.handleChange} />
           <TextField className="fieldItem" name="capacity" floatingLabelText="Kapasitet" defaultValue={this.state.capacity} onChange={this.handleChange} />
-          <DatePicker className="fieldItem" name="start" floatingLabelText="Start-dato" mode="landscape" value={new Date(this.state.start)} onChange={this.handleDateStartChange} />
-          <DatePicker className="fieldItem" name="end" floatingLabelText="Slutt-dato" mode="landscape" value={new Date(this.state.end)} onChange={this.handleDateEndChange} />
-          <DatePicker className="fieldItem" name="deadline" floatingLabelText="frist-dato" mode="landscape" value={new Date(this.state.deadline)} onChange={this.handleDateDeadlineChange} />
+          <DatePicker className="fieldItem" name="start" floatingLabelText="Start-dato" mode="landscape" value={this.state.start} onChange={this.handleDateStartChange} />
+          <DatePicker className="fieldItem" name="end" floatingLabelText="Slutt-dato" mode="landscape" value={this.state.end} onChange={this.handleDateEndChange} />
+          <DatePicker className="fieldItem" name="deadline" floatingLabelText="frist-dato" mode="landscape" value={this.state.deadline} onChange={this.handleDateDeadlineChange} />
           <TextField className="fieldItem" name="price" floatingLabelText="Pris" defaultValue={this.state.price} onChange={this.handleChange} />
         </Paper>
         <Paper className="editContainer">
@@ -128,6 +164,7 @@ class EditEventContainer extends Component {
           />
         </Paper>
         <Button label="Lagre endringer" onClick={this.saveChanges} />
+        <Snackbar open={this.state.showSnackbar} message="Saved changes" autoHideDuration={2500} onRequestClose={this.handleRequestClose} />
       </div>
     );
   }

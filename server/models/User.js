@@ -49,7 +49,17 @@ const User = {
           expiresIn: AuthConfig.expireTime,
         },
       );
-      res.json(token);
+      res.json({
+        token,
+        userData,
+      });
+    });
+  },
+  UpdateUser(token, body, res) {
+    const id = jwt.decode(token).userId;
+    db.query('UPDATE users SET name = ?, phone = ?, email = ? WHERE id = ?', [body.name, body.phone, body.email, id], (err) => {
+      if (err) throw err;
+      res.json({ message: 'User updated' });
     });
   },
 };

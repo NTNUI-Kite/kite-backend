@@ -11,6 +11,8 @@ function setUser(profile, token) {
     localStorage.setItem('profile', JSON.stringify(profile));
     // eslint-disable-next-line no-undef
     localStorage.setItem('id_token', token);
+    // eslint-disable-next-line no-undef
+    localStorage.setItem('boardMember', profile.board_member);
   }
 }
 
@@ -19,7 +21,14 @@ function removeUser() {
   localStorage.removeItem('profile');
   // eslint-disable-next-line no-undef
   localStorage.removeItem('id_token');
+  // eslint-disable-next-line no-undef
+  localStorage.removeItem('boardMember');
 }
+
+const updateUser = (profile) => {
+  // eslint-disable-next-line no-undef
+  localStorage.setItem('profile', JSON.stringify(profile));
+};
 
 /* eslint class-methods-use-this:
 ["error", { "exceptMethods": ["isAuthenticated", "getUser", "getJwt"] }] */
@@ -44,9 +53,20 @@ class AuthStoreClass extends EventEmitter {
     return false;
   }
 
+  isBoardMember() {
+    if (this.isAuthenticated()) {
+      // eslint-disable-next-line no-undef
+      return localStorage.getItem('boardMember') === '1';
+    }
+    return false;
+  }
+
   getUser() {
-    // eslint-disable-next-line no-undef
-    return localStorage.getItem('profile');
+    if (this.isAuthenticated()) {
+      // eslint-disable-next-line no-undef
+      return JSON.parse(localStorage.getItem('profile'));
+    }
+    return {};
   }
 
   getJwt() {
@@ -66,6 +86,11 @@ AuthStore.dispatchToken = AppDispatcher.register((action) => {
 
     case AuthConstants.LOGOUT_USER:
       removeUser();
+      AuthStore.emitChange();
+      break;
+
+    case AuthConstants.UPDATE_USER:
+      updateUser(action.profile);
       AuthStore.emitChange();
       break;
 
