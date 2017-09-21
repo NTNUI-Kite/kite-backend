@@ -16,6 +16,7 @@ class EditUserDialog extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.updateUser = this.updateUser.bind(this);
+    this.cancelDialog = this.cancelDialog.bind(this);
   }
 
   handleChange({ target }) {
@@ -37,6 +38,15 @@ class EditUserDialog extends Component {
     this.props.toggle();
   }
 
+  cancelDialog() {
+    this.setState({
+      name: this.props.userInfo.name,
+      phone: this.props.userInfo.phone, // TODO: replace this
+      email: this.props.userInfo.email,
+    });
+    this.props.toggle();
+  }
+
   render() {
     const actions = [
       <FlatButton
@@ -44,7 +54,7 @@ class EditUserDialog extends Component {
         label="Cancel"
         primary={true}
         keyboardFocused={true}
-        onClick={this.props.toggle}
+        onClick={this.cancelDialog}
       />,
       <FlatButton
         key={1}
@@ -95,6 +105,8 @@ EditUserDialog.propTypes = {
   toggle: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
   userInfo: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    facebook_id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
     phone: PropTypes.string.isRequired,
