@@ -2,6 +2,8 @@ import { Router } from 'express';
 
 import Event from '../models/Event';
 
+import About from '../models/About';
+
 import BoardSecurity from '../utilities/BoardSecurity';
 
 import LocalAuthConfig from '../config/LocalAuthConfig';
@@ -18,6 +20,10 @@ router.get('/test', (req, res) => {
 
 router.post('/addEvent', (req, res) => {
   Event.addEvent(res);
+});
+
+router.post('/updateAbout', boardCheck, (req, res) => {
+  About.updateAbout(req.body, res);
 });
 
 export default router;
