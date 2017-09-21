@@ -18,7 +18,7 @@ const Event = {
         if (rows.length > 0) {
           const eventInfo = rows[0];
 
-          db.query('SELECT user_id,name, signup_date FROM event_signups INNER JOIN users on event_signups.user_id = users.id WHERE event_id = ? order by signup_date ASC', [id], (error, signups) => {
+          db.query('SELECT user_id,name, signup_date, comment, has_car FROM event_signups INNER JOIN users on event_signups.user_id = users.id WHERE event_id = ? order by signup_date ASC', [id], (error, signups) => {
             if (error) throw error;
             eventInfo.signups = signups;
             res.json(eventInfo);

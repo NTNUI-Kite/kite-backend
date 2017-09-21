@@ -65,10 +65,15 @@ class SingleEventContainer extends Component {
 
   render() {
     let hasSignedUp = false;
+    let userInfo = {
+      comment: '',
+      has_car: 0,
+    };
     if (this.state.event.signups && this.state.authenticated) {
       this.state.event.signups.forEach((element) => {
         if (element.name === this.state.userInfo.name) {
           hasSignedUp = true;
+          userInfo = element;
         }
       });
     }
@@ -83,6 +88,7 @@ class SingleEventContainer extends Component {
           authenticated={this.state.authenticated}
           hasSignedUp={hasSignedUp}
           eventId={this.props.match.params.eventId}
+          userInfo={userInfo}
         />
       </div>
     );

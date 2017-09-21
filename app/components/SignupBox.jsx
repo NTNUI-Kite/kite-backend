@@ -9,7 +9,6 @@ import EventActions from '../actions/EventActions';
 
 
 const signUp = (eventId, comment, hasCar) => {
-  console.log(eventId, comment, hasCar);
   EventActions.signup({ eventId, comment, hasCar })
     .then(() => {
       EventActions.getEvent(eventId);
@@ -66,6 +65,9 @@ class SignupBox extends Component {
       text,
       label,
       onClick,
+      comment: nextProps.userInfo.comment,
+      hasCar: (nextProps.userInfo.has_car === 1),
+      userInfo: nextProps.userInfo,
     });
   }
 
@@ -86,6 +88,7 @@ class SignupBox extends Component {
       <Paper className="signupBox">
         <p>{this.state.text}</p>
         <TextField
+          key={this.state.userInfo}
           name="comment"
           hintText="Comment here"
           floatingLabelText="Comment"
@@ -115,6 +118,10 @@ SignupBox.propTypes = {
   hasSignedUp: PropTypes.bool.isRequired,
   eventId: PropTypes.string.isRequired,
   authenticated: PropTypes.bool.isRequired,
+  userInfo: PropTypes.shape({
+    comment: PropTypes.string.isRequired,
+    has_car: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
 export default SignupBox;
