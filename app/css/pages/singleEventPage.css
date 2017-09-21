@@ -1,0 +1,41 @@
+.singleEventContainer{
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: auto auto auto auto 1fr;
+  grid-gap: 7px;
+  width: 100%;
+  height: 100%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.abstractBox{
+  padding: 10px;
+  grid-column: 1/2;
+  grid-row: 1/6;
+}
+
+.infoBox{
+  padding: 10px;
+  grid-column: 2/3;
+  grid-row: 1/2;
+
+}
+
+.attendeeList{
+  padding: 10px;
+  grid-column: 2/3;
+  grid-row: 2/3;
+}
+
+.waitingList{
+  padding: 10px;
+  grid-column: 2/3;
+  grid-row: 3/4;
+}
+
+.signupBox {
+  padding: 10px;
+  grid-column: 2/3;
+  grid-row: 4/5;
+}

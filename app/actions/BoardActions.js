@@ -1,23 +1,32 @@
 import AppDispatcher from '../dispatcher/AppDispatcher';
-import BoardConstants from '../constants/BoardConstants.js'
-import {getRequest} from '../utilities/APIFunctions';
+import BoardConstants from '../constants/BoardConstants';
+import { AuthorizedGetRequest, AuthorizedPostRequest } from '../utilities/APIFunctions';
 
 const Actions = {
   getBoardMembers: () => {
-    getRequest('/api/boardMembers')
-    .then(boardMembers =>{
-      AppDispatcher.dispatch({
-        actionType: BoardConstants.RECIEVE_MEMBERS,
-        boardMembers: boardMembers
+    AuthorizedGetRequest('/api/boardMembers')
+      .then((boardMembers) => {
+        AppDispatcher.dispatch({
+          actionType: BoardConstants.RECIEVE_MEMBERS,
+          boardMembers,
+        });
+      })
+      .catch((message) => {
+        AppDispatcher.dispatch({
+          actionType: BoardConstants.RECIEVE_MEMBERS_ERROR,
+          message,
+        });
       });
-    })
-    .catch(message =>{
-      AppDispatcher.dispatch({
-        actionType: BoardConstants.RECIEVE_MEMBERS_ERROR,
-        message: message
+  },
+  addNewEvent: () => new Promise((resolve, reject) => {
+    AuthorizedPostRequest('/api/board/addEvent')
+      .then((response) => {
+        resolve(response);
+      })
+      .catch((message) => {
+        reject(message);
       });
-    });
-  }
-}
+  }),
+};
 
 export default Actions;

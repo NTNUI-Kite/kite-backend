@@ -1,0 +1,11 @@
+.navLink{
+  padding-left: 10px;
+  padding-right: 10px;
+  color: #ddd;
+}
+.navLink:hover{
+  color: #ddd;
+}
+.navLink:visited{
+  color:#ddd;
+}

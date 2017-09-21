@@ -1,72 +1,77 @@
+import { EventEmitter } from 'events';
+
 import AppDispatcher from '../dispatcher/AppDispatcher';
 import EventConstants from '../constants/EventConstants';
-import { EventEmitter } from 'events';
 
 const CHANGE_EVENT = 'change';
 
-let _events = [];
-let _event = {};
+let events = [];
+let event = {};
 
-function setEvents(events) {
-  _events = events;
+function setEvents(newEvents) {
+  events = newEvents;
 }
 
-function setEvent(event) {
-  _event = event;
+function setEvent(newEvent) {
+  event = newEvent;
 }
 
+/* eslint class-methods-use-this: ["error", { "exceptMethods": ["getEvents", "getEvent"] }] */
 class EventStoreClass extends EventEmitter {
-
   emitChange() {
     this.emit(CHANGE_EVENT);
   }
 
   addChangeListener(callback) {
-    this.on(CHANGE_EVENT, callback)
+    this.on(CHANGE_EVENT, callback);
   }
 
   removeChangeListener(callback) {
-    this.removeListener(CHANGE_EVENT, callback)
+    this.removeListener(CHANGE_EVENT, callback);
   }
 
   getEvents() {
-    return _events;
+    return events;
   }
 
   getEvent() {
-    return _event;
+    return event;
   }
-
 }
 
 const EventStore = new EventStoreClass();
 
-EventStore.dispatchToken = AppDispatcher.register(action => {
-
-  switch(action.actionType) {
+EventStore.dispatchToken = AppDispatcher.register((action) => {
+  switch (action.actionType) {
     case EventConstants.RECIEVE_EVENTS:
       setEvents(action.events);
       EventStore.emitChange();
-      break
+      break;
 
     case EventConstants.RECIEVE_EVENT:
       setEvent(action.event);
       EventStore.emitChange();
-      break
+      break;
+
+    case EventConstants.UPDATE_EVENT:
+      setEvent(action.event);
+      EventStore.emitChange();
+      break;
 
     case EventConstants.RECIEVE_EVENT_ERROR:
-      alert(action.message);
       EventStore.emitChange();
-      break
+      break;
 
     case EventConstants.RECIEVE_EVENTS_ERROR:
-      alert(action.message);
       EventStore.emitChange();
-      break
+      break;
+
+    case EventConstants.UPDATE_EVENT_ERROR:
+      EventStore.emitChange();
+      break;
 
     default:
   }
-
 });
 
 export default EventStore;
