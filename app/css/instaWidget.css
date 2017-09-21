@@ -1,11 +1,3 @@
-.instaFeedContainer {
-  margin-top: 50px;
-  margin-bottom: 50px;
-  width:1000px;
-  margin-right: auto;
-  margin-left: auto;
-}
-
 .instaPost{
   display: inline-block;
   margin: 15px;
@@ -18,16 +10,21 @@
 
 .slideShow{
    transition: background-image 1s ease-in-out;
-   background-size: 100% 100%;
-   height: 275px;
-   width: 275px;
+   width: 100%;
+   height: 100%;
+   background-size: contain;
+   background-repeat: no-repeat;
 }
 
 .instaSlide{
-  float:left;
-  margin-left: 275px;
+  width: 100%;
+  height: 350px;
 }
 
 .instaContainer{
   text-align: center;
+}
+
+.instaLink{
+
 }

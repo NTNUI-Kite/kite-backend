@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 import AboutContent from '../components/AboutContent';
 import AboutLinks from '../components/AboutLinks';
@@ -6,45 +6,42 @@ import AboutLinks from '../components/AboutLinks';
 import AboutActions from '../actions/AboutActions';
 import AboutStore from '../stores/AboutStore';
 
-
-
-class AboutContainer extends Component{
-  constructor(){
-    super()
+class AboutContainer extends Component {
+  constructor() {
+    super();
     this.state = {
-      text: {}
-    }
+      text: {},
+    };
     this.onChange = this.onChange.bind(this);
   }
 
-  componentWillMount(){
+  componentWillMount() {
     AboutStore.addChangeListener(this.onChange);
   }
 
-  componentDidMount(){
+  componentDidMount() {
     AboutActions.getText();
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     AboutStore.removeChangeListener(this.onChange);
   }
 
-  onChange(){
+  onChange() {
     this.setState({
-      text: AboutStore.getText()
+      text: AboutStore.getText(),
     });
   }
 
-  render(){
-    return(
-      <div className = "baseContainer">
+  render() {
+    return (
+      <div className="baseContainer">
 
-            <AboutContent informasjon = {this.state.text}/>
-            <AboutLinks/>
+        <AboutContent informasjon={this.state.text} />
+        <AboutLinks />
 
-      </div>)
+      </div>);
   }
-
 }
 
 export default AboutContainer;

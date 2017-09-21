@@ -1,23 +1,23 @@
 import AppDispatcher from '../dispatcher/AppDispatcher';
 import BlogConstants from '../constants/BlogConstants';
-import {getRequest} from '../utilities/APIFunctions';
+import { GetRequest } from '../utilities/APIFunctions';
 
 const Actions = {
   getPosts: () => {
-    getRequest('/api/allBlogPosts')
-    .then(posts =>{
-      AppDispatcher.dispatch({
-        actionType: BlogConstants.RECIEVE_POSTS,
-        posts: posts
+    GetRequest('/api/allBlogPosts')
+      .then((posts) => {
+        AppDispatcher.dispatch({
+          actionType: BlogConstants.RECIEVE_POSTS,
+          posts,
+        });
+      })
+      .catch((message) => {
+        AppDispatcher.dispatch({
+          actionType: BlogConstants.RECIEVE_POSTS_ERROR,
+          message,
+        });
       });
-    })
-    .catch(message =>{
-      AppDispatcher.dispatch({
-        actionType: BlogConstants.RECIEVE_POSTS_ERROR,
-        message: message
-      });
-    });
-  }
-}
+  },
+};
 
 export default Actions;

@@ -1,21 +1,20 @@
-import {createStore, applyMiddleware, compose} from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
-import rootReducer from "../utilities/indexReducer";
+import rootReducer from '../utilities/indexReducer';
 
 export default function configureStore() {
+  const middleware = [
+    thunk,
+  ];
 
-    let middleware = [
-        thunk,
-    ];
+  const store = createStore(
+    rootReducer,
+    {},
+    compose(
+      applyMiddleware(...middleware),
 
-    const store = createStore(
-        rootReducer,
-        {},
-        compose(
-            applyMiddleware(...middleware),
+    ),
+  );
 
-        )
-    );
-
-    return store;
-};
+  return store;
+}

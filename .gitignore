@@ -1,5 +1,5 @@
 node_modules
 bower_components
 .dist
-app/config/AuthConfig.js
-server/config/AuthConfig.js
+app/config
+server/config

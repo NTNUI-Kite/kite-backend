@@ -13,6 +13,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babelify": "^7.3.0",
+    "body-parser": "^1.17.2",
     "bootstrap": "^3.3.7",
     "browser-sync": "^2.18.12",
     "browserify": "^14.4.0",
@@ -22,7 +23,6 @@
     "draftjs-to-html": "^0.7.4",
     "ejs": "^2.5.6",
     "express": "^4.15.3",
-    "express-jwt": "^5.3.0",
     "flux": "^3.1.3",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^4.0.0",
@@ -33,9 +33,12 @@
     "gulp-rename": "^1.2.2",
     "gulp-shell": "^0.6.3",
     "html-to-draftjs": "0.1.0-beta14",
+    "jsonwebtoken": "^7.4.3",
     "keymirror": "^0.1.1",
+    "lodash.set": "^4.3.2",
     "material-ui": "^0.18.6",
     "mysql": "^2.14.0",
+    "prop-types": "^15.5.10",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-draft-wysiwyg": "^1.10.7",
@@ -51,5 +54,14 @@
     "run-sequence": "^2.1.0",
     "superagent": "^3.5.2",
     "vinyl-source-stream": "^1.1.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.2.3",
+    "eslint": "^4.3.0",
+    "eslint-config-airbnb": "^15.1.0",
+    "eslint-config-google": "^0.9.1",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-react": "^7.1.0"
   }
 }
