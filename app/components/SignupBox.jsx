@@ -2,11 +2,15 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Paper from 'material-ui/Paper';
 import Button from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
+import Checkbox from 'material-ui/Checkbox';
+
 import EventActions from '../actions/EventActions';
 
 
-const signUp = (eventId) => {
-  EventActions.signup({ eventId })
+const signUp = (eventId, comment, hasCar) => {
+  console.log(eventId, comment, hasCar);
+  EventActions.signup({ eventId, comment, hasCar })
     .then(() => {
       EventActions.getEvent(eventId);
     });
@@ -33,7 +37,12 @@ class SignupBox extends Component {
       text,
       label,
       onClick,
+      hasCar: false,
+      comment: '',
     };
+
+    this.toggleCar = this.toggleCar.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -60,11 +69,43 @@ class SignupBox extends Component {
     });
   }
 
+  toggleCar() {
+    this.setState({
+      hasCar: !this.state.hasCar,
+    });
+  }
+
+  handleChange({ target }) {
+    this.setState({
+      [target.name]: target.value,
+    });
+  }
+
   render() {
     return (
       <Paper className="signupBox">
         <p>{this.state.text}</p>
-        <Button label={this.state.label} onClick={() => this.state.onClick(this.props.eventId)} />
+        <TextField
+          name="comment"
+          hintText="Comment here"
+          floatingLabelText="Comment"
+          defaultValue={this.state.comment}
+          onChange={this.handleChange}
+          multiLine={true}
+          disabled={this.props.hasSignedUp}
+        />
+        <Checkbox
+          label="Has car"
+          checked={this.state.hasCar}
+          onCheck={this.toggleCar}
+          disabled={this.props.hasSignedUp}
+        />
+        <Button
+          label={this.state.label}
+          onClick={
+            () => this.state.onClick(this.props.eventId, this.state.comment, this.state.hasCar)
+          }
+        />
       </Paper>
     );
   }

@@ -60,6 +60,8 @@ const Event = {
       event_id: body.eventId,
       user_id: userId,
       signup_date: date,
+      comment: body.comment,
+      has_car: body.hasCar,
     };
     db.query('INSERT INTO event_signups SET ?', info, (err) => {
       if (err) throw err;
