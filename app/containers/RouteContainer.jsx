@@ -15,7 +15,7 @@ import EventContainer from '../containers/EventContainer';
 import BoardContainer from '../containers/board/BoardContainer';
 import AboutContainer from '../containers/AboutContainer';
 import InstaFeedContainer from '../containers/InstaFeedContainer';
-import EditAbout from '../containers/EditAbout';
+import EditAbout from '../containers/board/EditAboutContainer';
 import EditEventContainer from '../containers/board/EditEventContainer';
 import SingleEventContainer from '../containers/SingleEventContainer';
 import EventListContainer from '../containers/board/EventListContainer';

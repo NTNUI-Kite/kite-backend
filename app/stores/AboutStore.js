@@ -43,6 +43,11 @@ AboutStore.dispatchToken = AppDispatcher.register((action) => {
       AboutStore.emitChange();
       break;
 
+    case AboutConstants.UPDATE_ABOUT:
+      setText(action.about);
+      AboutStore.emitChange();
+      break;
+
     default:
   }
 });
