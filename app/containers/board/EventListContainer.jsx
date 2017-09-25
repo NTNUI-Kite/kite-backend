@@ -69,8 +69,13 @@ class EventListContainer extends Component {
     return (
       <div className="baseContainer">
         <Button label="Lag ny event" onClick={this.onNewEventClick} />
-        <Table>
-          <TableHeader>
+        <Table
+          selectable={false}
+        >
+          <TableHeader
+            displaySelectAll={false}
+            adjustForCheckbox={false}
+          >
             <TableRow>
               <TableHeaderColumn>Navn</TableHeaderColumn>
               <TableHeaderColumn>Start</TableHeaderColumn>
@@ -79,7 +84,9 @@ class EventListContainer extends Component {
               <TableHeaderColumn />
             </TableRow>
           </TableHeader>
-          <TableBody>
+          <TableBody
+            displayRowCheckbox={false}
+          >
             {
               this.state.events.map(event => (
                 <TableRow key={event.id}>
