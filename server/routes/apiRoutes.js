@@ -53,7 +53,7 @@ router.get('/boardMembers', (req, res) => {
 });
 
 router.get('/aboutInfo', (req, res) => {
-  res.json(About.getAllAbout(res));
+  About.getAllAbout(res);
 });
 
 router.get('/instaFeed', (req, res) => {
