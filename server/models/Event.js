@@ -3,7 +3,7 @@ import db from '../utilities/dbConnection';
 const Event = {
   getAllEvents(res) {
     return (
-      db.query('select e.id, e.title, e.abstract, e.start, e.end, e.deadline, e.price, e.location, e.capacity, IFNULL(es.spots_taken,0) as spots_taken from events as e left join (select event_id, count(*) as spots_taken from event_signups group by event_id) as es on e.id = es.event_id', (err, rows) => {
+      db.query('select e.id, e.title, e.abstract, e.start, e.end, e.deadline, e.price, e.location, e.is_active, e.capacity, IFNULL(es.spots_taken,0) as spots_taken from events as e left join (select event_id, count(*) as spots_taken from event_signups group by event_id) as es on e.id = es.event_id', (err, rows) => {
         if (err) throw err;
 
         res.json(rows);
