@@ -1,19 +1,23 @@
 import React from 'react';
-import { Card, CardText } from 'material-ui/Card';
+import Paper from 'material-ui/Paper';
 import PropTypes from 'prop-types';
 
-const AboutContent = props => (
-  <Card className="AboutContent">
-    <CardText>
-      {props.informasjon.abstract}
-    </CardText>
-  </Card>
-);
+const AboutContent = (props) => {
+  return (<Paper className="AboutContent">
+    <div dangerouslySetInnerHTML={{ __html: props.informasjon.abstract }} />
+  </Paper>);
+};
 
 AboutContent.propTypes = {
   informasjon: PropTypes.shape({
-    abstract: PropTypes.string.isRequired,
-  }).isRequired,
+    abstract: PropTypes.string,
+  }),
+};
+
+AboutContent.defaultProps = {
+  informasjon: PropTypes.shape({
+    abstract: '',
+  }),
 };
 
 export default AboutContent;
