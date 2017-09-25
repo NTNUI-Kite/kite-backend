@@ -4,10 +4,12 @@ import PropTypes from 'prop-types';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 import Button from 'material-ui/RaisedButton';
 import Toggle from 'material-ui/Toggle';
+import Paper from 'material-ui/Paper';
 
 import EventActions from '../../actions/EventActions';
-import EventStore from '../../stores/EventStore';
+// import EventStore from '../../stores/EventStore';
 import BoardActions from '../../actions/BoardActions';
+import BoardStore from '../../stores/BoardStore';
 
 const createDate = (mysqlDate) => {
   const dateParts = mysqlDate.split('-');
@@ -27,21 +29,21 @@ class EventListContainer extends Component {
   }
 
   componentWillMount() {
-    EventStore.addChangeListener(this.onChange);
+    BoardStore.addChangeListener(this.onChange);
   }
 
 
   componentDidMount() {
-    EventActions.getEvents();
+    BoardActions.getEvents();
   }
 
   componentWillUnmount() {
-    EventStore.removeChangeListener(this.onChange);
+    BoardStore.removeChangeListener(this.onChange);
   }
 
   onChange() {
     this.setState({
-      events: EventStore.getEvents(),
+      events: BoardStore.getEvents(),
     });
   }
 
@@ -62,12 +64,12 @@ class EventListContainer extends Component {
     newEvent.is_active = !event.is_active;
 
     EventActions.updateEvent(newEvent);
-    EventActions.getEvents();
+    BoardActions.getEvents();
   }
 
   render() {
     return (
-      <div className="baseContainer">
+      <Paper className="baseContainer">
         <Button label="Lag ny event" onClick={this.onNewEventClick} />
         <Table
           selectable={false}
@@ -94,7 +96,10 @@ class EventListContainer extends Component {
                   <TableRowColumn>{createDate(event.start).toDateString()}</TableRowColumn>
                   <TableRowColumn>{createDate(event.end).toDateString()}</TableRowColumn>
                   <TableRowColumn>
-                    <Toggle toggled={event.is_active} onToggle={() => this.onActiveToggle(event)} />
+                    <Toggle
+                      toggled={(event.is_active === 1)}
+                      onToggle={() => this.onActiveToggle(event)}
+                    />
                   </TableRowColumn>
                   <TableRowColumn>
                     {/* <Link to={'/board/editEvent/' + event.id}>Edit</Link> */}
@@ -105,7 +110,7 @@ class EventListContainer extends Component {
             }
           </TableBody>
         </Table>
-      </div>
+      </Paper>
     );
   }
 }
