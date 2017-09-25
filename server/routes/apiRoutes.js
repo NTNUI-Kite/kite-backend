@@ -20,7 +20,7 @@ const authCheck = Security(LocalAuthConfig);
 // const boardCheck = BoardSecurity(LocalAuthConfig);
 
 router.get('/allEvents', (req, res) => {
-  Event.getAllEvents(res);
+  Event.getActiveEvents(res);
 });
 
 router.get('/eventById/:id', (req, res) => {
