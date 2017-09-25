@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 import Button from 'material-ui/RaisedButton';
+import Toggle from 'material-ui/Toggle';
 
 import EventActions from '../../actions/EventActions';
 import EventStore from '../../stores/EventStore';
@@ -22,6 +23,7 @@ class EventListContainer extends Component {
 
     this.onChange = this.onChange.bind(this);
     this.onNewEventClick = this.onNewEventClick.bind(this);
+    this.onActiveToggle = this.onActiveToggle.bind(this);
   }
 
   componentWillMount() {
@@ -53,6 +55,16 @@ class EventListContainer extends Component {
         this.props.history.push(`/board/editEvent/${res.id}`);
       });
   }
+
+  onActiveToggle(event) {
+    const newEvent = {};
+    newEvent.id = event.id;
+    newEvent.is_active = !event.is_active;
+
+    EventActions.updateEvent(newEvent);
+    EventActions.getEvents();
+  }
+
   render() {
     return (
       <div className="baseContainer">
@@ -63,6 +75,7 @@ class EventListContainer extends Component {
               <TableHeaderColumn>Navn</TableHeaderColumn>
               <TableHeaderColumn>Start</TableHeaderColumn>
               <TableHeaderColumn>Slutt</TableHeaderColumn>
+              <TableHeaderColumn>Aktivert</TableHeaderColumn>
               <TableHeaderColumn />
             </TableRow>
           </TableHeader>
@@ -73,6 +86,9 @@ class EventListContainer extends Component {
                   <TableRowColumn>{event.title}</TableRowColumn>
                   <TableRowColumn>{createDate(event.start).toDateString()}</TableRowColumn>
                   <TableRowColumn>{createDate(event.end).toDateString()}</TableRowColumn>
+                  <TableRowColumn>
+                    <Toggle toggled={event.is_active} onToggle={() => this.onActiveToggle(event)} />
+                  </TableRowColumn>
                   <TableRowColumn>
                     {/* <Link to={'/board/editEvent/' + event.id}>Edit</Link> */}
                     <Button label="Edit" onClick={() => this.onEditClick(event.id)} />
