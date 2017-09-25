@@ -8,6 +8,11 @@ import EventActions from '../../actions/EventActions';
 import EventStore from '../../stores/EventStore';
 import BoardActions from '../../actions/BoardActions';
 
+const createDate = (mysqlDate) => {
+  const dateParts = mysqlDate.split('-');
+  return new Date(dateParts[0], dateParts[1] - 1, dateParts[2].substr(0, 2));
+};
+
 class EventListContainer extends Component {
   constructor() {
     super();
@@ -66,8 +71,8 @@ class EventListContainer extends Component {
               this.state.events.map(event => (
                 <TableRow key={event.id}>
                   <TableRowColumn>{event.title}</TableRowColumn>
-                  <TableRowColumn>{event.start}</TableRowColumn>
-                  <TableRowColumn>{event.end}</TableRowColumn>
+                  <TableRowColumn>{createDate(event.start).toDateString()}</TableRowColumn>
+                  <TableRowColumn>{createDate(event.end).toDateString()}</TableRowColumn>
                   <TableRowColumn>
                     {/* <Link to={'/board/editEvent/' + event.id}>Edit</Link> */}
                     <Button label="Edit" onClick={() => this.onEditClick(event.id)} />
