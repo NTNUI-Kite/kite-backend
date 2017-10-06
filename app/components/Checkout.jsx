@@ -1,5 +1,6 @@
 import React from 'react';
 import StripeCheckout from 'react-stripe-checkout';
+import PropTypes from 'prop-types';
 
 import STRIPE_PUBLISHABLE from '../config/StripeConfig';
 
@@ -30,5 +31,11 @@ const Checkout = ({ name, description, amount }) => (
     stripeKey={STRIPE_PUBLISHABLE}
   />
 );
+
+Checkout.propTypes = {
+  name: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  amount: PropTypes.number.isRequired,
+};
 
 export default Checkout;
