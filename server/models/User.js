@@ -38,10 +38,10 @@ const User = {
       if (userData.board_member) {
         scopes.push('boardMember');
       }
-
       const token = jwt.sign(
         {
           userId: userData.id,
+          name: userData.name,
           scopes,
         },
         AuthConfig.secret,
