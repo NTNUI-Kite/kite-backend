@@ -53,7 +53,9 @@ const Event = {
     });
   },
 
-  signup(userId, body, res) {
+  signup(req, res) {
+    const userId = req.user.userId;
+    const body = req.body;
     const today = new Date();
     const date = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
     const info = {
