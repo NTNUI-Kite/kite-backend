@@ -1,41 +1,61 @@
-import React from 'react';
+import React, { Component } from 'react';
 import StripeCheckout from 'react-stripe-checkout';
 import PropTypes from 'prop-types';
 
 import STRIPE_PUBLISHABLE from '../config/StripeConfig';
 
 import PaymentActions from '../actions/PaymentActions';
+import EventActions from '../actions/EventActions';
 
 const CURRENCY = 'NOK';
 
 const calcAmount = amount => amount * 100;
 
+class Checkout extends Component {
+  constructor() {
+    super();
+    this.onToken = this.onToken.bind(this);
+  }
 
-const onToken = (amount, description) => (token) => {
-  PaymentActions.submitPayment({
-    description,
-    source: token.id,
-    currency: CURRENCY,
-    amount: calcAmount(amount),
-  });
-};
+  onToken(token) {
+    this.props.changePaymentProgress(true);
+    PaymentActions.submitPayment({
+      source: token.id,
+      eventId: this.props.eventId,
+      comment: this.props.comment,
+      hasCar: this.props.hasCar,
+    }).then(() => {
+      EventActions.getEvent(this.props.eventId);
+      this.props.changePaymentProgress(false);
+    });
+  }
 
-
-const Checkout = ({ name, description, amount }) => (
-  <StripeCheckout
-    name={name}
-    description={description}
-    amount={calcAmount(amount)}
-    token={onToken(amount, description)}
-    currency={CURRENCY}
-    stripeKey={STRIPE_PUBLISHABLE}
-  />
-);
+  render() {
+    return (
+      <StripeCheckout
+        name="Payment"
+        description={this.props.description}
+        email="Toast"
+        amount={calcAmount(this.props.amount)}
+        token={this.onToken}
+        currency={CURRENCY}
+        stripeKey={STRIPE_PUBLISHABLE}
+      />
+    );
+  }
+}
 
 Checkout.propTypes = {
-  name: PropTypes.string.isRequired,
+  eventId: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   amount: PropTypes.number.isRequired,
+  comment: PropTypes.string,
+  hasCar: PropTypes.bool,
+};
+
+Checkout.defaultProps = {
+  comment: '',
+  hasCar: false,
 };
 
 export default Checkout;
