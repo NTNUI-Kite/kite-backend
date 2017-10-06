@@ -11,8 +11,13 @@ import {
 import Paper from 'material-ui/Paper';
 
 const BoardList = props => (<Paper>
-  <Table>
-    <TableHeader displaySelectAll={false}>
+  <Table
+    selectable={false}
+  >
+    <TableHeader
+      displaySelectAll={false}
+      adjustForCheckbox={false}
+    >
       <TableRow>
         <TableHeaderColumn>Navn</TableHeaderColumn>
         <TableHeaderColumn>Stilling</TableHeaderColumn>

@@ -21,7 +21,7 @@ const authCheck = Security(LocalAuthConfig);
 // const boardCheck = BoardSecurity(LocalAuthConfig);
 
 router.get('/allEvents', (req, res) => {
-  Event.getAllEvents(res);
+  Event.getActiveEvents(res);
 });
 
 router.get('/eventById/:id', (req, res) => {
@@ -54,7 +54,7 @@ router.get('/boardMembers', (req, res) => {
 });
 
 router.get('/aboutInfo', (req, res) => {
-  res.json(About.getAllAbout(res));
+  About.getAllAbout(res);
 });
 
 router.get('/instaFeed', (req, res) => {

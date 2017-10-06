@@ -7,9 +7,15 @@ const CHANGE_EVENT = 'change';
 
 let boardMembers = [];
 
-function setBoardMembers(newBoardMembers) {
+let events = [];
+
+const setBoardMembers = (newBoardMembers) => {
   boardMembers = newBoardMembers;
-}
+};
+
+const setEvents = (newEvents) => {
+  events = newEvents;
+};
 
 /* eslint class-methods-use-this: ["error", { "exceptMethods": ["getBoardMembers"] }] */
 class BoardStoreClass extends EventEmitter {
@@ -28,6 +34,10 @@ class BoardStoreClass extends EventEmitter {
   getBoardMembers() {
     return boardMembers;
   }
+
+  getEvents() {
+    return events;
+  }
 }
 
 const BoardStore = new BoardStoreClass();
@@ -40,6 +50,15 @@ BoardStore.dispatchToken = AppDispatcher.register((action) => {
       break;
 
     case BoardConstants.RECIEVE_MEMBERS_ERROR:
+      BoardStore.emitChange();
+      break;
+
+    case BoardConstants.RECIEVE_EVENTS:
+      setEvents(action.events);
+      BoardStore.emitChange();
+      break;
+
+    case BoardConstants.RECIEVE_EVENTS_ERROR:
       BoardStore.emitChange();
       break;
 
