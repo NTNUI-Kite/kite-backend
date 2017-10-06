@@ -23,7 +23,7 @@ const Payment = {
 
       const event = rows[0];
       const payment = {
-        description: event.title,
+        description: `${event.title}: ${req.user.name}`,
         source: req.body.source,
         currency: CURRENCY,
         amount: event.price * 100,
