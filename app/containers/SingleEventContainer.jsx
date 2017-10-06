@@ -17,7 +17,10 @@ class SingleEventContainer extends Component {
   constructor() {
     super();
     this.state = {
-      event: {},
+      event: {
+        title: '',
+        price: 0,
+      },
       attendeeList: [],
       waitingList: [],
       authenticated: AuthStore.isAuthenticated(),
@@ -89,6 +92,8 @@ class SingleEventContainer extends Component {
           hasSignedUp={hasSignedUp}
           eventId={this.props.match.params.eventId}
           userInfo={userInfo}
+          description={this.state.event.title}
+          price={this.state.event.price}
         />
       </div>
     );
