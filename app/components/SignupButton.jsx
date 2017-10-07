@@ -1,9 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Button from 'material-ui/RaisedButton';
 import PropTypes from 'prop-types';
 import Checkout from './Checkout';
 
 import EventActions from '../actions/EventActions';
+
+import LoginButton from './baseComponents/LoginButton';
 
 const signOut = (eventId) => {
   EventActions.signoff({ eventId })
@@ -12,9 +14,6 @@ const signOut = (eventId) => {
     });
 };
 
-const login = () => {
-
-};
 
 const SignupButton = (props) => {
   if (props.authenticated) {
@@ -43,7 +42,7 @@ const SignupButton = (props) => {
   return (
     <div>
       <p>Not logged in</p>
-      <Button label="Log in" onClick={login} />
+      <LoginButton />
     </div>
   );
 };
