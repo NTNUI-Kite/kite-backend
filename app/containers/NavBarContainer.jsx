@@ -17,8 +17,6 @@ class NavBarContainer extends Component {
   }
 
   componentWillMount() {
-    // eslint-disable-next-line no-undef
-    this.lock = new Auth0Lock(AuthConfig.id, AuthConfig.domain);
     AuthStore.addChangeListener(this.onChange);
   }
 
