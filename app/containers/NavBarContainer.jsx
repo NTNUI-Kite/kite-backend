@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import NavigationBar from '../components/NavigationBar';
 
-import AuthConfig from '../config/AuthConfig';
-
 import AuthStore from '../stores/AuthStore';
 
 class NavBarContainer extends Component {
