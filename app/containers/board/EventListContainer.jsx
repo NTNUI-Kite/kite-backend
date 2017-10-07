@@ -6,7 +6,6 @@ import Button from 'material-ui/RaisedButton';
 import Toggle from 'material-ui/Toggle';
 import Paper from 'material-ui/Paper';
 
-import EventActions from '../../actions/EventActions';
 // import EventStore from '../../stores/EventStore';
 import BoardActions from '../../actions/BoardActions';
 import BoardStore from '../../stores/BoardStore';
@@ -63,8 +62,7 @@ class EventListContainer extends Component {
     newEvent.id = event.id;
     newEvent.is_active = !event.is_active;
 
-    EventActions.updateEvent(newEvent);
-    BoardActions.getEvents();
+    BoardActions.updateEvent(newEvent);
   }
 
   render() {
@@ -97,7 +95,7 @@ class EventListContainer extends Component {
                   <TableRowColumn>{createDate(event.end).toDateString()}</TableRowColumn>
                   <TableRowColumn>
                     <Toggle
-                      toggled={(event.is_active === 1)}
+                      toggled={(event.is_active === 1 || event.is_active === true)}
                       onToggle={() => this.onActiveToggle(event)}
                     />
                   </TableRowColumn>
