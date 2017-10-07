@@ -34,6 +34,19 @@ const Board = {
       res.json(rows);
     });
   },
+  getMembers(res) {
+    db.query('SELECT * FROM users', (err, rows) => {
+      if (err) throw err;
+
+      res.json(rows);
+    });
+  },
+  updateMember(req, res) {
+    db.query('UPDATE users SET ? WHERE id=?', [req.body, req.body.id], (err) => {
+      if (err) throw err;
+      res.json({ message: 'User updated' });
+    });
+  },
 };
 
 export default Board;
