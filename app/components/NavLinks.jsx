@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ToolbarGroup, ToolbarTitle } from 'material-ui/Toolbar';
 
-const NavLinks = (boardMember) => {
-  if (boardMember) {
+const NavLinks = (props) => {
+  if (props.boardMember) {
     return (
       <ToolbarGroup>
         <Link className="navLink" to="/events">
