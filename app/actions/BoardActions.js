@@ -71,6 +71,21 @@ const Actions = {
         message,
       });
     }),
+  updateEvent: (body) => {
+    AuthorizedPostRequest('/api/updateEvent', body)
+      .then(() => {
+        AppDispatcher.dispatch({
+          actionType: BoardConstants.UPDATE_EVENT,
+          event: body,
+        });
+      })
+      .catch((message) => {
+        AppDispatcher.dispatch({
+          actionType: BoardConstants.UPDATE_EVENT_ERROR,
+          message,
+        });
+      });
+  },
 };
 
 export default Actions;

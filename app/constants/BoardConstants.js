@@ -9,4 +9,6 @@ export default keyMirror({
   RECIEVE_EVENTS_ERROR: null,
   UPDATE_MEMBER: null,
   UPDATE__MEMBERS_ERROR: null,
+  UPDATE_EVENT: null,
+  UPDATE_EVENT_ERROR: null,
 });

@@ -88,6 +88,18 @@ BoardStore.dispatchToken = AppDispatcher.register((action) => {
       });
       BoardStore.emitChange();
       break;
+    case BoardConstants.UPDATE_EVENT:
+      events = events.map((ev) => {
+        if (ev.id === action.event.id) {
+          const newEvent = Object.assign({}, ev);
+          newEvent.is_active = action.event.is_active;
+          // setEvent(newEvent);
+          return newEvent;
+        }
+        return ev;
+      });
+      BoardStore.emitChange();
+      break;
 
     default:
   }

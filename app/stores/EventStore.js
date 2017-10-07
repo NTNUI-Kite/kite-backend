@@ -53,11 +53,6 @@ EventStore.dispatchToken = AppDispatcher.register((action) => {
       EventStore.emitChange();
       break;
 
-    case EventConstants.UPDATE_EVENT:
-      setEvent(action.event);
-      EventStore.emitChange();
-      break;
-
     case EventConstants.RECIEVE_EVENT_ERROR:
       EventStore.emitChange();
       break;
