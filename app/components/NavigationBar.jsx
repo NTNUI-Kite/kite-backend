@@ -1,9 +1,9 @@
 import React from 'react';
 import { AppBar } from 'material-ui';
+import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from 'material-ui/Toolbar';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-// import LoginButton from './LoginButton';
 import LoginButton from './baseComponents/LoginButton';
 import LoggedInButton from './baseComponents/LoggedInButton';
 
@@ -37,6 +37,22 @@ const navLinks = (boardMember) => {
   );
 };
 
+const NavigationBar2 = props => (
+  <Toolbar className="navigationBar">
+    <ToolbarGroup firstChild>
+      {logo}
+    </ToolbarGroup>
+    <ToolbarGroup>
+      {navLinks(props.boardMember)}
+    </ToolbarGroup>
+    <ToolbarGroup>
+      {props.authenticated
+        ? <LoggedInButton userInfo={props.userInfo} />
+        : <LoginButton />}
+    </ToolbarGroup>
+  </Toolbar>
+);
+
 const NavigationBar = props => (
   <AppBar
     className="navigationBar"
@@ -57,4 +73,4 @@ NavigationBar.propTypes = {
   userInfo: PropTypes.shape({}).isRequired,
 };
 
-export default NavigationBar;
+export default NavigationBar2;
