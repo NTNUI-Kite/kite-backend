@@ -1,6 +1,7 @@
 import React from 'react';
 import { AppBar } from 'material-ui';
-import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from 'material-ui/Toolbar';
+import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
+import muiThemeable from 'material-ui/styles/muiThemeable';
 import PropTypes from 'prop-types';
 
 import LoginButton from './baseComponents/LoginButton';
@@ -9,7 +10,7 @@ import NavLinks from './NavLinks';
 import Logo from './Logo';
 
 const NavigationBar = props => (
-  <Toolbar className="navigationBar">
+  <Toolbar className="navigationBar" style={{ backgroundColor: props.muiTheme.palette.primary1Color }}>
     <Logo />
     <NavLinks {...props.boardMember} />
     <ToolbarGroup>
@@ -26,4 +27,4 @@ NavigationBar.propTypes = {
   userInfo: PropTypes.shape({}).isRequired,
 };
 
-export default NavigationBar;
+export default muiThemeable()(NavigationBar);
