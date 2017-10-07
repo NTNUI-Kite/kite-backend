@@ -82,7 +82,7 @@ class MemberListContainer extends Component {
                     />
                   </TableRowColumn>
                   <TableRowColumn>
-                    <Button label="Edit" onClick={() => this.onEditClick(member.id)} />
+                    <Button label="Edit" />
                   </TableRowColumn>
                 </TableRow>
               ))
