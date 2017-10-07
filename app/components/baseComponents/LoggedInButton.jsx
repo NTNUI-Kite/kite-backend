@@ -3,6 +3,7 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import { ToolbarGroup, ToolbarTitle } from 'material-ui/Toolbar';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
@@ -34,8 +35,8 @@ class LoggedInButton extends Component {
 
   render() {
     return (
-      <div>
-        <p className="username">{this.props.userInfo.name}</p>
+      <ToolbarGroup>
+        <ToolbarTitle className="username" text={this.props.userInfo.name} />
         <IconMenu
           {...this.props}
           iconButtonElement={
@@ -52,7 +53,7 @@ class LoggedInButton extends Component {
           open={this.state.showEdit}
           userInfo={this.props.userInfo}
         />
-      </div>
+      </ToolbarGroup>
     );
   }
 }
