@@ -11,7 +11,7 @@ import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
 
 import EditView from '../../components/board/EditView';
-import LoadingIcon from '../../components/baseComponents/LoadingIcon';
+import Loader from '../../components/baseComponents/Loader';
 import Notifier from '../../components/baseComponents/Notifier';
 
 import EventActions from '../../actions/EventActions';
@@ -158,7 +158,7 @@ class EditEventContainer extends Component {
 
   render() {
     if (!this.state.hasRecievedData) {
-      return (<LoadingIcon />);
+      return (<Loader />);
     }
     return (
       <div className="baseContainer">
