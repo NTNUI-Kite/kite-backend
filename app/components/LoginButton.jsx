@@ -23,9 +23,7 @@ class LoginButton extends Component {
   render() {
     if (!this.props.authenticated) {
       return (
-        <div>
-          <FlatButton onClick={this.props.login}>Login</FlatButton>
-        </div>
+        <FlatButton label="Login" onClick={this.props.login} />
       );
     }
 
