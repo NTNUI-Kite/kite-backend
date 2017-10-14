@@ -32,7 +32,7 @@ const PaperExampleSimple = () => (
         <p>Nyheter</p>
       </Paper>
     </Link>
-    <Link to="">
+    <Link to="/board/editabout">
       <Paper className="boardLinkItem" zDepth={2} >
         <InfoIcon className="boardLinkIcon" />
         <p>Om oss</p>

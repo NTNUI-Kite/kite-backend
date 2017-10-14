@@ -1,4 +1,4 @@
-// TODO: import dbConnection and replace with actual db-calls
+import db from '../utilities/dbConnection';
 
 const Board = {
   getBoardMembers() {
@@ -27,7 +27,13 @@ const Board = {
     ]
     );
   },
+  getAllEvents(res) {
+    db.query('SELECT * FROM events', (err, rows) => {
+      if (err) throw err;
 
+      res.json(rows);
+    });
+  },
 };
 
 export default Board;

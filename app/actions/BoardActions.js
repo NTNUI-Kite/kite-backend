@@ -27,6 +27,19 @@ const Actions = {
         reject(message);
       });
   }),
+  getEvents: () => AuthorizedGetRequest('/api/board/allevents')
+    .then((events) => {
+      AppDispatcher.dispatch({
+        actionType: BoardConstants.RECIEVE_EVENTS,
+        events,
+      });
+    })
+    .catch((message) => {
+      AppDispatcher.dispatch({
+        actionType: BoardConstants.RECIEVE_EVENTS_ERROR,
+        message,
+      });
+    }),
 };
 
 export default Actions;

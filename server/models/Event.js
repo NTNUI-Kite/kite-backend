@@ -1,14 +1,13 @@
 import db from '../utilities/dbConnection';
 
 const Event = {
-  getAllEvents(res) {
-    return (
-      db.query('select e.id, e.title, e.abstract, e.start, e.end, e.deadline, e.price, e.location, e.capacity, IFNULL(es.spots_taken,0) as spots_taken from events as e left join (select event_id, count(*) as spots_taken from event_signups group by event_id) as es on e.id = es.event_id', (err, rows) => {
-        if (err) throw err;
 
-        res.json(rows);
-      })
-    );
+  getActiveEvents(res) {
+    db.query('SELECT e.id, e.title, e.abstract, e.start, e.end, e.deadline, e.price, e.location, e.capacity, IFNULL(es.spots_taken,0) as spots_taken FROM events AS e LEFT JOIN (select event_id, count(*) AS spots_taken FROM event_signups GROUP BY event_id) AS es ON e.id = es.event_id WHERE e.is_active = true', (err, rows) => {
+      if (err) throw err;
+
+      res.json(rows);
+    });
   },
 
   getEventById(res, id) {
@@ -53,7 +52,9 @@ const Event = {
     });
   },
 
-  signup(userId, body, res) {
+  signup(req, res) {
+    const userId = req.user.userId;
+    const body = req.body;
     const today = new Date();
     const date = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
     const info = {
