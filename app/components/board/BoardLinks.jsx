@@ -50,7 +50,7 @@ const PaperExampleSimple = () => (
         <p>Dokumenter</p>
       </Paper>
     </Link>
-    <Link to="">
+    <Link to="/board/memberlist">
       <Paper className="boardLinkItem" zDepth={2} >
         <MemberIcon className="boardLinkIcon" />
         <p>Medlemmer</p>

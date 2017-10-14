@@ -16,6 +16,8 @@ import LoadingIcon from '../../components/baseComponents/LoadingIcon';
 
 import EventActions from '../../actions/EventActions';
 import EventStore from '../../stores/EventStore';
+import BoardActions from '../../actions/BoardActions';
+
 
 const createDate = (mysqlDate) => {
   const dateParts = mysqlDate.split('-');
@@ -136,7 +138,7 @@ class EditEventContainer extends Component {
       price: this.state.price,
       is_active: this.state.isActive,
     };
-    EventActions.updateEvent(body);
+    BoardActions.updateEvent(body);
     this.setState({
       showSnackbar: true,
     });

@@ -33,21 +33,6 @@ const Actions = {
         });
       });
   },
-  updateEvent: (body) => {
-    PostRequest('/api/updateEvent', body)
-      .then(() => {
-        AppDispatcher.dispatch({
-          actionType: EventConstants.UPDATE_EVENT,
-          event: body,
-        });
-      })
-      .catch((message) => {
-        AppDispatcher.dispatch({
-          actionType: EventConstants.UPDATE_EVENT_ERROR,
-          message,
-        });
-      });
-  },
   signup: body => new Promise((resolve, reject) => {
     AuthorizedPostRequest('/api/eventSignup', body).then((response) => {
       // console.log(response);

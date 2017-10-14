@@ -18,6 +18,14 @@ router.get('/test', (req, res) => {
   res.send('success');
 });
 
+router.get('/members', (req, res) => {
+  Board.getMembers(res);
+});
+
+router.post('/updateMember', (req, res) => {
+  Board.updateMember(req, res);
+});
+
 router.get('/allevents', (req, res) => {
   Board.getAllEvents(res);
 });
