@@ -4,7 +4,6 @@ import FlatButton from 'material-ui/FlatButton';
 import PropTypes from 'prop-types';
 
 class ConfirmPopup extends Component {
-
   constructor() {
     super();
     this.continueAction = this.continueAction.bind(this);
