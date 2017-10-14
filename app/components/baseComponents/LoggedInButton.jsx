@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import AccountCircle from 'material-ui/svg-icons/action/account-circle';
 import { ToolbarGroup, ToolbarTitle } from 'material-ui/Toolbar';
+import muiThemeable from 'material-ui/styles/muiThemeable';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
+
 
 import EditUserDialog from '../EditUserDialog';
 
@@ -36,11 +38,11 @@ class LoggedInButton extends Component {
   render() {
     return (
       <ToolbarGroup>
-        <ToolbarTitle className="username" text={this.props.userInfo.name} />
+        <ToolbarTitle style={{ color: '#ddd' }} className="username" text={this.props.userInfo.name} />
         <IconMenu
           {...this.props}
           iconButtonElement={
-            <IconButton><MoreVertIcon /></IconButton>
+            <IconButton><AccountCircle color={this.props.muiTheme.icon.color} /></IconButton>
           }
           targetOrigin={{ horizontal: 'right', vertical: 'top' }}
           anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
@@ -68,4 +70,4 @@ LoggedInButton.propTypes = {
 };
 
 
-export default withRouter(LoggedInButton);
+export default withRouter(muiThemeable()(LoggedInButton));

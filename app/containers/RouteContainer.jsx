@@ -26,6 +26,10 @@ const muiTheme = getMuiTheme({
     primary1Color: 'rgb(10, 79, 117)',
     alternateTextColor: 'rgb(246, 170, 111)',
   },
+
+  icon: {
+    color: '#ddd',
+  },
 });
 
 const RouteContainer = () => (
