@@ -1,12 +1,12 @@
 import React from 'react';
-import Paper from 'material-ui/Paper';
+
 
 const PaperLinks = () => (
-  <Paper className="boardLinks">
+  <div className="boardLinks">
     <a target="_blank" rel="noreferrer noopener" href="https://www.snapchat.com/add/ntnuikite">
       <img
         className="AboutLinkIcon"
-        src={'http://www.freeiconspng.com/uploads/142411756098-snapchat-icon-1.png'}
+        src={'https://www.emilps.no/snapcode.svg'}
         alt="snapchat_logo"
       />
     </a>
@@ -24,7 +24,7 @@ const PaperLinks = () => (
         alt="Instagram_Logo"
       />
     </a>
-  </Paper>
+  </div>
 );
 
 

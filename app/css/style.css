@@ -78,6 +78,10 @@
   vertical-align: middle;
 }
 
+.AboutContent {
+  padding: 15px;
+}
+
 @-webkit-keyframes fadeinout {
   0%,100% { opacity: 0; }
   50% { opacity: 1; }

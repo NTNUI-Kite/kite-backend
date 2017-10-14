@@ -12,12 +12,6 @@ html,body{
   grid-template-rows: auto 1fr auto;
 }
 
-html,body{
-  height: 100%;
-  width: 100%;
-  margin: 0;
-}
-
 .routeContainer{
   height: 100%;
   width: 100%;
@@ -43,7 +37,6 @@ html,body{
   grid-row: 3/4;
   padding: 10px;
   text-align: center;
-  background-color: #333333 !important;
 }
 
 .homeContainer{

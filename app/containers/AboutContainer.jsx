@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import AboutContent from '../components/AboutContent';
-import AboutLinks from '../components/AboutLinks';
 
 import AboutActions from '../actions/AboutActions';
 import AboutStore from '../stores/AboutStore';
@@ -38,7 +37,6 @@ class AboutContainer extends Component {
       <div className="baseContainer">
 
         <AboutContent informasjon={this.state.text} />
-        <AboutLinks />
 
       </div>);
   }
