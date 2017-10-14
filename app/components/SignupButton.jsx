@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Button from 'material-ui/RaisedButton';
 import PropTypes from 'prop-types';
 import Checkout from './Checkout';
+import ConfirmPopup from './baseComponents/ConfirmPopup';
 
 import EventActions from '../actions/EventActions';
 
@@ -15,37 +16,54 @@ const signOut = (eventId) => {
 };
 
 
-const SignupButton = (props) => {
-  if (props.authenticated) {
-    if (props.hasSignedUp) {
+class SignupButton extends Component {
+  constructor() {
+    super();
+    this.state = {
+      openDialog: false,
+    };
+    this.toggleDialog = this.toggleDialog.bind(this);
+  }
+
+  toggleDialog() {
+    this.setState({
+      openDialog: !this.state.openDialog,
+    });
+  }
+
+  render() {
+    if (this.props.authenticated) {
+      if (this.props.hasSignedUp) {
+        return (
+          <div>
+            <p>You are signed up</p>
+            <Button label="Sign off" onClick={this.toggleDialog} />
+            <ConfirmPopup title="Warning" open={this.state.openDialog} toggle={this.toggleDialog} continueAction={() => signOut(this.props.eventId)} text="Are you sure you want to sign off this event?" />
+          </div>
+        );
+      }
       return (
         <div>
-          <p>You are signed up</p>
-          <Button label="Sign off" onClick={() => signOut(props.eventId)} />
+          <p>You are not signed up</p>
+          <Checkout
+            eventId={this.props.eventId}
+            description={this.props.description}
+            amount={this.props.price}
+            comment={this.props.comment}
+            hasCar={this.props.hasCar}
+            changePaymentProgress={this.props.changePaymentProgress}
+          />
         </div>
       );
     }
     return (
       <div>
-        <p>You are not signed up</p>
-        <Checkout
-          eventId={props.eventId}
-          description={props.description}
-          amount={props.price}
-          comment={props.comment}
-          hasCar={props.hasCar}
-          changePaymentProgress={props.changePaymentProgress}
-        />
+        <p>Not logged in</p>
+        <LoginButton />
       </div>
     );
   }
-  return (
-    <div>
-      <p>Not logged in</p>
-      <LoginButton />
-    </div>
-  );
-};
+}
 
 SignupButton.propTypes = {
   eventId: PropTypes.string.isRequired,
