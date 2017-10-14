@@ -81,3 +81,26 @@
 .AboutContent {
   padding: 15px;
 }
+
+@-webkit-keyframes fadeinout {
+  0%,100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+.notifier {
+    -webkit-animation: fadeinout 1.5s ease-in-out forwards;
+    animation: fadeinout 1.5s ease-in-out forwards;
+
+    z-index: 3;
+
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.hideNotifier{
+  display: none !important;
+}

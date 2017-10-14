@@ -4,7 +4,6 @@ import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import DatePicker from 'material-ui/DatePicker';
 import Button from 'material-ui/RaisedButton';
-import Snackbar from 'material-ui/Snackbar';
 import Toggle from 'material-ui/Toggle';
 
 import { EditorState, convertToRaw, ContentState } from 'draft-js';
@@ -12,7 +11,8 @@ import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
 
 import EditView from '../../components/board/EditView';
-import LoadingIcon from '../../components/baseComponents/LoadingIcon';
+import Loader from '../../components/baseComponents/Loader';
+import Notifier from '../../components/baseComponents/Notifier';
 
 import EventActions from '../../actions/EventActions';
 import EventStore from '../../stores/EventStore';
@@ -158,7 +158,7 @@ class EditEventContainer extends Component {
 
   render() {
     if (!this.state.hasRecievedData) {
-      return (<LoadingIcon />);
+      return (<Loader />);
     }
     return (
       <div className="baseContainer">
@@ -178,7 +178,7 @@ class EditEventContainer extends Component {
           />
         </Paper>
         <Button label="Lagre endringer" onClick={this.saveChanges} />
-        <Snackbar open={this.state.showSnackbar} message="Saved changes" autoHideDuration={2500} onRequestClose={this.handleRequestClose} />
+        <Notifier open={this.state.showSnackbar} onRequestClose={this.handleRequestClose} />
       </div>
     );
   }
