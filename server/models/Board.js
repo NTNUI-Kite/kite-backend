@@ -1,4 +1,4 @@
-// TODO: import dbConnection and replace with actual db-calls
+import db from '../utilities/dbConnection';
 
 const Board = {
   getBoardMembers() {
@@ -27,7 +27,26 @@ const Board = {
     ]
     );
   },
+  getAllEvents(res) {
+    db.query('SELECT * FROM events', (err, rows) => {
+      if (err) throw err;
 
+      res.json(rows);
+    });
+  },
+  getMembers(res) {
+    db.query('SELECT * FROM users', (err, rows) => {
+      if (err) throw err;
+
+      res.json(rows);
+    });
+  },
+  updateMember(req, res) {
+    db.query('UPDATE users SET ? WHERE id=?', [req.body, req.body.id], (err) => {
+      if (err) throw err;
+      res.json({ message: 'User updated' });
+    });
+  },
 };
 
 export default Board;

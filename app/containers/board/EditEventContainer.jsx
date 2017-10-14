@@ -5,15 +5,19 @@ import TextField from 'material-ui/TextField';
 import DatePicker from 'material-ui/DatePicker';
 import Button from 'material-ui/RaisedButton';
 import Snackbar from 'material-ui/Snackbar';
+import Toggle from 'material-ui/Toggle';
 
 import { EditorState, convertToRaw, ContentState } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
 
 import EditView from '../../components/board/EditView';
+import LoadingIcon from '../../components/baseComponents/LoadingIcon';
 
 import EventActions from '../../actions/EventActions';
 import EventStore from '../../stores/EventStore';
+import BoardActions from '../../actions/BoardActions';
+
 
 const createDate = (mysqlDate) => {
   const dateParts = mysqlDate.split('-');
@@ -39,6 +43,7 @@ class EditEventContainer extends Component {
     this.onChange = this.onChange.bind(this);
     this.saveChanges = this.saveChanges.bind(this);
     this.handleRequestClose = this.handleRequestClose.bind(this);
+    this.toggleActive = this.toggleActive.bind(this);
   }
 
   componentWillMount() {
@@ -77,6 +82,7 @@ class EditEventContainer extends Component {
       location: event.location,
       price: event.price,
       editorState,
+      isActive: (event.is_active === 1),
       hasRecievedData: true,
     };
 
@@ -130,8 +136,9 @@ class EditEventContainer extends Component {
       deadline: this.state.deadline.toISOString(),
       location: this.state.location,
       price: this.state.price,
+      is_active: this.state.isActive,
     };
-    EventActions.updateEvent(body);
+    BoardActions.updateEvent(body);
     this.setState({
       showSnackbar: true,
     });
@@ -143,9 +150,15 @@ class EditEventContainer extends Component {
     });
   }
 
+  toggleActive() {
+    this.setState({
+      isActive: !this.state.isActive,
+    });
+  }
+
   render() {
     if (!this.state.hasRecievedData) {
-      return (<div />);
+      return (<LoadingIcon />);
     }
     return (
       <div className="baseContainer">
@@ -156,6 +169,7 @@ class EditEventContainer extends Component {
           <DatePicker className="fieldItem" name="end" floatingLabelText="Slutt-dato" mode="landscape" value={this.state.end} onChange={this.handleDateEndChange} />
           <DatePicker className="fieldItem" name="deadline" floatingLabelText="frist-dato" mode="landscape" value={this.state.deadline} onChange={this.handleDateDeadlineChange} />
           <TextField className="fieldItem" name="price" floatingLabelText="Pris" defaultValue={this.state.price} onChange={this.handleChange} />
+          <Toggle label="is Active" toggled={this.state.isActive} onToggle={this.toggleActive} />
         </Paper>
         <Paper className="editContainer">
           <EditView

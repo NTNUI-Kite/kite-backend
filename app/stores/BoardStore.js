@@ -7,8 +7,20 @@ const CHANGE_EVENT = 'change';
 
 let boardMembers = [];
 
-function setBoardMembers(newBoardMembers) {
+let members = [];
+
+let events = [];
+
+const setBoardMembers = (newBoardMembers) => {
   boardMembers = newBoardMembers;
+};
+
+const setEvents = (newEvents) => {
+  events = newEvents;
+};
+
+const setMembers = (newMembers) => {
+  members = newMembers;
 }
 
 /* eslint class-methods-use-this: ["error", { "exceptMethods": ["getBoardMembers"] }] */
@@ -28,18 +40,64 @@ class BoardStoreClass extends EventEmitter {
   getBoardMembers() {
     return boardMembers;
   }
+
+  getEvents() {
+    return events;
+  }
+
+  getMembers () {
+    return members;
+  }
 }
 
 const BoardStore = new BoardStoreClass();
 
 BoardStore.dispatchToken = AppDispatcher.register((action) => {
   switch (action.actionType) {
-    case BoardConstants.RECIEVE_MEMBERS:
+    case BoardConstants.RECIEVE_BOARD_MEMBERS:
       setBoardMembers(action.boardMembers);
       BoardStore.emitChange();
       break;
 
+    case BoardConstants.RECIEVE_BOARD_MEMBERS_ERROR:
+      BoardStore.emitChange();
+      break;
+
+    case BoardConstants.RECIEVE_EVENTS:
+      setEvents(action.events);
+      BoardStore.emitChange();
+      break;
+
+    case BoardConstants.RECIEVE_EVENTS_ERROR:
+      BoardStore.emitChange();
+      break;
+
+    case BoardConstants.RECIEVE_MEMBERS:
+      setMembers(action.members);
+      BoardStore.emitChange();
+      break;
     case BoardConstants.RECIEVE_MEMBERS_ERROR:
+      BoardStore.emitChange();
+      break;
+    case BoardConstants.UPDATE_MEMBER:
+      members = members.map((member) => {
+        if (member.id === action.body.id) {
+          return action.body;
+        }
+        return member;
+      });
+      BoardStore.emitChange();
+      break;
+    case BoardConstants.UPDATE_EVENT:
+      events = events.map((ev) => {
+        if (ev.id === action.event.id) {
+          const newEvent = Object.assign({}, ev);
+          newEvent.is_active = action.event.is_active;
+          // setEvent(newEvent);
+          return newEvent;
+        }
+        return ev;
+      });
       BoardStore.emitChange();
       break;
 

@@ -19,6 +19,7 @@ import EditAbout from '../containers/board/EditAboutContainer';
 import EditEventContainer from '../containers/board/EditEventContainer';
 import SingleEventContainer from '../containers/SingleEventContainer';
 import EventListContainer from '../containers/board/EventListContainer';
+import MemberListContainer from '../containers/board/MemberListContainer';
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -43,11 +44,12 @@ const RouteContainer = () => (
               <Route path="/event/:eventId" component={SingleEventContainer} />
               <Route path="/images" component={InstaFeedContainer} />
 
-              <Route path="/editabout" component={EditAbout} />
               <Route path="/test" component={TestContainer} />
               <PrivateRoute exact path="/board" component={BoardContainer} />
+              <PrivateRoute path="/board/editabout" component={EditAbout} />
               <PrivateRoute path="/board/events" component={EventListContainer} />
               <PrivateRoute path="/board/editEvent/:eventId" component={EditEventContainer} />
+              <PrivateRoute path="/board/memberlist" component={MemberListContainer} />
             </Switch>
           </div>
           <Footer />

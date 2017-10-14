@@ -7,23 +7,14 @@ import Checkbox from 'material-ui/Checkbox';
 
 import EventActions from '../actions/EventActions';
 
+import SignupButton from './SignupButton';
+import Loader from './baseComponents/Loader';
 
 const signUp = (eventId, comment, hasCar) => {
   EventActions.signup({ eventId, comment, hasCar })
     .then(() => {
       EventActions.getEvent(eventId);
     });
-};
-
-const signOut = (eventId) => {
-  EventActions.signoff({ eventId })
-    .then(() => {
-      EventActions.getEvent(eventId);
-    });
-};
-
-const login = () => {
-
 };
 
 class SignupBox extends Component {
@@ -38,33 +29,16 @@ class SignupBox extends Component {
       onClick,
       hasCar: false,
       comment: '',
+      paymentInProgress: false,
     };
 
     this.toggleCar = this.toggleCar.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.changePaymentProgress = this.changePaymentProgress.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
-    let text = 'You have not signed up';
-    let label = 'Sign up';
-    let onClick = signUp;
-
-    if (nextProps.hasSignedUp) {
-      text = 'You are signed up';
-      label = 'Sign out';
-      onClick = signOut;
-    }
-
-    if (!nextProps.authenticated) {
-      text = 'You are not logged in';
-      label = 'Login';
-      onClick = login;
-    }
-
     this.setState({
-      text,
-      label,
-      onClick,
       comment: nextProps.userInfo.comment,
       hasCar: (nextProps.userInfo.has_car === 1),
       userInfo: nextProps.userInfo,
@@ -83,10 +57,22 @@ class SignupBox extends Component {
     });
   }
 
+  changePaymentProgress(value) {
+    this.setState({
+      paymentInProgress: value,
+    });
+  }
+
   render() {
+    if (this.state.paymentInProgress) {
+      return (
+        <Paper className="signupBox">
+          <Loader />
+        </Paper>);
+    }
+
     return (
       <Paper className="signupBox">
-        <p>{this.state.text}</p>
         <TextField
           key={this.state.userInfo}
           name="comment"
@@ -103,11 +89,11 @@ class SignupBox extends Component {
           onCheck={this.toggleCar}
           disabled={this.props.hasSignedUp}
         />
-        <Button
-          label={this.state.label}
-          onClick={
-            () => this.state.onClick(this.props.eventId, this.state.comment, this.state.hasCar)
-          }
+        <SignupButton
+          {...this.props}
+          comment={this.state.comment}
+          hasCar={this.state.hasCar}
+          changePaymentProgress={this.changePaymentProgress}
         />
       </Paper>
     );
@@ -122,6 +108,8 @@ SignupBox.propTypes = {
     comment: PropTypes.string.isRequired,
     has_car: PropTypes.number.isRequired,
   }).isRequired,
+  price: PropTypes.number.isRequired,
+  description: PropTypes.string.isRequired,
 };
 
 export default SignupBox;

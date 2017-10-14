@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import NavigationBar from '../components/NavigationBar';
 
-import AuthConfig from '../config/AuthConfig';
-
 import AuthStore from '../stores/AuthStore';
 
 class NavBarContainer extends Component {
@@ -17,8 +15,6 @@ class NavBarContainer extends Component {
   }
 
   componentWillMount() {
-    // eslint-disable-next-line no-undef
-    this.lock = new Auth0Lock(AuthConfig.id, AuthConfig.domain);
     AuthStore.addChangeListener(this.onChange);
   }
 

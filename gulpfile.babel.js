@@ -30,10 +30,10 @@ gulp.task('build', (cb) => {
 
 // build when a file has changed
 gulp.task('watch', () => {
-  gulp.watch('./app/**/*.js', ['client', 'restart']);
-  gulp.watch('./app/**/*.jsx', ['client', 'restart']);
-  gulp.watch('./server/**/*.js', ['babel', 'restart']);
-  gulp.watch('./app/css/**/*.css', ['css', 'restart']);
+  gulp.watch('./app/**/*.js', () => { run('client', 'restart'); });
+  gulp.watch('./app/**/*.jsx', () => { run('client', 'restart'); });
+  gulp.watch('./server/**/*.js', () => { run('babel', 'restart'); });
+  gulp.watch('./app/css/**/*.css', () => { run('css', 'restart'); });
 });
 
 /*
