@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Paper from 'material-ui/Paper';
-import Button from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Checkbox from 'material-ui/Checkbox';
 
@@ -80,7 +79,7 @@ class SignupBox extends Component {
           floatingLabelText="Comment"
           defaultValue={this.state.comment}
           onChange={this.handleChange}
-          multiLine={true}
+          multiLine
           disabled={this.props.hasSignedUp}
         />
         <Checkbox
@@ -102,14 +101,10 @@ class SignupBox extends Component {
 
 SignupBox.propTypes = {
   hasSignedUp: PropTypes.bool.isRequired,
-  eventId: PropTypes.string.isRequired,
-  authenticated: PropTypes.bool.isRequired,
   userInfo: PropTypes.shape({
     comment: PropTypes.string.isRequired,
     has_car: PropTypes.number.isRequired,
   }).isRequired,
-  price: PropTypes.number.isRequired,
-  description: PropTypes.string.isRequired,
 };
 
 export default SignupBox;
