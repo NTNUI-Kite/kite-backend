@@ -1,10 +1,10 @@
 import jwt from 'jsonwebtoken';
 import db from '../utilities/dbConnection';
 import AuthConfig from '../config/LocalAuthConfig';
-
+import TokenRefresher from '../utilities/TokenRefresher';
 
 const User = {
-  Login(body, facebookId, res) {
+  login(body, facebookId, res) {
     const userCheck = new Promise((resolve) => {
       db.query('SELECT * FROM users where facebook_id = ?', [facebookId], (err, rows) => {
         if (err) throw err;
@@ -35,22 +35,29 @@ const User = {
 
     userCheck.then((userData) => {
       const scopes = [];
+      const resBody = {
+        userId: userData.id,
+        name: userData.name,
+        scopes,
+      };
       if (userData.board_member) {
         scopes.push('boardMember');
       }
       const token = jwt.sign(
-        {
-          userId: userData.id,
-          name: userData.name,
-          scopes,
-        },
+        resBody,
         AuthConfig.secret,
         {
           expiresIn: AuthConfig.expireTime,
         },
       );
+      const refreshToken = jwt.sign(
+        resBody,
+        AuthConfig.refreshSecret,
+        { expiresIn: AuthConfig.refreshExpireTime },
+      );
       res.json({
         token,
+        refreshToken,
         userData,
       });
     });
@@ -61,6 +68,9 @@ const User = {
       if (err) throw err;
       res.json({ message: 'User updated' });
     });
+  },
+  refreshToken(req, res) {
+    TokenRefresher(req, res);
   },
 };
 
