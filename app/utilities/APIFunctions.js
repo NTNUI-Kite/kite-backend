@@ -1,14 +1,42 @@
 import request from 'superagent/lib/client';
 import AuthStore from '../stores/AuthStore';
 
+const getNewToken = () => {
+  const newRequest = new Promise((resolve, reject) => {
+    request
+      .get('/api/newToken')
+      .set('Authorization', `Bearer ${AuthStore.getRefreshJwt()}`)
+      .end((err, response) => {
+        if (err) reject(err);
+        AuthStore.setJwt(JSON.parse(response.text).token);
+        resolve();
+      });
+  });
+  return newRequest;
+};
+
 export const AuthorizedGetRequest = (url) => {
   const newRequest = new Promise((resolve, reject) => {
     request
       .get(url)
       .set('Authorization', `Bearer ${AuthStore.getJwt()}`)
       .end((err, response) => {
-        if (err) reject(err);
-        resolve(JSON.parse(response.text));
+        if (err) {
+          if (JSON.parse(response.text).message === 'Expired jwt') {
+            getNewToken().then(() => {
+              AuthorizedGetRequest(url).then((newResponse) => {
+                resolve(newResponse);
+              });
+            })
+              .catch((newErr) => {
+                reject(newErr);
+              });
+          } else {
+            reject(err);
+          }
+        } else {
+          resolve(JSON.parse(response.text));
+        }
       });
   });
   return newRequest;
