@@ -71,9 +71,19 @@ class AuthStoreClass extends EventEmitter {
     return {};
   }
 
+  getRefreshJwt() {
+    // eslint-disable-next-line no-undef
+    return localStorage.getItem('refreshToken');
+  }
+
   getJwt() {
     // eslint-disable-next-line no-undef
     return localStorage.getItem('id_token');
+  }
+
+  setJwt(token) {
+    // eslint-disable-next-line no-undef
+    localStorage.setItem('id_token', token);
   }
 }
 
