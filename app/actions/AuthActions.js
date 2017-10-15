@@ -11,6 +11,7 @@ export default {
           actionType: AuthConstants.LOGIN_USER,
           profile: res.userData,
           token: res.token,
+          refreshToken: res.refreshToken,
         });
       })
       .catch((message) => {

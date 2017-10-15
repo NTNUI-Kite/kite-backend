@@ -4,13 +4,15 @@ import AuthConstants from '../constants/AuthConstants';
 
 const CHANGE_EVENT = 'change';
 
-function setUser(profile, token) {
+function setUser(profile, token, refreshToken) {
   // eslint-disable-next-line no-undef
   if (!localStorage.getItem('id_token')) {
     // eslint-disable-next-line no-undef
     localStorage.setItem('profile', JSON.stringify(profile));
     // eslint-disable-next-line no-undef
     localStorage.setItem('id_token', token);
+    // eslint-disable-next-line no-undef
+    localStorage.setItem('refreshToken', refreshToken);
     // eslint-disable-next-line no-undef
     localStorage.setItem('boardMember', profile.board_member);
   }
@@ -80,7 +82,7 @@ const AuthStore = new AuthStoreClass();
 AuthStore.dispatchToken = AppDispatcher.register((action) => {
   switch (action.actionType) {
     case AuthConstants.LOGIN_USER:
-      setUser(action.profile, action.token);
+      setUser(action.profile, action.token, action.refreshToken);
       AuthStore.emitChange();
       break;
 
