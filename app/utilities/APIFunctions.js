@@ -1,8 +1,8 @@
 import request from 'superagent/lib/client';
 import AuthStore from '../stores/AuthStore';
 
-export function AuthorizedGetRequest(url) {
-  return new Promise((resolve, reject) => {
+export const AuthorizedGetRequest = (url) => {
+  const newRequest = new Promise((resolve, reject) => {
     request
       .get(url)
       .set('Authorization', `Bearer ${AuthStore.getJwt()}`)
@@ -11,11 +11,12 @@ export function AuthorizedGetRequest(url) {
         resolve(JSON.parse(response.text));
       });
   });
-}
+  return newRequest;
+};
 
 
-export function GetRequest(url) {
-  return new Promise((resolve, reject) => {
+export const GetRequest = (url) => {
+  const newRequest = new Promise((resolve, reject) => {
     request
       .get(url)
       .end((err, response) => {
@@ -23,10 +24,11 @@ export function GetRequest(url) {
         resolve(JSON.parse(response.text));
       });
   });
-}
+  return newRequest;
+};
 
-export function PostRequest(url, body) {
-  return new Promise((resolve, reject) => {
+export const PostRequest = (url, body) => {
+  const newRequest = new Promise((resolve, reject) => {
     request
       .post(url)
       .send(body)
@@ -39,10 +41,11 @@ export function PostRequest(url, body) {
         }
       });
   });
-}
+  return newRequest;
+};
 
-export function AuthorizedPostRequest(url, body) {
-  return new Promise((resolve, reject) => {
+export const AuthorizedPostRequest = (url, body) => {
+  const newRequest = new Promise((resolve, reject) => {
     request
       .post(url)
       .send(body)
@@ -56,10 +59,11 @@ export function AuthorizedPostRequest(url, body) {
         }
       });
   });
-}
+  return newRequest;
+};
 
-export function PostRequestWithAuth(url, body, token) {
-  return new Promise((resolve, reject) => {
+export const PostRequestWithAuth = (url, body, token) => {
+  const newRequest = new Promise((resolve, reject) => {
     request
       .post(url)
       .send(body)
@@ -73,4 +77,5 @@ export function PostRequestWithAuth(url, body, token) {
         }
       });
   });
-}
+  return newRequest;
+};
