@@ -79,11 +79,22 @@ export const AuthorizedPostRequest = (url, body) => {
       .send(body)
       .set('Accept', 'application/json')
       .set('Authorization', `Bearer ${AuthStore.getJwt()}`)
-      .end((err, res) => {
-        if (err || !res.ok) {
-          reject(err);
+      .end((err, response) => {
+        if (err || !response.ok) {
+          if (JSON.parse(response.text).message === 'Expired jwt') {
+            getNewToken().then(() => {
+              AuthorizedPostRequest(url, body).then((newResponse) => {
+                resolve(newResponse);
+              });
+            })
+              .catch((newErr) => {
+                reject(newErr);
+              });
+          } else {
+            reject(err);
+          }
         } else {
-          resolve(JSON.parse(res.text));
+          resolve(JSON.parse(response.text));
         }
       });
   });
