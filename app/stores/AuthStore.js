@@ -4,6 +4,13 @@ import AuthConstants from '../constants/AuthConstants';
 
 const CHANGE_EVENT = 'change';
 
+let isAuthenticated = false;
+
+// eslint-disable-next-line no-undef
+if (localStorage.getItem('id_token')) {
+  isAuthenticated = true;
+}
+
 function setUser(profile, token, refreshToken) {
   // eslint-disable-next-line no-undef
   if (!localStorage.getItem('id_token')) {
@@ -16,6 +23,7 @@ function setUser(profile, token, refreshToken) {
     // eslint-disable-next-line no-undef
     localStorage.setItem('boardMember', profile.board_member);
   }
+  isAuthenticated = true;
 }
 
 function removeUser() {
@@ -25,6 +33,8 @@ function removeUser() {
   localStorage.removeItem('id_token');
   // eslint-disable-next-line no-undef
   localStorage.removeItem('boardMember');
+
+  isAuthenticated = false;
 }
 
 const updateUser = (profile) => {
@@ -48,11 +58,7 @@ class AuthStoreClass extends EventEmitter {
   }
 
   isAuthenticated() {
-    // eslint-disable-next-line no-undef
-    if (localStorage.getItem('id_token')) {
-      return true;
-    }
-    return false;
+    return isAuthenticated;
   }
 
   isBoardMember() {
