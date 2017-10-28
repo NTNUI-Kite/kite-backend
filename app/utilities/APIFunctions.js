@@ -1,4 +1,5 @@
 import request from 'superagent/lib/client';
+import AuthActions from '../actions/AuthActions';
 import AuthStore from '../stores/AuthStore';
 
 const getNewToken = () => {
@@ -22,13 +23,17 @@ export const AuthorizedGetRequest = (url) => {
       .set('Authorization', `Bearer ${AuthStore.getJwt()}`)
       .end((err, response) => {
         if (err) {
+          // If token is expired retreieve new token using the refreshToken
           if (JSON.parse(response.text).message === 'Expired jwt') {
             getNewToken().then(() => {
+              // retry original request
               AuthorizedGetRequest(url).then((newResponse) => {
                 resolve(newResponse);
               });
             })
+              // If an error occurs log user out
               .catch((newErr) => {
+                AuthActions.logUserOut();
                 reject(newErr);
               });
           } else {
@@ -88,6 +93,7 @@ export const AuthorizedPostRequest = (url, body) => {
               });
             })
               .catch((newErr) => {
+                AuthActions.logUserOut();
                 reject(newErr);
               });
           } else {
