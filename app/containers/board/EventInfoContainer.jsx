@@ -14,6 +14,7 @@ class EventInfoContainer extends Component {
       event: {
         signups: [],
       },
+      openDialog: false,
     };
 
     this.onChange = this.onChange.bind(this);
@@ -37,7 +38,12 @@ class EventInfoContainer extends Component {
   render() {
     return (
       <Paper>
-        <AttendeeList signups={this.state.event.signups} />
+        <h1>Deltagere</h1>
+        <AttendeeList
+          eventId={this.state.event.id}
+          signups={this.state.event.signups}
+          removeAttendee={BoardActions.removeAttendee}
+        />
       </Paper>
     );
   }
