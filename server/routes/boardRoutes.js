@@ -42,4 +42,8 @@ router.post('/updateAbout', (req, res) => {
   About.updateAbout(req.body, res);
 });
 
+router.post('/removeAttendee', (req, res) => {
+  Board.removeAttendee(req.body, res);
+});
+
 export default router;
