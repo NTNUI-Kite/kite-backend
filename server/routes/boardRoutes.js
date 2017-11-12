@@ -30,6 +30,10 @@ router.get('/allevents', (req, res) => {
   Board.getAllEvents(res);
 });
 
+router.get('/eventById/:id', (req, res) => {
+  Board.getEventById(res, req.params.id);
+});
+
 router.post('/addEvent', (req, res) => {
   Event.addEvent(res);
 });
