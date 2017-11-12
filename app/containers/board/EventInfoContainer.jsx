@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import Paper from 'material-ui/Paper';
+import PropTypes from 'prop-types';
 
 import BoardActions from '../../actions/BoardActions';
 import BoardStore from '../../stores/BoardStore';
 
 import AttendeeList from '../../components/board/AttendeeList';
 
-class EventContainer extends Component {
+class EventInfoContainer extends Component {
   constructor() {
     super();
     this.state = {
@@ -42,4 +43,12 @@ class EventContainer extends Component {
   }
 }
 
-export default EventContainer;
+EventInfoContainer.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      eventId: PropTypes.string,
+    }),
+  }).isRequired,
+};
+
+export default EventInfoContainer;
