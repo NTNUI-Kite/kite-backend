@@ -65,6 +65,12 @@ const Board = {
       res.json({ message: 'User updated' });
     });
   },
+  removeAttendee(body, res) {
+    db.query('DELETE FROM event_signups WHERE event_id = ? AND user_id = ?', [body.eventId, body.userId], (err) => {
+      if (err) throw err;
+      res.json({ message: 'Signed off' });
+    });
+  }
 };
 
 export default Board;
