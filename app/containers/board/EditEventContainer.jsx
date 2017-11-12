@@ -14,8 +14,7 @@ import EditView from '../../components/board/EditView';
 import Loader from '../../components/baseComponents/Loader';
 import Notifier from '../../components/baseComponents/Notifier';
 
-import EventActions from '../../actions/EventActions';
-import EventStore from '../../stores/EventStore';
+import BoardStore from '../../stores/EventStore';
 import BoardActions from '../../actions/BoardActions';
 
 
@@ -47,26 +46,26 @@ class EditEventContainer extends Component {
   }
 
   componentWillMount() {
-    EventStore.addChangeListener(this.onChange);
+    BoardStore.addChangeListener(this.onChange);
   }
 
   componentDidMount() {
-    EventActions.getEvent(this.props.match.params.eventId);
+    BoardActions.getEvent(this.props.match.params.eventId);
   }
 
   componentWillReceiveProps(nextProps) {
-    EventActions.getEvent(nextProps.match.params.eventId);
+    BoardActions.getEvent(nextProps.match.params.eventId);
     this.setState({
       hasRecievedData: false,
     });
   }
 
   componentWillUnmount() {
-    EventStore.removeChangeListener(this.onChange);
+    BoardStore.removeChangeListener(this.onChange);
   }
 
   onChange() {
-    const event = EventStore.getEvent();
+    const event = BoardStore.getEvent();
     const blocksFromHtml = htmlToDraft(event.abstract);
     const content = ContentState.createFromBlockArray(blocksFromHtml);
     const editorState = EditorState.createWithContent(content);
