@@ -101,6 +101,25 @@ const Actions = {
         });
       });
   },
+  removeAttendee: (user, eventId) => {
+    const body = {
+      userId: user.user_id,
+      eventId,
+    };
+    AuthorizedPostRequest('/api/board/removeAttendee', body)
+      .then(() => {
+        AppDispatcher.dispatch({
+          actionType: BoardConstants.REMOVE_ATTENDEE,
+          user,
+        });
+      })
+      .catch((message) => {
+        AppDispatcher.dispatch({
+          actionType: BoardConstants.REMOVE_ATTENDE_ERROR,
+          message,
+        });
+      });
+  },
 };
 
 export default Actions;
