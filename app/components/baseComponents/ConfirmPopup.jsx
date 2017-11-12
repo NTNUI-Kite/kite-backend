@@ -7,10 +7,16 @@ class ConfirmPopup extends Component {
   constructor() {
     super();
     this.continueAction = this.continueAction.bind(this);
+    this.cancelAction = this.cancelAction.bind(this);
   }
 
   continueAction() {
     this.props.continueAction();
+    this.props.toggle();
+  }
+
+  cancelAction() {
+    this.props.cancelAction();
     this.props.toggle();
   }
 
@@ -21,7 +27,7 @@ class ConfirmPopup extends Component {
         label="Cancel"
         primary
         keyboardFocused
-        onClick={this.props.toggle}
+        onClick={this.cancelAction}
       />,
       <FlatButton
         key={1}
@@ -47,9 +53,14 @@ class ConfirmPopup extends Component {
 ConfirmPopup.propTypes = {
   text: PropTypes.string.isRequired,
   continueAction: PropTypes.func.isRequired,
+  cancelAction: PropTypes.func,
   open: PropTypes.bool.isRequired,
   toggle: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
+};
+
+ConfirmPopup.defaultProps = {
+  cancelAction: () => {},
 };
 
 export default ConfirmPopup;
