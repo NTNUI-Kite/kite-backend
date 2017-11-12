@@ -1,6 +1,7 @@
 import React from 'react';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 import Button from 'material-ui/RaisedButton';
+import PropTypes from 'prop-types';
 
 const AttendeeList = (props) => {
   return (
@@ -40,6 +41,10 @@ const AttendeeList = (props) => {
       </TableBody>
     </Table>
   );
+};
+
+AttendeeList.propTypes = {
+  signups: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
 };
 
 export default AttendeeList;
