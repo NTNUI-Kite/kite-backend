@@ -58,6 +58,21 @@ const Actions = {
         reject(message);
       });
   }),
+  getEvent: (id) => {
+    AuthorizedGetRequest(`/api/board/eventById/${id}`)
+      .then((event) => {
+        AppDispatcher.dispatch({
+          actionType: BoardConstants.RECIEVE_EVENT,
+          event,
+        });
+      })
+      .catch((message) => {
+        AppDispatcher.dispatch({
+          actionType: BoardConstants.RECIEVE_EVENT_ERROR,
+          message,
+        });
+      });
+  },
   getEvents: () => AuthorizedGetRequest('/api/board/allevents')
     .then((events) => {
       AppDispatcher.dispatch({

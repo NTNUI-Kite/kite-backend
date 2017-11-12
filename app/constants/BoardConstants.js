@@ -7,6 +7,8 @@ export default keyMirror({
   RECIEVE_BOARD_MEMBERS_ERROR: null,
   RECIEVE_EVENTS: null,
   RECIEVE_EVENTS_ERROR: null,
+  RECIEVE_EVENT: null,
+  RECIEVE_EVENT_ERROR: null,
   UPDATE_MEMBER: null,
   UPDATE__MEMBERS_ERROR: null,
   UPDATE_EVENT: null,
