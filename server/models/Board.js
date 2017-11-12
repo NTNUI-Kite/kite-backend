@@ -34,6 +34,24 @@ const Board = {
       res.json(rows);
     });
   },
+  getEventById(res, id) {
+    return (
+      db.query('SELECT * FROM events WHERE id = ?', [id], (err, rows) => {
+        if (err) throw err;
+        if (rows.length > 0) {
+          const eventInfo = rows[0];
+
+          db.query('SELECT user_id, name, email, phone, signup_date, comment, has_car FROM event_signups INNER JOIN users on event_signups.user_id = users.id WHERE event_id = ? order by signup_date ASC', [id], (error, signups) => {
+            if (error) throw error;
+            eventInfo.signups = signups;
+            res.json(eventInfo);
+          });
+        } else {
+          res.json();
+        }
+      })
+    );
+  },
   getMembers(res) {
     db.query('SELECT * FROM users', (err, rows) => {
       if (err) throw err;
