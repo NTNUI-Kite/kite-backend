@@ -13,4 +13,6 @@ export default keyMirror({
   UPDATE__MEMBERS_ERROR: null,
   UPDATE_EVENT: null,
   UPDATE_EVENT_ERROR: null,
+  REMOVE_ATTENDE: null,
+  REMOVE_ATTENDE_ERROR: null,
 });
