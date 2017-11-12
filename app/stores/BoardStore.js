@@ -23,7 +23,7 @@ const setEvents = (newEvents) => {
 
 const setEvent = (newEvent) => {
   event = newEvent;
-}
+};
 
 const setMembers = (newMembers) => {
   members = newMembers;
@@ -116,6 +116,10 @@ BoardStore.dispatchToken = AppDispatcher.register((action) => {
         }
         return ev;
       });
+      BoardStore.emitChange();
+      break;
+    case BoardConstants.REMOVE_ATTENDEE:
+      event.signups = event.signups.filter(user => user !== action.user);
       BoardStore.emitChange();
       break;
 
