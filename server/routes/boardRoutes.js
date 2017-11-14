@@ -46,4 +46,8 @@ router.post('/removeAttendee', (req, res) => {
   Board.removeAttendee(req.body, res);
 });
 
+router.post('/addAttendee', (req, res) => {
+  Board.addAttendee(req.body, res);
+});
+
 export default router;
