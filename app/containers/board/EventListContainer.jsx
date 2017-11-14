@@ -25,6 +25,8 @@ class EventListContainer extends Component {
     this.onChange = this.onChange.bind(this);
     this.onNewEventClick = this.onNewEventClick.bind(this);
     this.onActiveToggle = this.onActiveToggle.bind(this);
+    this.onEditClick = this.onEditClick.bind(this);
+    this.onViewClick = this.onViewClick.bind(this);
   }
 
   componentWillMount() {
@@ -48,6 +50,10 @@ class EventListContainer extends Component {
 
   onEditClick(id) {
     this.props.history.push(`/board/editEvent/${id}`);
+  }
+
+  onViewClick(id) {
+    this.props.history.push(`/board/event/${id}`);
   }
 
   onNewEventClick() {
@@ -102,6 +108,7 @@ class EventListContainer extends Component {
                   <TableRowColumn>
                     {/* <Link to={'/board/editEvent/' + event.id}>Edit</Link> */}
                     <Button label="Edit" onClick={() => this.onEditClick(event.id)} />
+                    <Button label="View" onClick={() => this.onViewClick(event.id)} />
                   </TableRowColumn>
                 </TableRow>
               ))
