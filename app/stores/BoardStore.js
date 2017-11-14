@@ -122,6 +122,10 @@ BoardStore.dispatchToken = AppDispatcher.register((action) => {
       event.signups = event.signups.filter(user => user !== action.user);
       BoardStore.emitChange();
       break;
+    case BoardConstants.ADD_ATTENDEE:
+      event.signups.push(action.user);
+      BoardStore.emitChange();
+      break;
 
     default:
   }
