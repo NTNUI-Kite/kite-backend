@@ -13,8 +13,8 @@ export default keyMirror({
   UPDATE__MEMBERS_ERROR: null,
   UPDATE_EVENT: null,
   UPDATE_EVENT_ERROR: null,
-  REMOVE_ATTENDE: null,
-  REMOVE_ATTENDE_ERROR: null,
+  REMOVE_ATTENDEE: null,
+  REMOVE_ATTENDEE_ERROR: null,
   ADD_ATTENDEE: null,
   ADD_ATTENDE_ERROR: null,
 });
