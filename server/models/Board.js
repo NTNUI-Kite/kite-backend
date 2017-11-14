@@ -70,7 +70,22 @@ const Board = {
       if (err) throw err;
       res.json({ message: 'Signed off' });
     });
-  }
+  },
+  addAttendee(body, res) {
+    const today = new Date();
+    const date = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+    const info = {
+      event_id: body.eventId,
+      user_id: body.userId,
+      signup_date: date,
+      comment: body.comment,
+      has_car: body.hasCar,
+    };
+    db.query('INSERT INTO event_signups SET ?', info, (err) => {
+      if (err) throw err;
+      res.json({ message: 'success' });
+    });
+  },
 };
 
 export default Board;
