@@ -120,6 +120,33 @@ const Actions = {
         });
       });
   },
+  addAttendee: (user, eventId, comment, hasCar) => {
+    const body = {
+      userId: user.id,
+      comment: `${comment} - Added by admin`,
+      hasCar,
+      eventId,
+    };
+    const newUser = Object.assign({}, user);
+    newUser.user_id = user.id;
+    newUser.comment = `${comment} - Added by admin`;
+    newUser.hasCar = hasCar;
+    delete newUser.id;
+    delete newUser.facebook_id;
+    AuthorizedPostRequest('/api/board/addAttendee', body)
+      .then(() => {
+        AppDispatcher.dispatch({
+          actionType: BoardConstants.ADD_ATTENDEE,
+          user: newUser,
+        });
+      })
+      .catch((message) => {
+        AppDispatcher.dispatch({
+          actionType: BoardConstants.ADD_ATTENDE_ERROR,
+          message,
+        });
+      });
+  },
 };
 
 export default Actions;
