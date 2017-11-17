@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 import Button from 'material-ui/RaisedButton';
 import PropTypes from 'prop-types';
-
+import Checkbox from 'material-ui/Checkbox';
 import ConfirmPopup from '../baseComponents/ConfirmPopup';
 
 
@@ -42,6 +42,7 @@ class AttendeeList extends Component {
   }
 
   render() {
+    console.log(this.props);
     return (
       <div>
         <Table
@@ -56,6 +57,7 @@ class AttendeeList extends Component {
               <TableHeaderColumn>Email</TableHeaderColumn>
               <TableHeaderColumn>Tlf</TableHeaderColumn>
               <TableHeaderColumn>Kommentar</TableHeaderColumn>
+              <TableRowColumn>Har Bil</TableRowColumn>
               <TableHeaderColumn />
             </TableRow>
           </TableHeader>
@@ -71,6 +73,9 @@ class AttendeeList extends Component {
                     wordWrap: 'break-word',
                   }}
                   >{member.comment}</TableRowColumn>
+                  <TableRowColumn>
+                    <Checkbox disabled checked={(member.has_car === 1)} />
+                  </TableRowColumn>
                   <TableRowColumn>
                     <Button label="Remove" onClick={() => this.setAttendee(member)} />
                   </TableRowColumn>
