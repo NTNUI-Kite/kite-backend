@@ -43,6 +43,7 @@ class EditEventContainer extends Component {
     this.saveChanges = this.saveChanges.bind(this);
     this.handleRequestClose = this.handleRequestClose.bind(this);
     this.toggleActive = this.toggleActive.bind(this);
+    this.toggleOpen = this.toggleOpen.bind(this);
   }
 
   componentWillMount() {
@@ -82,6 +83,7 @@ class EditEventContainer extends Component {
       price: event.price,
       editorState,
       isActive: (event.is_active === 1),
+      isOpen: (event.is_open === 1),
       hasRecievedData: true,
     };
 
@@ -136,6 +138,7 @@ class EditEventContainer extends Component {
       location: this.state.location,
       price: this.state.price,
       is_active: this.state.isActive,
+      is_open: this.state.isOpen,
     };
     BoardActions.updateEvent(body);
     this.setState({
@@ -155,6 +158,12 @@ class EditEventContainer extends Component {
     });
   }
 
+  toggleOpen() {
+    this.setState({
+      isOpen: !this.state.isOpen,
+    });
+  }
+
   render() {
     if (!this.state.hasRecievedData) {
       return (<Loader />);
@@ -168,7 +177,14 @@ class EditEventContainer extends Component {
           <DatePicker className="fieldItem" name="end" floatingLabelText="Slutt-dato" mode="landscape" value={this.state.end} onChange={this.handleDateEndChange} />
           <DatePicker className="fieldItem" name="deadline" floatingLabelText="frist-dato" mode="landscape" value={this.state.deadline} onChange={this.handleDateDeadlineChange} />
           <TextField className="fieldItem" name="price" floatingLabelText="Pris" defaultValue={this.state.price} onChange={this.handleChange} />
-          <Toggle label="is Active" toggled={this.state.isActive} onToggle={this.toggleActive} />
+          <div className="fieldToggleContainer">
+            <div className="fieldToggle">
+              <Toggle label="is Active" toggled={this.state.isActive} onToggle={this.toggleActive} />
+            </div>
+            <div className="fieldToggle">
+              <Toggle label="is Open" toggled={this.state.isOpen} onToggle={this.toggleOpen} />
+            </div>
+          </div>
         </Paper>
         <Paper className="editContainer">
           <EditView
