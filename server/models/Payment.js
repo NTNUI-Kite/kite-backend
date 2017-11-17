@@ -18,17 +18,20 @@ const postStripeCharge = (req, res) => (stripeErr, stripeRes) => {
 
 const Payment = {
   pay: (req, res) => {
-    db.query('SELECT title, price FROM events WHERE id = ?', [req.body.eventId], (err, rows) => {
+    db.query('SELECT title, price, is_active, is_open FROM events WHERE id = ?', [req.body.eventId], (err, rows) => {
       if (err) throw err;
-
       const event = rows[0];
-      const payment = {
-        description: `${event.title}: ${req.user.name}`,
-        source: req.body.source,
-        currency: CURRENCY,
-        amount: event.price * 100,
-      };
-      stripe.charges.create(payment, postStripeCharge(req, res));
+      if (event.is_open === 0 || event.is_active === 0) {
+        res.status(500).send({ error: 'Event not open or active' });
+      } else {
+        const payment = {
+          description: `${event.title}: ${req.user.name}`,
+          source: req.body.source,
+          currency: CURRENCY,
+          amount: event.price * 100,
+        };
+        stripe.charges.create(payment, postStripeCharge(req, res));
+      }
     });
   },
 };
