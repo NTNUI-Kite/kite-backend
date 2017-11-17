@@ -88,6 +88,7 @@ class SingleEventContainer extends Component {
         <AttendeeList userList={this.state.attendeeList} />
         <WaitingList userList={this.state.waitingList} />
         <SignupBox
+          isOpen={this.state.event.is_open}
           authenticated={this.state.authenticated}
           hasSignedUp={hasSignedUp}
           eventId={this.props.match.params.eventId}
