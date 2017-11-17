@@ -52,6 +52,21 @@
   margin: 10px;
 }
 
+.fieldToggleContainer{
+  display: inline-block;
+  margin: 10px;
+  padding-left: 50px;
+  padding-right: 50px;
+  height: 72px;
+  text-align: center;
+  padding: auto;
+}
+
+.fieldToggle{
+  width: 130px;
+  padding: auto;
+}
+
 .eventList{
   grid-column: 1/2;
   grid-row: 1/2;
