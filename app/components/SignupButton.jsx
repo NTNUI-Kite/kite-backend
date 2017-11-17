@@ -32,6 +32,14 @@ class SignupButton extends Component {
   }
 
   render() {
+    if (!this.props.isOpen) {
+      return (
+        <div>
+          <p>This event is not open for signups</p>
+        </div>
+      );
+    }
+
     if (this.props.authenticated) {
       if (this.props.hasSignedUp) {
         return (
@@ -74,6 +82,7 @@ SignupButton.propTypes = {
   authenticated: PropTypes.bool.isRequired,
   hasSignedUp: PropTypes.bool.isRequired,
   changePaymentProgress: PropTypes.func.isRequired,
+  isOpen: PropTypes.bool.isRequired,
 };
 
 export default SignupButton;
