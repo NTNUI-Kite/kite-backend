@@ -107,8 +107,7 @@
     animation: fadeinout 1.5s ease-in-out forwards;
 
     z-index: 3;
-
-    position: absolute;
+    position: fixed; /* or absolute */
     top:0;
     bottom: 0;
     left: 0;
