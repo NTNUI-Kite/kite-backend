@@ -21,8 +21,15 @@ import BoardActions from '../../actions/BoardActions';
 const createDate = (mysqlDate) => {
   const dateParts = mysqlDate.split('-');
   dateParts[2] = dateParts[2].split('T')[0];
-  const d = new Date(dateParts[0], dateParts[1] - 1, dateParts[2], 12, 0, 0);
-  return d;
+  const d = new Date(dateParts[0], dateParts[1] - 1, dateParts[2], 24, 0, 0);
+  console.log(d.toJSON());
+  console.log(mysqlDate);
+  return new Date(d);
+};
+
+const dateToSQL = (date) => {
+  const newDate = new Date(date.getTime() - (date.getTimezoneOffset() * 60000))
+  return newDate.toJSON();
 };
 
 class EditEventContainer extends Component {
@@ -141,16 +148,17 @@ class EditEventContainer extends Component {
       title: this.state.title,
       abstract: markup,
       capacity: this.state.capacity,
-      start: this.state.start.toISOString(),
-      end: this.state.end.toISOString(),
-      deadline: this.state.deadline.toISOString(),
-      open: this.state.open.toISOString(),
+      start: dateToSQL(this.state.start),
+      end: dateToSQL(this.state.end),
+      deadline: dateToSQL(this.state.deadline),
+      open: dateToSQL(this.state.open),
       location: this.state.location,
       price: this.state.price,
       is_active: this.state.isActive,
       is_open: this.state.isOpen,
     };
     BoardActions.updateEvent(body);
+    console.log(body);
     this.setState({
       showSnackbar: true,
     });
@@ -175,6 +183,7 @@ class EditEventContainer extends Component {
   }
 
   render() {
+    console.log(this.state);
     if (!this.state.hasRecievedData) {
       return (<Loader />);
     }
