@@ -38,6 +38,7 @@ class EditEventContainer extends Component {
     this.handleDateStartChange = this.handleDateStartChange.bind(this);
     this.handleDateEndChange = this.handleDateEndChange.bind(this);
     this.handleDateDeadlineChange = this.handleDateDeadlineChange.bind(this);
+    this.handleDateOpenChange = this.handleDateOpenChange.bind(this);
     this.onEditorStateChange = this.onEditorStateChange.bind(this);
     this.onChange = this.onChange.bind(this);
     this.saveChanges = this.saveChanges.bind(this);
@@ -79,6 +80,7 @@ class EditEventContainer extends Component {
       start: createDate(event.start),
       end: createDate(event.end),
       deadline: createDate(event.deadline),
+      open: createDate(event.open),
       location: event.location,
       price: event.price,
       editorState,
@@ -123,6 +125,13 @@ class EditEventContainer extends Component {
     });
   }
 
+  handleDateOpenChange(event, date) {
+    const newDate = new Date(date.getTime() - (date.getTimezoneOffset() * 60000));
+    this.setState({
+      open: newDate,
+    });
+  }
+
   saveChanges() {
     const rawState = convertToRaw(this.state.editorState.getCurrentContent());
     const markup = draftToHtml(rawState);
@@ -135,6 +144,7 @@ class EditEventContainer extends Component {
       start: this.state.start.toISOString(),
       end: this.state.end.toISOString(),
       deadline: this.state.deadline.toISOString(),
+      open: this.state.open.toISOString(),
       location: this.state.location,
       price: this.state.price,
       is_active: this.state.isActive,
@@ -176,6 +186,7 @@ class EditEventContainer extends Component {
           <DatePicker className="fieldItem" name="start" floatingLabelText="Start-dato" mode="landscape" value={this.state.start} onChange={this.handleDateStartChange} />
           <DatePicker className="fieldItem" name="end" floatingLabelText="Slutt-dato" mode="landscape" value={this.state.end} onChange={this.handleDateEndChange} />
           <DatePicker className="fieldItem" name="deadline" floatingLabelText="frist-dato" mode="landscape" value={this.state.deadline} onChange={this.handleDateDeadlineChange} />
+          <DatePicker className="fieldItem" name="open" floatingLabelText="Åpen-dato" mode="landscape" value={this.state.open} onChange={this.handleDateOpenChange} />
           <TextField className="fieldItem" name="price" floatingLabelText="Pris" defaultValue={this.state.price} onChange={this.handleChange} />
           <div className="fieldToggleContainer">
             <div className="fieldToggle">
