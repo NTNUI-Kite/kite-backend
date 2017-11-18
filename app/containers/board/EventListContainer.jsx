@@ -15,6 +15,10 @@ const createDate = (mysqlDate) => {
   return new Date(dateParts[0], dateParts[1] - 1, dateParts[2].substr(0, 2));
 };
 
+const toggleStyle = {
+  width: '100px',
+};
+
 class EventListContainer extends Component {
   constructor() {
     super();
@@ -25,6 +29,7 @@ class EventListContainer extends Component {
     this.onChange = this.onChange.bind(this);
     this.onNewEventClick = this.onNewEventClick.bind(this);
     this.onActiveToggle = this.onActiveToggle.bind(this);
+    this.onOpenToggle = this.onOpenToggle.bind(this);
     this.onEditClick = this.onEditClick.bind(this);
     this.onViewClick = this.onViewClick.bind(this);
   }
@@ -64,9 +69,15 @@ class EventListContainer extends Component {
   }
 
   onActiveToggle(event) {
-    const newEvent = {};
-    newEvent.id = event.id;
+    const newEvent = Object.assign({}, event);
     newEvent.is_active = !event.is_active;
+
+    BoardActions.updateEvent(newEvent);
+  }
+
+  onOpenToggle(event) {
+    const newEvent = Object.assign({}, event);
+    newEvent.is_open = !event.is_open;
 
     BoardActions.updateEvent(newEvent);
   }
@@ -86,7 +97,9 @@ class EventListContainer extends Component {
               <TableHeaderColumn>Navn</TableHeaderColumn>
               <TableHeaderColumn>Start</TableHeaderColumn>
               <TableHeaderColumn>Slutt</TableHeaderColumn>
-              <TableHeaderColumn>Aktivert</TableHeaderColumn>
+              <TableHeaderColumn style={toggleStyle} >Aktivert</TableHeaderColumn>
+              <TableHeaderColumn style={toggleStyle} >Åpen</TableHeaderColumn>
+              <TableHeaderColumn />
               <TableHeaderColumn />
             </TableRow>
           </TableHeader>
@@ -99,15 +112,23 @@ class EventListContainer extends Component {
                   <TableRowColumn>{event.title}</TableRowColumn>
                   <TableRowColumn>{createDate(event.start).toDateString()}</TableRowColumn>
                   <TableRowColumn>{createDate(event.end).toDateString()}</TableRowColumn>
-                  <TableRowColumn>
+                  <TableRowColumn style={toggleStyle}>
                     <Toggle
                       toggled={(event.is_active === 1 || event.is_active === true)}
                       onToggle={() => this.onActiveToggle(event)}
                     />
                   </TableRowColumn>
+                  <TableRowColumn style={toggleStyle} >
+                    <Toggle
+                      toggled={(event.is_open === 1 || event.is_open === true)}
+                      onToggle={() => this.onOpenToggle(event)}
+                    />
+                  </TableRowColumn>
                   <TableRowColumn>
                     {/* <Link to={'/board/editEvent/' + event.id}>Edit</Link> */}
                     <Button label="Edit" onClick={() => this.onEditClick(event.id)} />
+                  </TableRowColumn>
+                  <TableRowColumn>
                     <Button label="View" onClick={() => this.onViewClick(event.id)} />
                   </TableRowColumn>
                 </TableRow>
