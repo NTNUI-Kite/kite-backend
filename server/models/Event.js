@@ -38,6 +38,7 @@ const Event = {
       start: date,
       end: date,
       deadline: date,
+      open: date,
     };
     db.query('INSERT INTO events SET ?', info, (err, rows) => {
       if (err) throw err;
