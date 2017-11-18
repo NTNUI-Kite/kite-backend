@@ -1,0 +1,10 @@
+.eventPreviews{
+  grid-column: 1/2;
+  grid-row: 1/2;
+  padding: 10px;
+}
+
+.homeBlog{
+  grid-column: 2/3;
+  grid-row: 1/3;
+}
