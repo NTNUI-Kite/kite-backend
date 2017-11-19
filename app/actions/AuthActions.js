@@ -38,7 +38,6 @@ export default {
   getProfile: () => {
     AuthorizedGetRequest('/api/userProfile')
       .then((res) => {
-        console.log(res)
         AppDispatcher.dispatch({
           actionType: AuthConstants.RECIEVE_PROFILE,
           profile: res,
