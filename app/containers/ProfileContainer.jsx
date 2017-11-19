@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import Paper from 'material-ui/Paper';
 
 import AuthStore from '../stores/AuthStore';
 import AuthActions from '../actions/AuthActions';
+
+import UserEventList from '../components/UserEventList';
 
 class ProfileContainer extends Component {
   constructor() {
@@ -35,9 +36,10 @@ class ProfileContainer extends Component {
   }
 
   render() {
-    console.log(this.state);
     return (
-      <Paper />
+      <div className="baseContainer">
+        <UserEventList eventList={this.state.eventInfo} />
+      </div>
     );
   }
 }
