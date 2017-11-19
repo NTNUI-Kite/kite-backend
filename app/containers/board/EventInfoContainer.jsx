@@ -33,6 +33,10 @@ class EventInfoContainer extends Component {
     BoardActions.getMembers();
   }
 
+  componentWillUnmount() {
+    BoardStore.removeChangeListener(this.onChange);
+  }
+
 
   onChange() {
     let event = BoardStore.getEvent();
