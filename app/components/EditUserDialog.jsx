@@ -25,6 +25,14 @@ class EditUserDialog extends Component {
     });
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      name: nextProps.userInfo.name,
+      phone: nextProps.userInfo.phone,
+      email: nextProps.userInfo.email,
+    });
+  }
+
   updateUser() {
     const userObject = {
       id: this.props.userInfo.id,
