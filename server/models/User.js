@@ -73,7 +73,7 @@ const User = {
     TokenRefresher(req, res);
   },
   getProfile(userId, res) {
-    db.query('SELECT ev.title, ev.location, ev.start, es.has_paid FROM event_signups as es INNER JOIN events as ev ON es.event_id=ev.id WHERE user_id=?', [userId], (err, rows) => {
+    db.query('SELECT ev.id, ev.title, ev.location, ev.start, es.has_paid FROM event_signups as es INNER JOIN events as ev ON es.event_id=ev.id WHERE user_id=?', [userId], (err, rows) => {
       if (err) throw err;
       res.json(rows);
     });
