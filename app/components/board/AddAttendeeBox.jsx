@@ -68,27 +68,31 @@ class AddAttendeeBox extends Component {
         onRequestClose={this.handleClose}
         actions={actions}
       >
-        <SelectField
-          floatingLabelText="Select user to add"
-          value={this.state.value}
-          onChange={this.handleNameChange}
-        >
-          {
-            this.state.memberList.map(member => (
-              <MenuItem key={member.id} value={member.id} primaryText={member.name} />
-            ))
-          }
+        <div className="attendeeBoxItem">
+          <SelectField
+            floatingLabelText="Select user to add"
+            value={this.state.value}
+            onChange={this.handleNameChange}
+          >
+            {
+              this.state.memberList.map(member => (
+                <MenuItem key={member.id} value={member.id} primaryText={member.name} />
+              ))
+            }
 
-        </SelectField>
-        <TextField
-          key={this.state.userInfo}
-          name="comment"
-          hintText="Allergies etc."
-          floatingLabelText="Comment"
-          defaultValue={this.state.comment}
-          onChange={this.handleChange}
-          multiLine
-        />
+          </SelectField>
+        </div>
+        <div className="attendeeBoxItem">
+          <TextField
+            key={this.state.userInfo}
+            name="comment"
+            hintText="Allergies etc."
+            floatingLabelText="Comment"
+            defaultValue={this.state.comment}
+            onChange={this.handleChange}
+            multiLine
+          />
+        </div>
         <Checkbox
           label="Has car"
           checked={this.state.hasCar}
