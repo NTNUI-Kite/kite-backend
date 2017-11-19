@@ -12,6 +12,7 @@ const postStripeCharge = (req, res) => (stripeErr, stripeRes) => {
     res.status(500).send({ error: stripeErr });
   } else {
     // res.status(200).send({ success: stripeRes });
+    req.body.has_paid = 1;
     Event.signup(req, res);
   }
 };
