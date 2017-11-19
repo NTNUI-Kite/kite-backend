@@ -75,4 +75,8 @@ router.get('/newToken', (req, res) => {
   User.refreshToken(req, res);
 });
 
+router.get('/userProfile', authCheck, (req, res) => {
+  User.getProfile(req.user.userId, res);
+});
+
 export default router;
