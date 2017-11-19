@@ -4,13 +4,20 @@ import AuthStore from '../stores/AuthStore';
 import AuthActions from '../actions/AuthActions';
 
 import UserEventList from '../components/UserEventList';
+import UserInfoBox from '../components/UserInfoBox';
 
 class ProfileContainer extends Component {
   constructor() {
     super();
     this.state = {
       eventInfo: [],
-      userInfo: {},
+      userInfo: {
+        id: 0,
+        facebook_id: '',
+        name: '',
+        phone: '',
+        email: '',
+      },
     };
 
     this.onChange = this.onChange.bind(this);
@@ -37,8 +44,9 @@ class ProfileContainer extends Component {
 
   render() {
     return (
-      <div className="baseContainer">
+      <div className="profileContainer">
         <UserEventList eventList={this.state.eventInfo} />
+        <UserInfoBox userInfo={this.state.userInfo} />
       </div>
     );
   }
