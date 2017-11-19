@@ -1,6 +1,7 @@
 import React from 'react';
 import Divider from 'material-ui/Divider';
 import Paper from 'material-ui/Paper';
+import PropTypes from 'prop-types';
 
 const EventPreviews = props => (
   <Paper className="eventPreviews">
@@ -15,5 +16,9 @@ const EventPreviews = props => (
     }
   </Paper>
 );
+
+EventPreviews.propTypes = {
+  events: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+};
 
 export default EventPreviews;
