@@ -3,6 +3,7 @@ import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowCol
 import Paper from 'material-ui/Paper';
 import Button from 'material-ui/RaisedButton';
 import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const createDate = (mysqlDate) => {
   const dateParts = mysqlDate.split('-');
@@ -64,5 +65,11 @@ class UserEventList extends Component {
   }
 }
 
+UserEventList.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+  eventList: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+};
 
 export default withRouter(UserEventList);
