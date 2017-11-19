@@ -30,7 +30,8 @@ class UserEventList extends Component {
 
   render() {
     return (
-      <Paper>
+      <Paper className="userEventList">
+        <h3>Your events</h3>
         <Table selectable={false} >
           <TableHeader
             displaySelectAll={false}
@@ -38,7 +39,6 @@ class UserEventList extends Component {
           >
             <TableRow>
               <TableHeaderColumn>Title</TableHeaderColumn>
-              <TableHeaderColumn>Location</TableHeaderColumn>
               <TableHeaderColumn>Start-date</TableHeaderColumn>
               <TableHeaderColumn>Payment Recieved</TableHeaderColumn>
               <TableHeaderColumn />
@@ -49,11 +49,10 @@ class UserEventList extends Component {
               this.props.eventList.map(event => (
                 <TableRow key={event.id}>
                   <TableRowColumn>{event.title}</TableRowColumn>
-                  <TableRowColumn>{event.location}</TableRowColumn>
                   <TableRowColumn>{createDate(event.start).toDateString()}</TableRowColumn>
                   <TableRowColumn>{convertHasPaid(event.has_paid)}</TableRowColumn>
                   <TableRowColumn>
-                    <Button label="view Event" onClick={() => this.goToEvent(event.id)} />
+                    <Button label="Info" onClick={() => this.goToEvent(event.id)} />
                   </TableRowColumn>
                 </TableRow>
               ))
