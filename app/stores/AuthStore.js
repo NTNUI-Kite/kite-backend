@@ -6,27 +6,29 @@ const CHANGE_EVENT = 'change';
 
 let isAuthenticated = false;
 
+let profile = {};
+
 // eslint-disable-next-line no-undef
 if (localStorage.getItem('id_token')) {
   isAuthenticated = true;
 }
 
-function setUser(profile, token, refreshToken) {
+const setUser = (userInfo, token, refreshToken) => {
   // eslint-disable-next-line no-undef
   if (!localStorage.getItem('id_token')) {
     // eslint-disable-next-line no-undef
-    localStorage.setItem('profile', JSON.stringify(profile));
+    localStorage.setItem('profile', JSON.stringify(userInfo));
     // eslint-disable-next-line no-undef
     localStorage.setItem('id_token', token);
     // eslint-disable-next-line no-undef
     localStorage.setItem('refreshToken', refreshToken);
     // eslint-disable-next-line no-undef
-    localStorage.setItem('boardMember', profile.board_member);
+    localStorage.setItem('boardMember', userInfo.board_member);
   }
   isAuthenticated = true;
-}
+};
 
-function removeUser() {
+const removeUser = () => {
   // eslint-disable-next-line no-undef
   localStorage.removeItem('profile');
   // eslint-disable-next-line no-undef
@@ -35,12 +37,16 @@ function removeUser() {
   localStorage.removeItem('boardMember');
 
   isAuthenticated = false;
-}
-
-const updateUser = (profile) => {
-  // eslint-disable-next-line no-undef
-  localStorage.setItem('profile', JSON.stringify(profile));
 };
+
+const updateUser = (userInfo) => {
+  // eslint-disable-next-line no-undef
+  localStorage.setItem('profile', JSON.stringify(userInfo));
+};
+
+const setProfile = (newProfile) => {
+  profile = newProfile;
+}
 
 /* eslint class-methods-use-this:
 ["error", { "exceptMethods": ["isAuthenticated", "getUser", "getJwt"] }] */
@@ -91,7 +97,12 @@ class AuthStoreClass extends EventEmitter {
     // eslint-disable-next-line no-undef
     localStorage.setItem('id_token', token);
   }
+
+  getProfile() {
+    return profile;
+  }
 }
+
 
 const AuthStore = new AuthStoreClass();
 
@@ -108,7 +119,12 @@ AuthStore.dispatchToken = AppDispatcher.register((action) => {
       break;
 
     case AuthConstants.UPDATE_USER:
-      updateUser(action.profile);
+      updateUser(action.userInfo);
+      AuthStore.emitChange();
+      break;
+
+    case AuthConstants.RECIEVE_PROFILE:
+      setProfile(action.profile);
       AuthStore.emitChange();
       break;
 

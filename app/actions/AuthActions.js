@@ -1,6 +1,6 @@
 import AppDispatcher from '../dispatcher/AppDispatcher';
 import AuthConstants from '../constants/AuthConstants';
-import { PostRequestWithAuth, AuthorizedPostRequest } from '../utilities/APIFunctions';
+import { PostRequestWithAuth, AuthorizedPostRequest, AuthorizedGetRequest } from '../utilities/APIFunctions';
 
 export default {
 
@@ -25,13 +25,27 @@ export default {
     });
   },
 
-  updateUser: (profile) => {
-    AuthorizedPostRequest('/api/updateUser', profile)
+  updateUser: (userInfo) => {
+    AuthorizedPostRequest('/api/updateUser', userInfo)
       .then(() => {
         AppDispatcher.dispatch({
           actionType: AuthConstants.UPDATE_USER,
-          profile,
+          userInfo,
         });
+      });
+  },
+
+  getProfile: () => {
+    AuthorizedGetRequest('/api/userProfile')
+      .then((res) => {
+        console.log(res)
+        AppDispatcher.dispatch({
+          actionType: AuthConstants.RECIEVE_PROFILE,
+          profile: res,
+        });
+      })
+      .catch((message) => {
+        throw message;
       });
   },
 
