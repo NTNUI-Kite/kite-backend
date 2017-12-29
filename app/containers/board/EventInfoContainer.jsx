@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Paper from 'material-ui/Paper';
+import { Tabs, Tab } from 'material-ui/Tabs';
 import Button from 'material-ui/RaisedButton';
 import PropTypes from 'prop-types';
 
@@ -8,6 +9,7 @@ import BoardStore from '../../stores/BoardStore';
 
 import AttendeeList from '../../components/board/AttendeeList';
 import AddAttendeeBox from '../../components/board/AddAttendeeBox';
+import LogList from '../../components/board/LogList';
 
 class EventInfoContainer extends Component {
   constructor() {
@@ -15,6 +17,7 @@ class EventInfoContainer extends Component {
     this.state = {
       event: {
         signups: [],
+        log: [],
       },
       openAddDialog: false,
       memberList: [],
@@ -56,23 +59,30 @@ class EventInfoContainer extends Component {
   }
 
   render() {
+    console.log(this.state)
     return (
       <Paper>
-        <h1>Deltagere</h1>
-        <Button label="Add user to event" onClick={this.toggleAddDialog} />
-        <AttendeeList
-          eventId={this.state.event.id}
-          signups={this.state.event.signups}
-          removeAttendee={BoardActions.removeAttendee}
-        />
-        <AddAttendeeBox
-          eventId={this.state.event.id}
-          memberList={this.state.memberList}
-          attendeeList={this.state.event.signups}
-          toggle={this.toggleAddDialog}
-          open={this.state.openAddDialog}
-          addAttendee={BoardActions.addAttendee}
-        />
+        <Tabs>
+          <Tab label="Deltagere">
+            <Button label="Add user to event" onClick={this.toggleAddDialog} />
+            <AttendeeList
+              eventId={this.state.event.id}
+              signups={this.state.event.signups}
+              removeAttendee={BoardActions.removeAttendee}
+            />
+            <AddAttendeeBox
+              eventId={this.state.event.id}
+              memberList={this.state.memberList}
+              attendeeList={this.state.event.signups}
+              toggle={this.toggleAddDialog}
+              open={this.state.openAddDialog}
+              addAttendee={BoardActions.addAttendee}
+            />
+          </Tab>
+          <Tab label="Log">
+            <LogList logEntries={this.state.event.log} />
+          </Tab>
+        </Tabs>
       </Paper>
     );
   }
