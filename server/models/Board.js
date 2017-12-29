@@ -44,7 +44,11 @@ const Board = {
           db.query('SELECT user_id, name, email, phone, signup_date, comment, has_car FROM event_signups INNER JOIN users on event_signups.user_id = users.id WHERE event_id = ? order by signup_date ASC', [id], (error, signups) => {
             if (error) throw error;
             eventInfo.signups = signups;
-            res.json(eventInfo);
+            db.query('SELECT esl.id, u.name,esl.action , esl.date from event_signup_log as esl INNER JOIN users as u WHERE u.id = esl.user_id AND esl.event_id = ?', [id], (logError, log) => {
+              if (logError) throw logError;
+              eventInfo.log = log;
+              res.json(eventInfo);
+            });
           });
         } else {
           res.json();

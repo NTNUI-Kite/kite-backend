@@ -66,15 +66,34 @@ const Event = {
       has_car: body.hasCar,
       has_paid: body.has_paid,
     };
+    const logInfo = {
+      event_id: body.eventId,
+      user_id: userId,
+      date: today,
+      action: 'signup',
+    };
     db.query('INSERT INTO event_signups SET ?', info, (err) => {
       if (err) throw err;
-      res.json({ message: 'success' });
+      db.query('INSERT INTO event_signup_log SET ?', logInfo, (error) => {
+        if (error) throw error;
+        res.json({ message: 'success' });
+      });
     });
   },
   signoff(userId, body, res) {
     db.query('DELETE FROM event_signups WHERE event_id = ? AND user_id = ?', [body.eventId, userId], (err) => {
       if (err) throw err;
-      res.json({ message: 'Signed off' });
+      const today = new Date();
+      const logInfo = {
+        event_id: body.eventId,
+        user_id: userId,
+        date: today,
+        action: 'signoff',
+      };
+      db.query('INSERT INTO event_signup_log SET ?', logInfo, (error) => {
+        if (error) throw error;
+        res.json({ message: 'success' });
+      });
     });
   },
 };
