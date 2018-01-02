@@ -1,7 +1,6 @@
 import configureStripe from 'stripe';
 import stripeSecret from '../config/StripeConfig';
 import db from '../utilities/dbConnection';
-import Event from './Event';
 
 const CURRENCY = 'NOK';
 
@@ -11,15 +10,18 @@ const postStripeCharge = (req, res) => (stripeErr, stripeRes) => {
   if (stripeErr) {
     res.status(500).send({ error: stripeErr });
   } else {
-    // res.status(200).send({ success: stripeRes });
-    req.body.has_paid = 1;
-    Event.signup(req, res);
+    db.query('UPDATE event_signups SET has_paid = 1 WHERE event_id = ? AND user_id = ?', [req.body.eventId, req.user.userId], (err) => {
+      if (err) throw err;
+      res.status(200).send({ success: stripeRes });
+    });
+    // req.body.has_paid = 1;
+    // Event.register(req, res);
   }
 };
 
 const Payment = {
   pay: (req, res) => {
-    db.query('SELECT title, price, is_active, is_open FROM events WHERE id = ?', [req.body.eventId], (err, rows) => {
+    db.query('SELECT e.title, e.price, e.is_active, e.is_open, e.capacity, count(*) AS signups FROM events AS e inner join event_signups AS es ON e.id=es.event_id WHERE e.id = 29 GROUP BY e.id', [req.body.eventId], (err, rows) => {
       if (err) throw err;
       const event = rows[0];
       if (event.is_open === 0 || event.is_active === 0) {
