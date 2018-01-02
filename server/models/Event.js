@@ -46,7 +46,6 @@ const Event = {
     });
   },
   register(req, res) {
-    console.log(req.body);
     const userId = req.user.userId;
     const body = req.body;
     const today = new Date();
