@@ -29,6 +29,7 @@ class SignupBox extends Component {
       hasCar: false,
       comment: '',
       paymentInProgress: false,
+      hasPaid: false,
     };
 
     this.toggleCar = this.toggleCar.bind(this);
@@ -41,6 +42,7 @@ class SignupBox extends Component {
       comment: nextProps.userInfo.comment,
       hasCar: (nextProps.userInfo.has_car === 1),
       userInfo: nextProps.userInfo,
+      hasPaid: (nextProps.userInfo.has_paid === 1),
     });
   }
 
@@ -92,6 +94,8 @@ class SignupBox extends Component {
           {...this.props}
           comment={this.state.comment}
           hasCar={this.state.hasCar}
+          hasPaid={this.state.hasPaid}
+          onWaitingList={this.props.onWaitingList}
           changePaymentProgress={this.changePaymentProgress}
         />
       </Paper>
