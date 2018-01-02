@@ -12,19 +12,12 @@ const Event = {
 
   getEventById(res, id) {
     return (
-      db.query('SELECT * FROM events WHERE id = ?', [id], (err, rows) => {
+      db.query('SELECT * FROM events WHERE id = ?; SELECT user_id,name, signup_date, comment, has_car, has_paid, waiting_list FROM event_signups INNER JOIN users on event_signups.user_id = users.id WHERE event_id = ? order by signup_date ASC', [id, id], (err, result) => {
         if (err) throw err;
-        if (rows.length > 0) {
-          const eventInfo = rows[0];
-
-          db.query('SELECT user_id,name, signup_date, comment, has_car FROM event_signups INNER JOIN users on event_signups.user_id = users.id WHERE event_id = ? order by signup_date ASC', [id], (error, signups) => {
-            if (error) throw error;
-            eventInfo.signups = signups;
-            res.json(eventInfo);
-          });
-        } else {
-          res.json();
-        }
+        const eventInfo = result[0][0];
+        eventInfo.signups = result[1].filter(entry => entry.waiting_list === 0);
+        eventInfo.waitingList = result[1].filter(entry => entry.waiting_list === 1);
+        res.json(eventInfo);
       })
     );
   },
@@ -52,36 +45,44 @@ const Event = {
       res.json({ message: 'event updated' });
     });
   },
-
-  signup(req, res) {
+  register(req, res) {
+    console.log(req.body);
     const userId = req.user.userId;
     const body = req.body;
     const today = new Date();
-    const date = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
     const info = {
       event_id: body.eventId,
       user_id: userId,
-      signup_date: date,
+      signup_date: today,
       comment: body.comment,
       has_car: body.hasCar,
-      has_paid: body.has_paid,
+      has_paid: false,
+      waiting_list: false,
     };
+
     const logInfo = {
-      event_id: body.eventId,
-      user_id: userId,
-      date: today,
+      event_id: info.event_id,
+      user_id: info.user_id,
+      date: new Date(),
       action: 'signup',
     };
-    db.query('INSERT INTO event_signups SET ?', info, (err) => {
+
+    db.query('SELECT e.capacity,count(*) AS signups FROM events AS e inner join event_signups AS es ON e.id=es.event_id WHERE e.id=? GROUP BY e.id', [body.eventId], (err, rows) => {
       if (err) throw err;
-      db.query('INSERT INTO event_signup_log SET ?', logInfo, (error) => {
-        if (error) throw error;
+      const event = rows[0];
+      if (event.signups >= event.capacity) {
+        info.waiting_list = true;
+        logInfo.action = 'waitinglist signup';
+      }
+      db.query('INSERT INTO event_signups SET ?; INSERT INTO event_signup_log SET ?', [info, logInfo], (signupErr) => {
+        if (signupErr) throw signupErr;
         res.json({ message: 'success' });
       });
     });
   },
   signoff(userId, body, res) {
-    db.query('DELETE FROM event_signups WHERE event_id = ? AND user_id = ?', [body.eventId, userId], (err) => {
+    // TODO: check both waitingList and signups
+    db.query('DELETE FROM event_signups WHERE event_id = ? AND user_id = ?; UPDATE event_signups SET waiting_list = 0 WHERE waiting_list=1 and event_id = ? ORDER BY signup_date LIMIT 1; ', [body.eventId, userId, body.eventId], (err) => {
       if (err) throw err;
       const today = new Date();
       const logInfo = {
