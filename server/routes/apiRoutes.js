@@ -33,7 +33,7 @@ router.post('/updateEvent', (req, res) => {
 });
 
 router.post('/eventSignup', authCheck, (req, res) => {
-  Event.signup(req, res);
+  Event.register(req, res);
 });
 
 router.post('/eventSignoff', authCheck, (req, res) => {
