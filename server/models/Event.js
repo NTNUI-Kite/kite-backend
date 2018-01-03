@@ -66,7 +66,7 @@ const Event = {
       action: 'signup',
     };
 
-    db.query('SELECT e.capacity,count(*) AS signups FROM events AS e inner join event_signups AS es ON e.id=es.event_id WHERE e.id=? GROUP BY e.id', [body.eventId], (err, rows) => {
+    db.query('SELECT e.capacity,count(*) AS signups FROM events AS e inner join event_signups AS es ON e.id=es.event_id WHERE e.id=?', [body.eventId], (err, rows) => {
       if (err) throw err;
       const event = rows[0];
       if (event.signups >= event.capacity) {
