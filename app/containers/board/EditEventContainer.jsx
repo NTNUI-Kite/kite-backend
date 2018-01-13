@@ -22,13 +22,11 @@ const createDate = (mysqlDate) => {
   const dateParts = mysqlDate.split('-');
   dateParts[2] = dateParts[2].split('T')[0];
   const d = new Date(dateParts[0], dateParts[1] - 1, dateParts[2], 24, 0, 0);
-  console.log(d.toJSON());
-  console.log(mysqlDate);
   return new Date(d);
 };
 
 const dateToSQL = (date) => {
-  const newDate = new Date(date.getTime() - (date.getTimezoneOffset() * 60000))
+  const newDate = new Date(date.getTime() - (date.getTimezoneOffset() * 60000));
   return newDate.toJSON();
 };
 
@@ -84,6 +82,7 @@ class EditEventContainer extends Component {
       title: event.title,
       abstract: event.abstract,
       capacity: event.capacity,
+      originalCapacity: event.capacity,
       start: createDate(event.start),
       end: createDate(event.end),
       deadline: createDate(event.deadline),
@@ -148,6 +147,7 @@ class EditEventContainer extends Component {
       title: this.state.title,
       abstract: markup,
       capacity: this.state.capacity,
+      capacityChange: this.state.capacity - this.state.originalCapacity,
       start: dateToSQL(this.state.start),
       end: dateToSQL(this.state.end),
       deadline: dateToSQL(this.state.deadline),
@@ -158,9 +158,9 @@ class EditEventContainer extends Component {
       is_open: this.state.isOpen,
     };
     BoardActions.updateEvent(body);
-    console.log(body);
     this.setState({
       showSnackbar: true,
+      originalCapacity: this.state.capacity,
     });
   }
 
@@ -183,7 +183,6 @@ class EditEventContainer extends Component {
   }
 
   render() {
-    console.log(this.state);
     if (!this.state.hasRecievedData) {
       return (<Loader />);
     }
