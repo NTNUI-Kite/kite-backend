@@ -36,20 +36,13 @@ const Board = {
   },
   getEventById(res, id) {
     return (
-      db.query('SELECT * FROM events WHERE id = ?', [id], (err, rows) => {
+      db.query('SELECT * FROM events WHERE id = ?; SELECT user_id, name, email, phone, signup_date, comment, has_car FROM event_signups INNER JOIN users on event_signups.user_id = users.id WHERE event_id = ? order by signup_date ASC; SELECT esl.id, u.name,esl.action , esl.date from event_signup_log as esl INNER JOIN users as u WHERE u.id = esl.user_id AND esl.event_id = ?', [id, id, id], (err, rows) => {
         if (err) throw err;
-        if (rows.length > 0) {
-          const eventInfo = rows[0];
-
-          db.query('SELECT user_id, name, email, phone, signup_date, comment, has_car FROM event_signups INNER JOIN users on event_signups.user_id = users.id WHERE event_id = ? order by signup_date ASC', [id], (error, signups) => {
-            if (error) throw error;
-            eventInfo.signups = signups;
-            db.query('SELECT esl.id, u.name,esl.action , esl.date from event_signup_log as esl INNER JOIN users as u WHERE u.id = esl.user_id AND esl.event_id = ?', [id], (logError, log) => {
-              if (logError) throw logError;
-              eventInfo.log = log;
-              res.json(eventInfo);
-            });
-          });
+        if (rows[0].length > 0) {
+          const eventInfo = rows[0][0];
+          eventInfo.signups = rows[1];
+          eventInfo.log = rows[2];
+          res.json(eventInfo);
         } else {
           res.json();
         }
