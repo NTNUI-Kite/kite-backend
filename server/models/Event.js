@@ -40,6 +40,18 @@ const Event = {
   },
 
   updateEvent(body, res) {
+    if (body.capacityChange > 0) {
+      db.query('UPDATE event_signups SET waiting_list=0 WHERE waiting_list = 1 AND event_id =? ORDER BY signup_date ASC limit ?', [body.id, body.capacityChange], (uerr) => {
+        if (uerr) throw uerr;
+      });
+    }
+    // Code below removes if capacity shrinks, which is complicates the payment process
+    // else if (body.capacityChange < 0) {
+    //   db.query('UPDATE event_signups SET waiting_list=1 WHERE waiting_list = 0 AND event_id =? ORDER BY signup_date DESC limit ?', [body.id, Math.abs(body.capacityChange)], (uerr) => {
+    //     if (uerr) throw uerr;
+    //   });
+    // }
+    delete body.capacityChange;
     db.query('UPDATE events SET ? where id = ?', [body, body.id], (err) => {
       if (err) throw err;
       res.json({ message: 'event updated' });
