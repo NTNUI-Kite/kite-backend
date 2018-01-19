@@ -20,7 +20,7 @@ class EventInfoContainer extends Component {
         log: [],
       },
       openAddDialog: false,
-      memberList: [],
+      memberList: [{ id: 0 }],
     };
 
     this.onChange = this.onChange.bind(this);
