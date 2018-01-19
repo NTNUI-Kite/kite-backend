@@ -56,7 +56,9 @@ class AttendeeList extends Component {
               <TableHeaderColumn>Email</TableHeaderColumn>
               <TableHeaderColumn>Tlf</TableHeaderColumn>
               <TableHeaderColumn>Kommentar</TableHeaderColumn>
-              <TableRowColumn>Har Bil</TableRowColumn>
+              <TableHeaderColumn>Har Bil</TableHeaderColumn>
+              <TableHeaderColumn>Har betalt</TableHeaderColumn>
+              <TableHeaderColumn>På venteliste</TableHeaderColumn>
               <TableHeaderColumn />
             </TableRow>
           </TableHeader>
@@ -74,6 +76,12 @@ class AttendeeList extends Component {
                   >{member.comment}</TableRowColumn>
                   <TableRowColumn>
                     <Checkbox disabled checked={(member.has_car === 1)} />
+                  </TableRowColumn>
+                  <TableRowColumn>
+                    <Checkbox disabled checked={(member.has_paid === 1)} />
+                  </TableRowColumn>
+                  <TableRowColumn>
+                    <Checkbox disabled checked={(member.waiting_list === 1)} />
                   </TableRowColumn>
                   <TableRowColumn>
                     <Button label="Remove" onClick={() => this.setAttendee(member)} />
