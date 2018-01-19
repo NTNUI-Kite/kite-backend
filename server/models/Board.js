@@ -36,7 +36,7 @@ const Board = {
   },
   getEventById(res, id) {
     return (
-      db.query('SELECT * FROM events WHERE id = ?; SELECT user_id, name, email, phone, signup_date, comment, has_car FROM event_signups INNER JOIN users on event_signups.user_id = users.id WHERE event_id = ? order by signup_date ASC; SELECT esl.id, u.name,esl.action , esl.date from event_signup_log as esl INNER JOIN users as u WHERE u.id = esl.user_id AND esl.event_id = ?', [id, id, id], (err, rows) => {
+      db.query('SELECT * FROM events WHERE id = ?; SELECT user_id, name, email, phone, signup_date, comment, has_car, has_paid, waiting_list FROM event_signups INNER JOIN users on event_signups.user_id = users.id WHERE event_id = ? order by signup_date ASC; SELECT esl.id, u.name,esl.action , esl.date from event_signup_log as esl INNER JOIN users as u WHERE u.id = esl.user_id AND esl.event_id = ?', [id, id, id], (err, rows) => {
         if (err) throw err;
         if (rows[0].length > 0) {
           const eventInfo = rows[0][0];
