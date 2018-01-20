@@ -21,7 +21,6 @@ const postStripeCharge = (req, res) => (stripeErr, stripeRes) => {
   } else {
     db.query('UPDATE event_signups SET has_paid = 1 WHERE event_id = ? AND user_id = ?; SELECT email FROM users WHERE id = ?', [req.body.eventId, req.user.userId, req.user.userId], (err, rows) => {
       if (err) throw err;
-      console.log(rows[1][0].email);
       const emailBody = createEmail(req.user.name, rows[1][0].email);
       Emailer.sendMail(emailBody);
       res.status(200).send({ success: stripeRes });
