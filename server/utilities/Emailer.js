@@ -1,8 +1,7 @@
 import Mailgun from 'mailgun-js';
 import config from '../config/EmailConfig';
 
-
-const mailgun = new Mailgun({ apiKey: config.apiKey, domain: config.domain });
+const mailgun = new Mailgun(config);
 
 const Emailer = {
   sendMail: (body) => {
