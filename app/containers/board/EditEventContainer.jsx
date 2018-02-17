@@ -14,16 +14,20 @@ import EditView from '../../components/board/EditView';
 import Loader from '../../components/baseComponents/Loader';
 import Notifier from '../../components/baseComponents/Notifier';
 
-import EventActions from '../../actions/EventActions';
-import EventStore from '../../stores/EventStore';
+import BoardStore from '../../stores/EventStore';
 import BoardActions from '../../actions/BoardActions';
 
 
 const createDate = (mysqlDate) => {
   const dateParts = mysqlDate.split('-');
   dateParts[2] = dateParts[2].split('T')[0];
-  const d = new Date(dateParts[0], dateParts[1] - 1, dateParts[2], 12, 0, 0);
-  return d;
+  const d = new Date(dateParts[0], dateParts[1] - 1, dateParts[2], 24, 0, 0);
+  return new Date(d);
+};
+
+const dateToSQL = (date) => {
+  const newDate = new Date(date.getTime() - (date.getTimezoneOffset() * 60000));
+  return newDate.toJSON();
 };
 
 class EditEventContainer extends Component {
@@ -39,34 +43,36 @@ class EditEventContainer extends Component {
     this.handleDateStartChange = this.handleDateStartChange.bind(this);
     this.handleDateEndChange = this.handleDateEndChange.bind(this);
     this.handleDateDeadlineChange = this.handleDateDeadlineChange.bind(this);
+    this.handleDateOpenChange = this.handleDateOpenChange.bind(this);
     this.onEditorStateChange = this.onEditorStateChange.bind(this);
     this.onChange = this.onChange.bind(this);
     this.saveChanges = this.saveChanges.bind(this);
     this.handleRequestClose = this.handleRequestClose.bind(this);
     this.toggleActive = this.toggleActive.bind(this);
+    this.toggleOpen = this.toggleOpen.bind(this);
   }
 
   componentWillMount() {
-    EventStore.addChangeListener(this.onChange);
+    BoardStore.addChangeListener(this.onChange);
   }
 
   componentDidMount() {
-    EventActions.getEvent(this.props.match.params.eventId);
+    BoardActions.getEvent(this.props.match.params.eventId);
   }
 
   componentWillReceiveProps(nextProps) {
-    EventActions.getEvent(nextProps.match.params.eventId);
+    BoardActions.getEvent(nextProps.match.params.eventId);
     this.setState({
       hasRecievedData: false,
     });
   }
 
   componentWillUnmount() {
-    EventStore.removeChangeListener(this.onChange);
+    BoardStore.removeChangeListener(this.onChange);
   }
 
   onChange() {
-    const event = EventStore.getEvent();
+    const event = BoardStore.getEvent();
     const blocksFromHtml = htmlToDraft(event.abstract);
     const content = ContentState.createFromBlockArray(blocksFromHtml);
     const editorState = EditorState.createWithContent(content);
@@ -76,13 +82,16 @@ class EditEventContainer extends Component {
       title: event.title,
       abstract: event.abstract,
       capacity: event.capacity,
+      originalCapacity: event.capacity,
       start: createDate(event.start),
       end: createDate(event.end),
       deadline: createDate(event.deadline),
+      open: createDate(event.open),
       location: event.location,
       price: event.price,
       editorState,
       isActive: (event.is_active === 1),
+      isOpen: (event.is_open === 1),
       hasRecievedData: true,
     };
 
@@ -122,6 +131,13 @@ class EditEventContainer extends Component {
     });
   }
 
+  handleDateOpenChange(event, date) {
+    const newDate = new Date(date.getTime() - (date.getTimezoneOffset() * 60000));
+    this.setState({
+      open: newDate,
+    });
+  }
+
   saveChanges() {
     const rawState = convertToRaw(this.state.editorState.getCurrentContent());
     const markup = draftToHtml(rawState);
@@ -131,16 +147,20 @@ class EditEventContainer extends Component {
       title: this.state.title,
       abstract: markup,
       capacity: this.state.capacity,
-      start: this.state.start.toISOString(),
-      end: this.state.end.toISOString(),
-      deadline: this.state.deadline.toISOString(),
+      capacityChange: this.state.capacity - this.state.originalCapacity,
+      start: dateToSQL(this.state.start),
+      end: dateToSQL(this.state.end),
+      deadline: dateToSQL(this.state.deadline),
+      open: dateToSQL(this.state.open),
       location: this.state.location,
       price: this.state.price,
       is_active: this.state.isActive,
+      is_open: this.state.isOpen,
     };
     BoardActions.updateEvent(body);
     this.setState({
       showSnackbar: true,
+      originalCapacity: this.state.capacity,
     });
   }
 
@@ -156,6 +176,12 @@ class EditEventContainer extends Component {
     });
   }
 
+  toggleOpen() {
+    this.setState({
+      isOpen: !this.state.isOpen,
+    });
+  }
+
   render() {
     if (!this.state.hasRecievedData) {
       return (<Loader />);
@@ -168,8 +194,16 @@ class EditEventContainer extends Component {
           <DatePicker className="fieldItem" name="start" floatingLabelText="Start-dato" mode="landscape" value={this.state.start} onChange={this.handleDateStartChange} />
           <DatePicker className="fieldItem" name="end" floatingLabelText="Slutt-dato" mode="landscape" value={this.state.end} onChange={this.handleDateEndChange} />
           <DatePicker className="fieldItem" name="deadline" floatingLabelText="frist-dato" mode="landscape" value={this.state.deadline} onChange={this.handleDateDeadlineChange} />
+          <DatePicker className="fieldItem" name="open" floatingLabelText="Åpen-dato" mode="landscape" value={this.state.open} onChange={this.handleDateOpenChange} />
           <TextField className="fieldItem" name="price" floatingLabelText="Pris" defaultValue={this.state.price} onChange={this.handleChange} />
-          <Toggle label="is Active" toggled={this.state.isActive} onToggle={this.toggleActive} />
+          <div className="fieldToggleContainer">
+            <div className="fieldToggle">
+              <Toggle label="is Active" toggled={this.state.isActive} onToggle={this.toggleActive} />
+            </div>
+            <div className="fieldToggle">
+              <Toggle label="is Open" toggled={this.state.isOpen} onToggle={this.toggleOpen} />
+            </div>
+          </div>
         </Paper>
         <Paper className="editContainer">
           <EditView

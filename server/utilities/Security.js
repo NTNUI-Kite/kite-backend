@@ -12,7 +12,11 @@ function checkAuthorization(options) {
 
       jwt.verify(token, options.secret, (err, decoded) => {
         if (err) {
-          res.status(401).json({ message: 'Malformed jwt' });
+          if (err.name === 'TokenExpiredError') {
+            res.status(401).json({ message: 'Expired jwt' });
+          } else {
+            res.status(401).json({ message: 'Malforme jwt' });
+          }
         } else {
           set(req, requestProperty, decoded);
           next();

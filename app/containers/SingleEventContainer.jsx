@@ -20,9 +20,9 @@ class SingleEventContainer extends Component {
       event: {
         title: '',
         price: 0,
+        signups: [],
+        waitingList: [],
       },
-      attendeeList: [],
-      waitingList: [],
       authenticated: AuthStore.isAuthenticated(),
       userInfo: AuthStore.getUser(),
     };
@@ -56,40 +56,44 @@ class SingleEventContainer extends Component {
     });
   }
   onChange() {
-    const event = EventStore.getEvent();
-    const attendeeList = event.signups.slice(0, event.capacity);
-    const waitingList = event.signups.slice(event.capacity, event.signups.length);
     this.setState({
-      event,
-      attendeeList,
-      waitingList,
+      event: EventStore.getEvent(),
     });
   }
 
   render() {
     let hasSignedUp = false;
+    let onWaitingList = false;
     let userInfo = {
       comment: '',
       has_car: 0,
     };
     if (this.state.event.signups && this.state.authenticated) {
       this.state.event.signups.forEach((element) => {
-        if (element.name === this.state.userInfo.name) {
+        if (element.user_id === this.state.userInfo.id) {
+          hasSignedUp = true;
+          userInfo = element;
+        }
+      });
+      this.state.event.waitingList.forEach((element) => {
+        if (element.user_id === this.state.userInfo.id) {
+          onWaitingList = true;
           hasSignedUp = true;
           userInfo = element;
         }
       });
     }
-
     return (
       <div className="singleEventContainer">
         <AbstractBox abstract={this.state.event.abstract} />
-        <InfoBox {...this.state.event} spotsTaken={this.state.attendeeList.length} />
-        <AttendeeList userList={this.state.attendeeList} />
-        <WaitingList userList={this.state.waitingList} />
+        <InfoBox {...this.state.event} spotsTaken={this.state.event.signups.length} />
+        <AttendeeList userList={this.state.event.signups} />
+        <WaitingList userList={this.state.event.waitingList} />
         <SignupBox
+          isOpen={(this.state.event.is_open === 1)}
           authenticated={this.state.authenticated}
           hasSignedUp={hasSignedUp}
+          onWaitingList={onWaitingList}
           eventId={this.props.match.params.eventId}
           userInfo={userInfo}
           description={this.state.event.title}

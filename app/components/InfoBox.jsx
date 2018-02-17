@@ -15,6 +15,7 @@ const InfoBox = (event) => {
   const start = createDate(event.start);
   const end = createDate(event.end);
   const deadline = createDate(event.deadline);
+  const open = createDate(event.open);
 
   return (
     <Paper className="infoBox">
@@ -24,6 +25,8 @@ const InfoBox = (event) => {
       <p>Til: {end.toDateString()}</p>
       <Divider />
       <p>Frist: {deadline.toDateString()}</p>
+      <Divider />
+      <p>Åpner: {open.toDateString()} </p>
       <Divider />
       <p>Plasser tatt: {event.spotsTaken}/{event.capacity}</p>
       <Divider />

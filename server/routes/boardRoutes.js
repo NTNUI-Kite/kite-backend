@@ -30,12 +30,24 @@ router.get('/allevents', (req, res) => {
   Board.getAllEvents(res);
 });
 
+router.get('/eventById/:id', (req, res) => {
+  Board.getEventById(res, req.params.id);
+});
+
 router.post('/addEvent', (req, res) => {
   Event.addEvent(res);
 });
 
 router.post('/updateAbout', (req, res) => {
   About.updateAbout(req.body, res);
+});
+
+router.post('/removeAttendee', (req, res) => {
+  Board.removeAttendee(req.body, res);
+});
+
+router.post('/addAttendee', (req, res) => {
+  Board.addAttendee(req.body, res);
 });
 
 export default router;

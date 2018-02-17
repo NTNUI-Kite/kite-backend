@@ -58,6 +58,21 @@ const Actions = {
         reject(message);
       });
   }),
+  getEvent: (id) => {
+    AuthorizedGetRequest(`/api/board/eventById/${id}`)
+      .then((event) => {
+        AppDispatcher.dispatch({
+          actionType: BoardConstants.RECIEVE_EVENT,
+          event,
+        });
+      })
+      .catch((message) => {
+        AppDispatcher.dispatch({
+          actionType: BoardConstants.RECIEVE_EVENT_ERROR,
+          message,
+        });
+      });
+  },
   getEvents: () => AuthorizedGetRequest('/api/board/allevents')
     .then((events) => {
       AppDispatcher.dispatch({
@@ -82,6 +97,52 @@ const Actions = {
       .catch((message) => {
         AppDispatcher.dispatch({
           actionType: BoardConstants.UPDATE_EVENT_ERROR,
+          message,
+        });
+      });
+  },
+  removeAttendee: (user, eventId) => {
+    const body = {
+      userId: user.user_id,
+      eventId,
+    };
+    AuthorizedPostRequest('/api/board/removeAttendee', body)
+      .then(() => {
+        AppDispatcher.dispatch({
+          actionType: BoardConstants.REMOVE_ATTENDEE,
+          user,
+        });
+      })
+      .catch((message) => {
+        AppDispatcher.dispatch({
+          actionType: BoardConstants.REMOVE_ATTENDE_ERROR,
+          message,
+        });
+      });
+  },
+  addAttendee: (user, eventId, comment, hasCar) => {
+    const body = {
+      userId: user.id,
+      comment: `${comment} - Added by admin`,
+      hasCar,
+      eventId,
+    };
+    const newUser = Object.assign({}, user);
+    newUser.user_id = user.id;
+    newUser.comment = `${comment} - Added by admin`;
+    newUser.hasCar = hasCar;
+    delete newUser.id;
+    delete newUser.facebook_id;
+    AuthorizedPostRequest('/api/board/addAttendee', body)
+      .then(() => {
+        AppDispatcher.dispatch({
+          actionType: BoardConstants.ADD_ATTENDEE,
+          user: newUser,
+        });
+      })
+      .catch((message) => {
+        AppDispatcher.dispatch({
+          actionType: BoardConstants.ADD_ATTENDE_ERROR,
           message,
         });
       });

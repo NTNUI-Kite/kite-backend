@@ -4,31 +4,49 @@ import AuthConstants from '../constants/AuthConstants';
 
 const CHANGE_EVENT = 'change';
 
-function setUser(profile, token) {
+let isAuthenticated = false;
+
+let profile = {};
+
+// eslint-disable-next-line no-undef
+if (localStorage.getItem('id_token')) {
+  isAuthenticated = true;
+}
+
+const setUser = (userInfo, token, refreshToken) => {
   // eslint-disable-next-line no-undef
   if (!localStorage.getItem('id_token')) {
     // eslint-disable-next-line no-undef
-    localStorage.setItem('profile', JSON.stringify(profile));
+    localStorage.setItem('profile', JSON.stringify(userInfo));
     // eslint-disable-next-line no-undef
     localStorage.setItem('id_token', token);
     // eslint-disable-next-line no-undef
-    localStorage.setItem('boardMember', profile.board_member);
+    localStorage.setItem('refreshToken', refreshToken);
+    // eslint-disable-next-line no-undef
+    localStorage.setItem('boardMember', userInfo.board_member);
   }
-}
+  isAuthenticated = true;
+};
 
-function removeUser() {
+const removeUser = () => {
   // eslint-disable-next-line no-undef
   localStorage.removeItem('profile');
   // eslint-disable-next-line no-undef
   localStorage.removeItem('id_token');
   // eslint-disable-next-line no-undef
   localStorage.removeItem('boardMember');
-}
 
-const updateUser = (profile) => {
-  // eslint-disable-next-line no-undef
-  localStorage.setItem('profile', JSON.stringify(profile));
+  isAuthenticated = false;
 };
+
+const updateUser = (userInfo) => {
+  // eslint-disable-next-line no-undef
+  localStorage.setItem('profile', JSON.stringify(userInfo));
+};
+
+const setProfile = (newProfile) => {
+  profile = newProfile;
+}
 
 /* eslint class-methods-use-this:
 ["error", { "exceptMethods": ["isAuthenticated", "getUser", "getJwt"] }] */
@@ -46,11 +64,7 @@ class AuthStoreClass extends EventEmitter {
   }
 
   isAuthenticated() {
-    // eslint-disable-next-line no-undef
-    if (localStorage.getItem('id_token')) {
-      return true;
-    }
-    return false;
+    return isAuthenticated;
   }
 
   isBoardMember() {
@@ -69,18 +83,33 @@ class AuthStoreClass extends EventEmitter {
     return {};
   }
 
+  getRefreshJwt() {
+    // eslint-disable-next-line no-undef
+    return localStorage.getItem('refreshToken');
+  }
+
   getJwt() {
     // eslint-disable-next-line no-undef
     return localStorage.getItem('id_token');
   }
+
+  setJwt(token) {
+    // eslint-disable-next-line no-undef
+    localStorage.setItem('id_token', token);
+  }
+
+  getProfile() {
+    return profile;
+  }
 }
+
 
 const AuthStore = new AuthStoreClass();
 
 AuthStore.dispatchToken = AppDispatcher.register((action) => {
   switch (action.actionType) {
     case AuthConstants.LOGIN_USER:
-      setUser(action.profile, action.token);
+      setUser(action.profile, action.token, action.refreshToken);
       AuthStore.emitChange();
       break;
 
@@ -90,7 +119,12 @@ AuthStore.dispatchToken = AppDispatcher.register((action) => {
       break;
 
     case AuthConstants.UPDATE_USER:
-      updateUser(action.profile);
+      updateUser(action.userInfo);
+      AuthStore.emitChange();
+      break;
+
+    case AuthConstants.RECIEVE_PROFILE:
+      setProfile(action.profile);
       AuthStore.emitChange();
       break;
 

@@ -12,12 +12,16 @@ function checkAuthorization(options) {
 
       jwt.verify(token, options.secret, (err, decoded) => {
         if (err) {
-          res.status(401).json({ message: 'Malformed jwt' });
+          if (err.name === 'TokenExpiredError') {
+            res.status(401).json({ message: 'Expired jwt' });
+          } else {
+            res.status(401).json({ message: 'Malformed jwt' });
+          }
         } else if (decoded.scopes.includes('boardMember')) {
           set(req, requestProperty, decoded);
           next();
         } else {
-          res.status(401).json({ message: 'No access' });
+          res.status(403).json({ message: 'No access' });
         }
       });
     }

@@ -1,21 +1,55 @@
 import request from 'superagent/lib/client';
+import AuthActions from '../actions/AuthActions';
 import AuthStore from '../stores/AuthStore';
 
-export function AuthorizedGetRequest(url) {
-  return new Promise((resolve, reject) => {
+const getNewToken = () => {
+  const newRequest = new Promise((resolve, reject) => {
+    request
+      .get('/api/newToken')
+      .set('Authorization', `Bearer ${AuthStore.getRefreshJwt()}`)
+      .end((err, response) => {
+        if (err) reject(err);
+        AuthStore.setJwt(JSON.parse(response.text).token);
+        resolve();
+      });
+  });
+  return newRequest;
+};
+
+export const AuthorizedGetRequest = (url) => {
+  const newRequest = new Promise((resolve, reject) => {
     request
       .get(url)
       .set('Authorization', `Bearer ${AuthStore.getJwt()}`)
       .end((err, response) => {
-        if (err) reject(err);
-        resolve(JSON.parse(response.text));
+        if (err) {
+          // If token is expired retreieve new token using the refreshToken
+          if (JSON.parse(response.text).message === 'Expired jwt') {
+            getNewToken().then(() => {
+              // retry original request
+              AuthorizedGetRequest(url).then((newResponse) => {
+                resolve(newResponse);
+              });
+            })
+              // If an error occurs log user out
+              .catch((newErr) => {
+                AuthActions.logUserOut();
+                reject(newErr);
+              });
+          } else {
+            reject(err);
+          }
+        } else {
+          resolve(JSON.parse(response.text));
+        }
       });
   });
-}
+  return newRequest;
+};
 
 
-export function GetRequest(url) {
-  return new Promise((resolve, reject) => {
+export const GetRequest = (url) => {
+  const newRequest = new Promise((resolve, reject) => {
     request
       .get(url)
       .end((err, response) => {
@@ -23,10 +57,11 @@ export function GetRequest(url) {
         resolve(JSON.parse(response.text));
       });
   });
-}
+  return newRequest;
+};
 
-export function PostRequest(url, body) {
-  return new Promise((resolve, reject) => {
+export const PostRequest = (url, body) => {
+  const newRequest = new Promise((resolve, reject) => {
     request
       .post(url)
       .send(body)
@@ -39,27 +74,41 @@ export function PostRequest(url, body) {
         }
       });
   });
-}
+  return newRequest;
+};
 
-export function AuthorizedPostRequest(url, body) {
-  return new Promise((resolve, reject) => {
+export const AuthorizedPostRequest = (url, body) => {
+  const newRequest = new Promise((resolve, reject) => {
     request
       .post(url)
       .send(body)
       .set('Accept', 'application/json')
       .set('Authorization', `Bearer ${AuthStore.getJwt()}`)
-      .end((err, res) => {
-        if (err || !res.ok) {
-          reject(err);
+      .end((err, response) => {
+        if (err || !response.ok) {
+          if (JSON.parse(response.text).message === 'Expired jwt') {
+            getNewToken().then(() => {
+              AuthorizedPostRequest(url, body).then((newResponse) => {
+                resolve(newResponse);
+              });
+            })
+              .catch((newErr) => {
+                AuthActions.logUserOut();
+                reject(newErr);
+              });
+          } else {
+            reject(err);
+          }
         } else {
-          resolve(JSON.parse(res.text));
+          resolve(JSON.parse(response.text));
         }
       });
   });
-}
+  return newRequest;
+};
 
-export function PostRequestWithAuth(url, body, token) {
-  return new Promise((resolve, reject) => {
+export const PostRequestWithAuth = (url, body, token) => {
+  const newRequest = new Promise((resolve, reject) => {
     request
       .post(url)
       .send(body)
@@ -73,4 +122,5 @@ export function PostRequestWithAuth(url, body, token) {
         }
       });
   });
-}
+  return newRequest;
+};

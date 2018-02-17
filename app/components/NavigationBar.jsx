@@ -11,7 +11,7 @@ import Logo from './Logo';
 const NavigationBar = props => (
   <Toolbar className="navigationBar" style={{ backgroundColor: props.muiTheme.palette.primary1Color }}>
     <Logo />
-    <NavLinks boardMember={props.boardMember} />
+    <NavLinks boardMember={props.boardMember} authenticated={props.authenticated} />
     <ToolbarGroup>
       {props.authenticated
         ? <LoggedInButton userInfo={props.userInfo} />
