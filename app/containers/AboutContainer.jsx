@@ -34,7 +34,7 @@ class AboutContainer extends Component {
 
   render() {
     return (
-      <div className="baseContainer">
+      <div>
 
         <AboutContent informasjon={this.state.text} />
 
