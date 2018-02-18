@@ -36,7 +36,7 @@ class BoardContainer extends Component {
 
   render() {
     return (
-      <div>
+      <div className="boardContainer">
         <BoardLinks />
         <BoardList members={this.state.boardMembers} />
       </div>
