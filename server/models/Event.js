@@ -47,7 +47,9 @@ const Event = {
     }
     // Code below removes if capacity shrinks, which is complicates the payment process
     // else if (body.capacityChange < 0) {
-    //   db.query('UPDATE event_signups SET waiting_list=1 WHERE waiting_list = 0 AND event_id =? ORDER BY signup_date DESC limit ?', [body.id, Math.abs(body.capacityChange)], (uerr) => {
+    //   db.query('UPDATE event_signups SET waiting_list=1 WHERE waiting_list = 0
+    // AND event_id =? ORDER BY signup_date DESC limit ?',
+    // [body.id, Math.abs(body.capacityChange)], (uerr) => {
     //     if (uerr) throw uerr;
     //   });
     // }
