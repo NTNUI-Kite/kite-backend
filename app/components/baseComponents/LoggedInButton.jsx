@@ -38,11 +38,11 @@ class LoggedInButton extends Component {
   render() {
     return (
       <ToolbarGroup>
-        <ToolbarTitle style={{ color: '#ddd' }} className="username" text={this.props.userInfo.name} />
+        <ToolbarTitle style={{ color: '#fff' }} className="username" text={this.props.userInfo.name} />
         <IconMenu
           {...this.props}
           iconButtonElement={
-            <IconButton><AccountCircle color={this.props.muiTheme.icon.color} /></IconButton>
+            <IconButton><AccountCircle color={'#fff'} /></IconButton>
           }
           targetOrigin={{ horizontal: 'right', vertical: 'top' }}
           anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
