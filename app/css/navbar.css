@@ -9,3 +9,12 @@
 .navLink:visited{
   color:#fff;
 }
+
+.logo {
+  padding-left: 36px;
+}
+
+.logo > a > img {
+
+  height: 54px;
+}
