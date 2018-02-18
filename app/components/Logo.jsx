@@ -6,7 +6,7 @@ import { ToolbarGroup } from 'material-ui/Toolbar';
 const Logo = () => (
   <ToolbarGroup className="logo" firstChild>
     <Link to="/">
-      <img alt="logo" src="http://via.placeholder.com/167x64" />
+      <img alt="logo" src="https://www.emilps.no/kitelogo.png" />
     </Link>
   </ToolbarGroup>
 );
