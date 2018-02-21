@@ -1,11 +1,20 @@
 .navLink{
   padding-left: 10px;
   padding-right: 10px;
-  color: #ddd;
+  color: #fff;
 }
 .navLink:hover{
-  color: #ddd;
+  color: #fff;
 }
 .navLink:visited{
-  color:#ddd;
+  color:#fff;
+}
+
+.logo {
+  padding-left: 36px;
+}
+
+.logo > a > img {
+
+  height: 54px;
 }
