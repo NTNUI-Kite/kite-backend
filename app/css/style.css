@@ -48,7 +48,11 @@
 }
 
 .editContainer{
+  margin-bottom: 25px;
+}
 
+.saveButton {
+  margin-bottom: 25px;
 }
 
 .fieldItem{

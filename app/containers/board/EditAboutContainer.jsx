@@ -109,7 +109,7 @@ class EditAbout extends Component {
             onEditorStateChange={this.onEditorStateChange}
           />
         </Paper>
-        <Button label="Save changes" onClick={this.saveChanges} />
+        <Button className="saveButton" label="Save changes" onClick={this.saveChanges} />
         <Notifier open={this.state.showSnackbar} onRequestClose={this.handleRequestClose} />
       </div>
 

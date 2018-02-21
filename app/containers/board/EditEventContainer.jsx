@@ -211,7 +211,7 @@ class EditEventContainer extends Component {
             onEditorStateChange={this.onEditorStateChange}
           />
         </Paper>
-        <Button label="Lagre endringer" onClick={this.saveChanges} />
+        <Button className="saveButton" label="Lagre endringer" onClick={this.saveChanges} />
         <Notifier open={this.state.showSnackbar} onRequestClose={this.handleRequestClose} />
       </div>
     );
