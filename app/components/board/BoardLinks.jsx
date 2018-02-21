@@ -44,7 +44,7 @@ const PaperExampleSimple = () => (
         <p>HMS</p>
       </Paper>
     </Link>
-    <Link to="">
+    <Link to="https://drive.google.com/drive/folders/0Bx3Px3yy21msZjRiX3hhb1ZKUVk?usp=sharing" target="_blank" >
       <Paper className="boardLinkItem" zDepth={2} >
         <DocIcon className="boardLinkIcon" />
         <p>Dokumenter</p>
