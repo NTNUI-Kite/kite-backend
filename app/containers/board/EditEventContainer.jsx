@@ -187,7 +187,7 @@ class EditEventContainer extends Component {
       return (<Loader />);
     }
     return (
-      <div className="baseContainer">
+      <div>
         <Paper className="fieldContainer">
           <TextField className="fieldItem" name="title" floatingLabelText="Tittel" defaultValue={this.state.title} onChange={this.handleChange} />
           <TextField className="fieldItem" name="capacity" floatingLabelText="Kapasitet" defaultValue={this.state.capacity} onChange={this.handleChange} />
