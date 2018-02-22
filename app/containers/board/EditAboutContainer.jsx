@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import Paper from 'material-ui/Paper';
-import { Card } from 'material-ui/Card';
-import TextField from 'material-ui/TextField';
-import DatePicker from 'material-ui/DatePicker';
 import { EditorState, convertToRaw, ContentState } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
@@ -11,17 +8,20 @@ import EditView from '../../components/board/EditView';
 import AboutActions from '../../actions/AboutActions';
 import AboutStore from '../../stores/AboutStore';
 
+import Notifier from '../../components/baseComponents/Notifier';
 
 class EditAbout extends Component {
   constructor() {
     super();
     this.state = {
       hasRecievedData: false,
+      showSnackbar: false,
     };
 
     this.onEditorStateChange = this.onEditorStateChange.bind(this);
     this.onChange = this.onChange.bind(this);
     this.saveChanges = this.saveChanges.bind(this);
+    this.handleRequestClose = this.handleRequestClose.bind(this);
   }
 
   /*
@@ -84,6 +84,16 @@ class EditAbout extends Component {
     };
 
     AboutActions.updateAbout(body);
+
+    this.setState({
+      showSnackbar: true,
+    });
+  }
+
+  handleRequestClose() {
+    this.setState({
+      showSnackbar: false,
+    });
   }
 
   render() {
@@ -92,21 +102,15 @@ class EditAbout extends Component {
     }
     return (
 
-      <div className="baseContainer">
-        <Card>
-          <p>
-            This is the edit about page, here it will be a rich text editor
-            and some fancy graphics.<br />
-            <strong>Soon to come</strong>
-          </p>
-        </Card>
+      <div>
         <Paper className="editContainer">
           <EditView
             editorState={this.state.editorState}
             onEditorStateChange={this.onEditorStateChange}
           />
         </Paper>
-        <Button label="Save changes" onClick={this.saveChanges} />
+        <Button className="saveButton" label="Save changes" onClick={this.saveChanges} />
+        <Notifier open={this.state.showSnackbar} onRequestClose={this.handleRequestClose} />
       </div>
 
 

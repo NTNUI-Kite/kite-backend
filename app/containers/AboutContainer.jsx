@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Paper from 'material-ui/Paper';
 
 import AboutContent from '../components/AboutContent';
 
@@ -46,6 +47,9 @@ class AboutContainer extends Component {
       <div className="aboutContainer">
 
         <AboutContent informasjon={this.state.text} />
+        <Paper>
+          <h1 style={{ textAlign: 'center' }} > Kitestyret </h1>
+        </Paper>
         <BoardList members={this.state.boardMembers} />
       </div>);
   }
