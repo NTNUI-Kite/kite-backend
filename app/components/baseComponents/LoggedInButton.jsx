@@ -36,13 +36,25 @@ class LoggedInButton extends Component {
   }
 
   render() {
+    const styles = {
+      largeIcon: {
+        width: 40,
+        height: 40,
+      },
+      large: {
+        width: 80,
+        height: 80,
+        padding: 20,
+      },
+    };
+
     return (
       <ToolbarGroup>
-        <ToolbarTitle style={{ color: '#fff', fontSize: '25px' }} className="username" text={this.props.userInfo.name} />
+        <ToolbarTitle style={{ color: '#fff', fontSize: '25px', padding: '0px' }} className="username" text={this.props.userInfo.name} />
         <IconMenu
           {...this.props}
           iconButtonElement={
-            <IconButton><AccountCircle color={'#fff'} /></IconButton>
+            <IconButton iconStyle={styles.largeIcon} style={styles.large}><AccountCircle color={'#fff'} /></IconButton>
           }
           targetOrigin={{ horizontal: 'right', vertical: 'top' }}
           anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
