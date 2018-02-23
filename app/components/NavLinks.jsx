@@ -11,22 +11,22 @@ const style = {
 const NavLinks = props => (
   <div className="navLinks">
     <Link className="navLink" to="/events">
-      <ToolbarTitle style={{ fontSize: style.fontSize, color: style.color }} text="Events" />
+      <ToolbarTitle style={style} text="Events" />
     </Link>
     <Link className="navLink" to="/blog">
-      <ToolbarTitle style={{ fontSize: style.fontSize, color: style.color }} text="Blog" />
+      <ToolbarTitle style={style} text="Blog" />
     </Link>
     <Link className="navLink" to="/about">
-      <ToolbarTitle style={{ fontSize: style.fontSize, color: style.color }} text="About us" />
+      <ToolbarTitle style={style} text="About us" />
     </Link>
     <Link className="navLink" to="/images">
-      <ToolbarTitle style={{ fontSize: style.fontSize, color: style.color }} text="Images" />
+      <ToolbarTitle style={style} text="Images" />
     </Link>
     {props.boardMember
-      ? <Link className="navLink" to="/board"> <ToolbarTitle style={{ fontSize: style.fontSize, color: style.color }} text="Board" /> </Link>
+      ? <Link className="navLink" to="/board"> <ToolbarTitle style={style} text="Board" /> </Link>
       : <div />}
     {props.authenticated
-      ? <Link className="navLink" to="/profile"> <ToolbarTitle style={{ fontSize: style.fontSize, color: style.color }} text="Profile" /> </Link>
+      ? <Link className="navLink" to="/profile"> <ToolbarTitle style={style} text="Profile" /> </Link>
       : <div />}
   </div>
 );
