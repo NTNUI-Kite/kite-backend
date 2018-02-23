@@ -1,3 +1,19 @@
+.navigationBar {
+  /*display: flex;
+  height: 100px;
+  align-items: center;
+  justify-content: space-around;*/
+  background: #00c6ff; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #00c6ff, #0072ff,#00c6ff); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #00c6ff, #0072ff,#00c6ff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.navLinks {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .navLink{
   padding-left: 10px;
   padding-right: 10px;
@@ -10,7 +26,19 @@
   color: #212121;
 }
 
+.username {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 25px;
+  padding: 0;
+}
+
 .logo > a > img {
   margin-top: 10px;
   height: 104px;
+}
+
+.logo{
+  margin-left: auto;
+  margin-right: auto;
 }
