@@ -1,5 +1,5 @@
 import React from 'react';
-import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
+// import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import muiThemeable from 'material-ui/styles/muiThemeable';
 import PropTypes from 'prop-types';
 
@@ -9,15 +9,15 @@ import NavLinks from './NavLinks';
 import Logo from './Logo';
 
 const NavigationBar = props => (
-  <Toolbar className="navigationBar" style={{ backgroundColor: props.muiTheme.palette.primary1Color }}>
+  <div className="navigationBar">
     <Logo />
     <NavLinks boardMember={props.boardMember} authenticated={props.authenticated} />
-    <ToolbarGroup>
+    <div className="logInUser">
       {props.authenticated
         ? <LoggedInButton userInfo={props.userInfo} />
         : <LoginButton />}
-    </ToolbarGroup>
-  </Toolbar>
+    </div>
+  </div>
 );
 
 NavigationBar.propTypes = {

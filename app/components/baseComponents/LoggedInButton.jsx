@@ -38,7 +38,7 @@ class LoggedInButton extends Component {
   render() {
     return (
       <ToolbarGroup>
-        <ToolbarTitle style={{ color: '#fff' }} className="username" text={this.props.userInfo.name} />
+        <ToolbarTitle style={{ color: '#fff', fontSize: '25px' }} className="username" text={this.props.userInfo.name} />
         <IconMenu
           {...this.props}
           iconButtonElement={
