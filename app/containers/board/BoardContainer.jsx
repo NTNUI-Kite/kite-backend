@@ -6,6 +6,8 @@ import BoardList from '../../components/board/BoardList';
 import BoardActions from '../../actions/BoardActions';
 import BoardStore from '../../stores/BoardStore';
 
+import Paper from 'material-ui/Paper';
+
 class BoardContainer extends Component {
   constructor() {
     super();
@@ -36,10 +38,10 @@ class BoardContainer extends Component {
 
   render() {
     return (
-      <div className="boardContainer">
+      <Paper className="boardContainer" zDepth={2}>
         <BoardLinks />
         <BoardList members={this.state.boardMembers} />
-      </div>
+      </Paper>
     );
   }
 }
