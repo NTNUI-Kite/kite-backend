@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 
+import Paper from 'material-ui/Paper';
+
 import BoardLinks from '../../components/board/BoardLinks';
 import BoardList from '../../components/board/BoardList';
 
 import BoardActions from '../../actions/BoardActions';
 import BoardStore from '../../stores/BoardStore';
-
-import Paper from 'material-ui/Paper';
 
 class BoardContainer extends Component {
   constructor() {
