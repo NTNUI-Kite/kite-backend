@@ -7,8 +7,10 @@
   margin-bottom: 50px;
 }
 
-.logo{
-  margin-left: 20px;
+.logInUser {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .boardContainer {
@@ -34,7 +36,6 @@
 .boardLinks {
   text-align: center;
 }
-
 
 .fieldContainer{
   margin-top: 20px;
@@ -99,11 +100,6 @@
   margin: 25;
   text-align:center;
   display: inline-block;
-}
-
-.username {
-  display: inline-block;
-  vertical-align: middle;
 }
 
 .AboutContent {

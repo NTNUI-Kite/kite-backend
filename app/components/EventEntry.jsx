@@ -15,7 +15,7 @@ const EventEntry = (props) => {
   return (
     <Card className="eventEntry">
       <CardMedia overlay={<CardTitle title={props.title} subtitle="Stevne 4" />}>
-        <img alt="eventImage" src="http://via.placeholder.com/400x200" />
+        <img alt="eventImage" src="http://kitingbarbados.com/images/album/1.jpg" />
       </CardMedia>
       <CardText>
         Sted: {props.location}

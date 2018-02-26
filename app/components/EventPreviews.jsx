@@ -4,7 +4,7 @@ import Paper from 'material-ui/Paper';
 import PropTypes from 'prop-types';
 
 const EventPreviews = props => (
-  <Paper className="eventPreviews">
+  <Paper className="eventPreviews" zDepth={2}>
     <h3>Upcoming events</h3>
     {
       props.events.map(event => (

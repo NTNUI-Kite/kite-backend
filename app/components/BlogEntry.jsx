@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 const BlogEntry = props => (
   <Card className="blogEntry">
     <CardMedia overlay={<CardTitle title={props.title} subtitle={props.date} />}>
-      <img alt="logo" src="http://via.placeholder.com/400x200" />
+      <img alt="logo" src="http://kitingbarbados.com/images/album/1.jpg" />
     </CardMedia>
     <CardText>
       {props.abstract}
