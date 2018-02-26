@@ -13,60 +13,60 @@ import MemberIcon from 'material-ui/svg-icons/social/group';
 import LessonIcon from 'material-ui/svg-icons/social/school';
 
 const PaperExampleSimple = () => (
-  <Paper className="boardLinks">
+  <div className="boardLinks">
     <div>
       <Link to="/board/events">
-        <div className="boardLinkItem" >
+        <Paper className="boardLinkItem" zDepth={1} >
           <EventIcon className="boardLinkIcon" />
           <p>Arrangement</p>
-        </div>
+        </Paper>
       </Link>
       <Link to="">
-        <div className="boardLinkItem" >
+        <Paper className="boardLinkItem" zDepth={1} >
           <BlogIcon className="boardLinkIcon" />
           <p>Nyheter</p>
-        </div>
+        </Paper>
       </Link>
       <Link to="/board/editabout">
-        <div className="boardLinkItem" >
+        <Paper className="boardLinkItem" zDepth={1} >
           <InfoIcon className="boardLinkIcon" />
           <p>Om oss</p>
-        </div>
+        </Paper>
       </Link>
       <Link to="/board/memberlist">
-        <div className="boardLinkItem" >
+        <Paper className="boardLinkItem" zDepth={1} >
           <MemberIcon className="boardLinkIcon" />
           <p>Medlemmer</p>
-        </div>
+        </Paper>
       </Link>
     </div>
     <div>
       <Link to="">
-        <div className="boardLinkItem" >
+        <Paper className="boardLinkItem" zDepth={1} >
           <HMSIcon className="boardLinkIcon" />
           <p>HMS</p>
-        </div>
+        </Paper>
       </Link>
       <Link to="https://drive.google.com/drive/folders/0Bx3Px3yy21msZjRiX3hhb1ZKUVk?usp=sharing" target="_blank" >
-        <div className="boardLinkItem" >
+        <Paper className="boardLinkItem" zDepth={1} >
           <DocIcon className="boardLinkIcon" />
           <p>Dokumenter</p>
-        </div>
+        </Paper>
       </Link>
       <Link to="">
-        <div className="boardLinkItem" >
+        <Paper className="boardLinkItem" zDepth={1} >
           <LessonIcon className="boardLinkIcon" />
           <p>Erfaringer</p>
-        </div>
+        </Paper>
       </Link>
       <Link to="">
-        <div className="boardLinkItem" >
+        <Paper className="boardLinkItem" zDepth={1} >
           <SettingsIcon className="boardLinkIcon" />
           <p>Instillinger</p>
-        </div>
+        </Paper>
       </Link>
     </div>
-  </Paper>
+  </div>
 );
 
 const BoardLinks = () => <PaperExampleSimple />;
