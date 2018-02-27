@@ -38,7 +38,8 @@ class BoardContainer extends Component {
 
   render() {
     return (
-      <Paper className="boardContainer">
+      <Paper className="boardContainer" zDepth={2}>
+        <p className="boardTitle" >Dashboard</p>
         <BoardLinks />
         <BoardList members={this.state.boardMembers} />
       </Paper>
