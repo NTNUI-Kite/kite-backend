@@ -13,30 +13,6 @@
   align-items: center;
 }
 
-.boardContainer {
-  margin-bottom: 50px;
-}
-
-.boardLinkIcon {
-  width: 50 !important;
-  height: 50 !important;
-  margin: 10 !important;
-  color: #444 !important;
-  display: inline-block;
-}
-
-.boardLinkItem {
-  height: 100;
-  width: 100;
-  margin: 20;
-  text-align:center;
-  display: inline-block;
-}
-
-.boardLinks {
-  text-align: center;
-}
-
 .fieldContainer{
   margin-top: 20px;
   margin-bottom: 10px;

@@ -48,7 +48,7 @@ class AboutContainer extends Component {
 
         <AboutContent informasjon={this.state.text} />
         <Paper>
-          <h1 style={{ textAlign: 'center' }} > Kitestyret </h1>
+          <h1 style={{ textAlign: 'center' }} > Boardmembers </h1>
         </Paper>
         <BoardList members={this.state.boardMembers} />
       </div>);

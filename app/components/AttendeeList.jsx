@@ -3,11 +3,11 @@ import UserList from './baseComponents/UserList';
 
 const AttendeeList = (info) => {
   if (!info.userList) {
-    return (<UserList title="Deltagere" cssName="attendeeList" />);
+    return (<UserList title="Attendees" cssName="attendeeList" />);
   }
 
   return (
-    <UserList {...info} title="Deltagere" cssName="attendeeList" />
+    <UserList {...info} title="Attendees" cssName="attendeeList" />
   );
 };
 

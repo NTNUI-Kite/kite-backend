@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import Paper from 'material-ui/Paper';
+
 import BoardLinks from '../../components/board/BoardLinks';
 import BoardList from '../../components/board/BoardList';
 
@@ -36,10 +38,11 @@ class BoardContainer extends Component {
 
   render() {
     return (
-      <div className="boardContainer">
+      <Paper className="boardContainer" zDepth={2}>
+        <p className="boardTitle" >Dashboard</p>
         <BoardLinks />
         <BoardList members={this.state.boardMembers} />
-      </div>
+      </Paper>
     );
   }
 }

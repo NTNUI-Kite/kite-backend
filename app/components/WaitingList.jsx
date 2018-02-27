@@ -3,11 +3,11 @@ import UserList from './baseComponents/UserList';
 
 const WaitingList = (info) => {
   if (!info.userList) {
-    return (<UserList title="Venteliste" cssName="waitingList" />);
+    return (<UserList title="Waiting list" cssName="waitingList" />);
   }
 
   return (
-    <UserList {...info} title="Venteliste" cssName="waitingList" />
+    <UserList {...info} title="Waiting list" cssName="waitingList" />
   );
 };
 

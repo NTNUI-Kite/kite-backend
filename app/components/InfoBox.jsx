@@ -20,17 +20,17 @@ const InfoBox = (event) => {
   return (
     <Paper className="infoBox">
       <h3>Info</h3>
-      <p>Fra: {start.toDateString()}</p>
+      <p>From: {start.toDateString()}</p>
       <Divider />
-      <p>Til: {end.toDateString()}</p>
+      <p>To: {end.toDateString()}</p>
       <Divider />
-      <p>Frist: {deadline.toDateString()}</p>
+      <p>Deadline: {deadline.toDateString()}</p>
       <Divider />
-      <p>Åpner: {open.toDateString()} </p>
+      <p>Opens: {open.toDateString()} </p>
       <Divider />
-      <p>Plasser tatt: {event.spotsTaken}/{event.capacity}</p>
+      <p>Spots taken: {event.spotsTaken}/{event.capacity}</p>
       <Divider />
-      <p>Pris: {event.price}</p>
+      <p>Price: {event.price}</p>
     </Paper>
   );
 };
