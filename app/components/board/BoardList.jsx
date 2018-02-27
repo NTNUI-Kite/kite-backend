@@ -19,10 +19,10 @@ const BoardList = props => (<Paper>
       adjustForCheckbox={false}
     >
       <TableRow>
-        <TableHeaderColumn>Navn</TableHeaderColumn>
-        <TableHeaderColumn>Stilling</TableHeaderColumn>
-        <TableHeaderColumn>Epost</TableHeaderColumn>
-        <TableHeaderColumn>TelefonNummer</TableHeaderColumn>
+        <TableHeaderColumn>Name</TableHeaderColumn>
+        <TableHeaderColumn>Title</TableHeaderColumn>
+        <TableHeaderColumn>E-mail</TableHeaderColumn>
+        <TableHeaderColumn>Phonenumber</TableHeaderColumn>
       </TableRow>
     </TableHeader>
     <TableBody displayRowCheckbox={false}>

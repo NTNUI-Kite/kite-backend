@@ -18,23 +18,23 @@ const EventEntry = (props) => {
         <img alt="eventImage" src="http://kitingbarbados.com/images/album/1.jpg" />
       </CardMedia>
       <CardText>
-        Sted: {props.location}
+        Where: {props.location}
       </CardText>
       <Divider />
       <CardText>
-        Dato: {start.toDateString()} - {end.toDateString()}
+        Date: {start.toDateString()} - {end.toDateString()}
       </CardText>
       <Divider />
       <CardText>
-        Plasser tatt: {props.spotsTaken}/{props.capacity}
+        Spots taken: {props.spotsTaken}/{props.capacity}
       </CardText>
       <Divider />
       <CardText>
-        Pris: {props.price},-
+        Price: {props.price},-
       </CardText>
       <Divider />
       <CardActions>
-        <RaisedButton label="Påmelding" primary onClick={() => props.onRegistrationClick(props.id)} />
+        <RaisedButton label="Registration" onClick={() => props.onRegistrationClick(props.id)} />
       </CardActions>
     </Card>
   );

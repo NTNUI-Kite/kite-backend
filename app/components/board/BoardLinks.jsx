@@ -18,25 +18,25 @@ const PaperExampleSimple = () => (
       <Link to="/board/events">
         <Paper className="boardLinkItem" zDepth={1} >
           <EventIcon className="boardLinkIcon" />
-          <p>Arrangement</p>
+          <p>Events</p>
         </Paper>
       </Link>
       <Link to="">
         <Paper className="boardLinkItem" zDepth={1} >
           <BlogIcon className="boardLinkIcon" />
-          <p>Nyheter</p>
+          <p>Blog</p>
         </Paper>
       </Link>
       <Link to="/board/editabout">
         <Paper className="boardLinkItem" zDepth={1} >
           <InfoIcon className="boardLinkIcon" />
-          <p>Om oss</p>
+          <p>About us</p>
         </Paper>
       </Link>
       <Link to="/board/memberlist">
         <Paper className="boardLinkItem" zDepth={1} >
           <MemberIcon className="boardLinkIcon" />
-          <p>Medlemmer</p>
+          <p>Members</p>
         </Paper>
       </Link>
     </div>
@@ -50,19 +50,19 @@ const PaperExampleSimple = () => (
       <Link to="https://drive.google.com/drive/folders/0Bx3Px3yy21msZjRiX3hhb1ZKUVk?usp=sharing" target="_blank" >
         <Paper className="boardLinkItem" zDepth={1} >
           <DocIcon className="boardLinkIcon" />
-          <p>Dokumenter</p>
+          <p>Documents</p>
         </Paper>
       </Link>
       <Link to="">
         <Paper className="boardLinkItem" zDepth={1} >
           <LessonIcon className="boardLinkIcon" />
-          <p>Erfaringer</p>
+          <p>Experiences</p>
         </Paper>
       </Link>
       <Link to="">
         <Paper className="boardLinkItem" zDepth={1} >
           <SettingsIcon className="boardLinkIcon" />
-          <p>Instillinger</p>
+          <p>Settings</p>
         </Paper>
       </Link>
     </div>
