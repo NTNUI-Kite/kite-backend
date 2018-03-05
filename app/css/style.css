@@ -1,3 +1,16 @@
+.eventPreview > td{
+  border-top: 1px solid #000;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.eventPreview > td > a > p{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 0;
+}
+
 .blogEntry {
   margin-bottom: 50px;
 }
