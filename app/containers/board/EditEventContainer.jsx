@@ -21,13 +21,13 @@ import BoardActions from '../../actions/BoardActions';
 const createDate = (mysqlDate) => {
   const dateParts = mysqlDate.split('-');
   dateParts[2] = dateParts[2].split('T')[0];
-  const d = new Date(dateParts[0], dateParts[1] - 1, dateParts[2], 24, 0, 0);
+  const d = new Date(dateParts[0], dateParts[1] - 1, dateParts[2], 0, 0, 0);
   return new Date(d);
 };
 
 const dateToSQL = (date) => {
-  const newDate = new Date(date.getTime() - (date.getTimezoneOffset() * 60000));
-  return newDate.toJSON();
+  const newDate = date.getFullYear().toString() + '-' + (date.getMonth() + 1).toString() + '-' + date.getDate().toString();
+  return newDate;
 };
 
 class EditEventContainer extends Component {
