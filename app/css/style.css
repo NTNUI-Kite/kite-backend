@@ -11,6 +11,17 @@
   margin: 0;
 }
 
+.registrationStatus {
+  background-color: #EB5757;
+  color: white;
+  padding: 2px;
+  text-align: center;
+}
+
+.eventTitle {
+
+}
+
 .blogEntry {
   margin-bottom: 50px;
 }

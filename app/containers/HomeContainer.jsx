@@ -57,7 +57,6 @@ class HomeContainer extends Component {
   }
 
   render() {
-    console.log(this.state);
     return (
       <div className="homeContainer">
         <EventPreviews events={this.state.events} />
