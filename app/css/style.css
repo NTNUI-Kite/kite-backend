@@ -12,14 +12,43 @@
 }
 
 .registrationStatus {
-  background-color: #EB5757;
+
   color: white;
   padding: 2px;
   text-align: center;
 }
 
-.eventTitle {
+.registrationStatus.open {
+  background-color: #6FCF97;
+}
 
+.registrationStatus.closed{
+  background-color: #EB5757;
+}
+
+.registrationStatus > a{
+  color: white;
+  text-decoration: none;
+}
+
+.registrationStatus.opens{
+  color: black;
+  text-decoration: underline;
+}
+
+.eventTitle > a{
+  color: black;
+  text-decoration: none;
+}
+
+.eventDate{
+  color: black;
+  text-decoration: none;
+}
+
+.eventDate:hover{
+  color: black;
+  text-decoration: none;
 }
 
 .blogEntry {
