@@ -16,6 +16,7 @@ const paths = {
   bundle: 'bundle.js',
   bundleDest: '.dist/public/js',
   cssDest: '.dist/public/css',
+  imgDest: '.dist/public/images',
 };
 // Catch the server instance
 let express;
@@ -25,7 +26,7 @@ gulp.task('default', (cb) => {
 });
 
 gulp.task('build', (cb) => {
-  run('css', 'babel', 'client', 'restart', cb);
+  run('css', 'image', 'babel', 'client', 'restart', cb);
 });
 
 // build when a file has changed
@@ -33,6 +34,7 @@ gulp.task('watch', () => {
   gulp.watch('./app/**/*.js', () => { run('client', 'restart'); });
   gulp.watch('./app/**/*.jsx', () => { run('client', 'restart'); });
   gulp.watch('./server/**/*.js', () => { run('babel', 'restart'); });
+  gulp.watch('./server/public/images/**/*', () => { run('babel', 'restart'); });
   gulp.watch('./app/css/**/*.css', () => { run('css', 'restart'); });
 });
 
@@ -66,6 +68,10 @@ gulp.task('css', () => gulp.src('./app/css/**/*.css')
   .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9'))
   .pipe(concat('style.min.css'))
   .pipe(gulp.dest(paths.cssDest)));
+
+
+gulp.task('image', () => gulp.src('./server/public/images/**/*')
+  .pipe(gulp.dest(paths.imgDest)));
 
 
 /*
