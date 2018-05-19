@@ -1,4 +1,4 @@
-# ntnuikite
+# ntnuikite backend
 
 How to run:
 
@@ -7,4 +7,4 @@ How to run:
 3. get app-env file from some shady dude.
 4. run "source app-env"
 5. run "npm start"
-6. make sure you started the frontend 
+6. make sure you started the frontend
