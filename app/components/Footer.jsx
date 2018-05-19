@@ -6,8 +6,7 @@ import PaperLinks from './SocialMediaLinks';
 const Footer = () => (
   <Paper className="footer">
     <PaperLinks />
-    <p>Laget av NTNUi kite</p>
-    <a>Emil Schrøder så på Ole Barsch lage denne siden</a>
+    <p>2018 © NTNUI Kite</p>
   </Paper>
 );
 

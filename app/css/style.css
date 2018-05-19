@@ -1,3 +1,56 @@
+.eventPreview > td{
+  border-top: 1px solid #000;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.eventPreview > td > a > p{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 0;
+}
+
+.registrationStatus {
+
+  color: white;
+  padding: 2px;
+  text-align: center;
+}
+
+.registrationStatus.open {
+  background-color: #6FCF97;
+}
+
+.registrationStatus.closed{
+  background-color: #EB5757;
+}
+
+.registrationStatus > a{
+  color: white;
+  text-decoration: none;
+}
+
+.registrationStatus.opens{
+  color: black;
+  text-decoration: underline;
+}
+
+.eventTitle > a{
+  color: black;
+  text-decoration: none;
+}
+
+.eventDate{
+  color: black;
+  text-decoration: none;
+}
+
+.eventDate:hover{
+  color: black;
+  text-decoration: none;
+}
+
 .blogEntry {
   margin-bottom: 50px;
 }

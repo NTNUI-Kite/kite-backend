@@ -31,7 +31,11 @@ class LoginButton extends Component {
       <div>
         <p onClick={this.toggleEdit}>{this.props.userInfo.name}</p>
         <FlatButton onClick={this.props.logout}>Logout</FlatButton>
-        <EditUserDialog toggle={this.toggleEdit} open={this.state.showEdit} userInfo={this.props.userInfo} />
+        <EditUserDialog
+          toggle={this.toggleEdit}
+          open={this.state.showEdit}
+          userInfo={this.props.userInfo}
+        />
       </div>
     );
   }
