@@ -19,9 +19,4 @@ app.use(express.static(`${__dirname}./../.dist`));
 app.use('/api', apiRoutes);
 app.use('/api/board', boardRoutes);
 
-
-app.get('*', (req, res) => {
-  res.render('./../app/index.ejs');
-});
-
 app.listen(7777);

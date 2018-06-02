@@ -3,7 +3,7 @@ import db from '../utilities/dbConnection';
 const Event = {
 
   getActiveEvents(res) {
-    db.query('SELECT e.id, e.title, e.abstract, e.start, e.end, e.deadline, e.price, e.location, e.capacity, IFNULL(es.spots_taken,0) as spots_taken FROM events AS e LEFT JOIN (select event_id, count(*) AS spots_taken FROM event_signups GROUP BY event_id) AS es ON e.id = es.event_id WHERE e.is_active = true AND e.end >= CURDATE()', (err, rows) => {
+    db.query('SELECT e.id, e.title, e.abstract, e.start, e.end, e.open, e.deadline, e.price, e.location, e.capacity, IFNULL(es.spots_taken,0) as spots_taken FROM events AS e LEFT JOIN (select event_id, count(*) AS spots_taken FROM event_signups GROUP BY event_id) AS es ON e.id = es.event_id WHERE e.is_active = true AND e.end >= CURDATE()', (err, rows) => {
       if (err) throw err;
 
       res.json(rows);
@@ -32,6 +32,7 @@ const Event = {
       end: date,
       deadline: date,
       open: date,
+      location: '',
     };
     db.query('INSERT INTO events SET ?', info, (err, rows) => {
       if (err) throw err;
