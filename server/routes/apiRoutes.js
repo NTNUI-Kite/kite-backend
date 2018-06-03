@@ -50,7 +50,7 @@ router.get('/allBlogPosts', (req, res) => {
 });
 
 router.get('/boardMembers', (req, res) => {
-  res.json(Board.getBoardMembers());
+  Board.getBoardMembers(res);
 });
 
 router.get('/aboutInfo', (req, res) => {
