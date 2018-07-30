@@ -46,7 +46,7 @@ router.post('/updateUser', authCheck, (req, res) => {
 });
 
 router.get('/allBlogPosts', (req, res) => {
-  res.json(Blog.getAllPosts());
+  Blog.getAllPosts(res);
 });
 
 router.get('/boardMembers', (req, res) => {
