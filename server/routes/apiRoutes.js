@@ -32,6 +32,11 @@ router.post('/updateEvent', (req, res) => {
   Event.updateEvent(req.body, res);
 });
 
+router.post('/updatePost', (req, res) => {
+  console.log(req.body);
+  Board.updatePost(req.body, res);
+});
+
 router.post('/eventSignup', authCheck, (req, res) => {
   Event.register(req, res);
 });
