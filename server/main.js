@@ -1,6 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
+import helmet from 'helmet';
+import https from 'https';
 
 import apiRoutes from './routes/apiRoutes';
 import boardRoutes from './routes/boardRoutes';
@@ -13,6 +15,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true,
 }));
+app.use(helmet())
 
 app.use(express.static(`${__dirname}./../.dist`));
 
