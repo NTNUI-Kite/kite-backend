@@ -22,6 +22,10 @@ app.use(express.static(`${__dirname}./../.dist`));
 app.use('/api', apiRoutes);
 app.use('/api/board', boardRoutes);
 
+app.get('/', (req, res) => {
+  res.send('Hello Digital Ocean!')
+})
+
 app.listen(7777, () => {
   console.log('Server running on port 7777')
 });
