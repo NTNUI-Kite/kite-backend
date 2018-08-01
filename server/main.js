@@ -22,4 +22,6 @@ app.use(express.static(`${__dirname}./../.dist`));
 app.use('/api', apiRoutes);
 app.use('/api/board', boardRoutes);
 
-app.listen(7777);
+app.listen(7777, () => {
+  console.log('Server running on port 7777')
+});
