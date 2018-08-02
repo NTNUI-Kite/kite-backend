@@ -18,7 +18,8 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(helmet())
 
-app.use(express.static(`${__dirname}./../.dist`));
+//app.use(express.static(`${__dirname}./../.dist`));
+app.use(express.static('/home/kite/public'))
 
 app.use('/api', apiRoutes);
 app.use('/api/board', boardRoutes);
