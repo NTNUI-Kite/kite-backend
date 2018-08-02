@@ -24,7 +24,7 @@ app.use('/api', apiRoutes);
 app.use('/api/board', boardRoutes);
 
 app.get('/', (req, res) => {
-  res.send('Hello, this is API')
+  res.send('Hello, this is API :D :D')
 })
 
 app.listen(7777, () => {
