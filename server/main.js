@@ -28,6 +28,6 @@ app.get('/', (req, res) => {
   res.send('Hello, this is API :D :D')
 })
 
-app.listen(80, () => {
-  console.log('Server running on port 80')
+app.listen(7777, () => {
+  console.log('Server running on port 7777')
 });
