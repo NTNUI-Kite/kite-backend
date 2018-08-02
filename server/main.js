@@ -24,7 +24,7 @@ app.use('/api', apiRoutes);
 app.use('/api/board', boardRoutes);
 
 app.get('/', (req, res) => {
-  res.send('Hello Digital Ocean!')
+  res.send('Hello, this is API')
 })
 
 app.listen(7777, () => {
