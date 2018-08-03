@@ -2,6 +2,14 @@ import jwt from 'jsonwebtoken';
 import db from '../utilities/dbConnection';
 import AuthConfig from '../config/LocalAuthConfig';
 import TokenRefresher from '../utilities/TokenRefresher';
+import Emailer from '../utilities/Emailer';
+
+
+const createEmail = (userInfo, email) => ({
+  email,
+  subject: 'Delete user',
+  content: `Delele this user ${userInfo}`,
+});
 
 const User = {
   login(body, facebookId, res) {
@@ -77,6 +85,10 @@ const User = {
       if (err) throw err;
       res.json(rows);
     });
+  },
+  deleteUser(userInfo) {
+    const emailBody = createEmail(JSON.stringify(userInfo), 'emilp.schroder@gmail.com');
+    Emailer.sendMail(emailBody);
   },
 };
 
