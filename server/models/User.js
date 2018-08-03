@@ -5,10 +5,28 @@ import TokenRefresher from '../utilities/TokenRefresher';
 import Emailer from '../utilities/Emailer';
 
 
-const createEmail = (userInfo, email) => ({
+const createEmailToAdmin = (userInfo, email) => ({
   email,
   subject: 'Delete user',
   content: `Delele this user ${userInfo}`,
+});
+
+const createEmailToUser = (userInfo, email) => ({
+  email,
+  subject: 'Delete your user',
+  content: `
+    <h3>
+      Hello ${userInfo.name}
+    </h3>
+    <p>
+      All your data will be deleted within 30 days.
+    </p>
+    <p>
+      Best regards
+      <br>
+      NTNUI-kite
+    </p>
+    `,
 });
 
 const User = {
@@ -87,8 +105,11 @@ const User = {
     });
   },
   deleteUser(userInfo) {
-    const emailBody = createEmail(JSON.stringify(userInfo), 'emilp.schroder@gmail.com');
+    const emailBody = createEmailToAdmin(JSON.stringify(userInfo), 'emilp.schroder@gmail.com');
     Emailer.sendMail(emailBody);
+
+    const emailToUserBody = createEmailToUser(userInfo, userInfo.email);
+    Emailer.sendMail(emailToUserBody);
   },
 };
 
