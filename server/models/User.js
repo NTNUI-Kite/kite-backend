@@ -90,7 +90,7 @@ const User = {
   },
   UpdateUser(token, body, res) {
     const id = jwt.decode(token).userId;
-    db.query('UPDATE users SET name = ?, phone = ?, email = ? WHERE id = ?', [body.name, body.phone, body.email, id], (err) => {
+    db.query('UPDATE users SET name = ?, phone = ?, email = ?, firstLogin = ? WHERE id = ?', [body.name, body.phone, body.email, body.firstLogin, id], (err) => {
       if (err) throw err;
       res.json({ message: 'User updated' });
     });
@@ -104,12 +104,13 @@ const User = {
       res.json(rows);
     });
   },
-  deleteUser(userInfo) {
+  deleteUser(userInfo, res) {
     const emailBody = createEmailToAdmin(JSON.stringify(userInfo), 'emilp.schroder@gmail.com');
     Emailer.sendMail(emailBody);
 
     const emailToUserBody = createEmailToUser(userInfo, userInfo.email);
     Emailer.sendMail(emailToUserBody);
+    res.status(200).send({ success: 'deleteMailSent' });
   },
 };
 
