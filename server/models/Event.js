@@ -1,5 +1,7 @@
 import db from '../utilities/dbConnection';
 
+let eventsList = [];
+
 const Event = {
 
   getActiveEvents(res) {
@@ -7,6 +9,19 @@ const Event = {
       if (err) throw err;
 
       res.json(rows);
+    });
+  },
+
+  getAllEvents() {
+    db.query('SELECT e.id, e.deadline, e.is_Open, e.open FROM events as e', (err, rows) => {
+      if (err) throw err;
+      eventsList = rows;
+    });
+  },
+
+  updateOpenOrCloseEvent(open, id) {
+    db.query('UPDATE events SET is_open = ? WHERE id = ?', [open, id], (err) => {
+      if (err) throw err;
     });
   },
 
@@ -112,5 +127,24 @@ const Event = {
     });
   },
 };
+
+setInterval(() => {
+  Event.getAllEvents();
+
+  if (eventsList.length) {
+    const thisDate = new Date();
+    for (let i = 0; i < eventsList.length; i += 1) {
+      let open;
+      if (thisDate < eventsList[i].deadline && thisDate > eventsList[i].open) {
+        open = 1;
+      } else if (thisDate > eventsList[i].deadline || thisDate < eventsList[i].open) {
+        open = 0;
+      }
+      if (eventsList[i].is_Open !== open) {
+        Event.updateOpenOrCloseEvent(open, eventsList[i].id);
+      }
+    }
+  }
+}, 60000);
 
 export default Event;
