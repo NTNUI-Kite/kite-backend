@@ -1,11 +1,57 @@
 import db from '../utilities/dbConnection';
 
+const checkEventIfOpen = (event) => {
+  let open;
+  if (event.length) {
+    const thisDate = new Date();
+    if (thisDate < event[0].deadline && thisDate > event[0].open) {
+      open = 1;
+    } else if (thisDate > event[0].deadline || thisDate < event[0].open) {
+      open = 0;
+    }
+    if (event[0].is_Open !== open) {
+      db.query('UPDATE events SET is_open = ? WHERE id = ?', [open, event[0].id], (err) => {
+        if (err) throw err;
+      });
+    }
+  }
+  return open;
+};
+
+const checkEventListIfOpen = (eventsList) => {
+  const openList = [];
+  if (eventsList.length) {
+    const thisDate = new Date();
+    for (let i = 0; i < eventsList.length; i += 1) {
+      let open;
+      if (thisDate < eventsList[i].deadline && thisDate > eventsList[i].open) {
+        open = 1;
+      } else if (thisDate > eventsList[i].deadline || thisDate < eventsList[i].open) {
+        open = 0;
+      }
+      if (eventsList[i].is_Open !== open) {
+        db.query('UPDATE events SET is_open = ? WHERE id = ?', [open, eventsList[i].id], (err) => {
+          if (err) throw err;
+        });
+      }
+      openList.push(open);
+    }
+  }
+  return openList;
+};
+
 const Event = {
 
   getActiveEvents(res) {
-    db.query('SELECT e.id, e.title, e.abstract, e.start, e.end, e.open, e.deadline, e.price, e.location, e.capacity, IFNULL(es.spots_taken,0) as spots_taken FROM events AS e LEFT JOIN (select event_id, count(*) AS spots_taken FROM event_signups GROUP BY event_id) AS es ON e.id = es.event_id WHERE e.is_active = true AND e.end >= CURDATE()', (err, rows) => {
+    db.query('SELECT e.id, e.title, e.abstract, e.start, e.end, e.open, e.deadline, e.price, e.location, e.capacity, e.is_Open, IFNULL(es.spots_taken,0) as spots_taken FROM events AS e LEFT JOIN (select event_id, count(*) AS spots_taken FROM event_signups GROUP BY event_id) AS es ON e.id = es.event_id WHERE e.is_active = true AND e.end >= CURDATE()', (err, rows) => {
       if (err) throw err;
-
+      const openList = checkEventListIfOpen(rows);
+      const events = rows;
+      if (openList.length) {
+        for (let i = 0; i < openList.length; i += 1) {
+          events[i].is_Open = openList[i];
+        }
+      }
       res.json(rows);
     });
   },
@@ -17,6 +63,7 @@ const Event = {
         const eventInfo = result[0][0];
         eventInfo.signups = result[1].filter(entry => entry.waiting_list === 0);
         eventInfo.waitingList = result[1].filter(entry => entry.waiting_list === 1);
+        eventInfo.is_open = checkEventIfOpen(result[0]);
         res.json(eventInfo);
       })
     );
