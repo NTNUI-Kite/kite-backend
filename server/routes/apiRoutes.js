@@ -84,4 +84,9 @@ router.get('/userProfile', authCheck, (req, res) => {
   User.getProfile(req.user.userId, res);
 });
 
+router.post('/deleteUser', authCheck, (req, res) => {
+  User.deleteUser(req.body, res);
+});
+
+
 export default router;
