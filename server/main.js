@@ -18,6 +18,10 @@ app.use(helmet())
 app.use('/api', apiRoutes);
 app.use('/api/board', boardRoutes);
 
+app.get('/', (req, res) => {
+  res.send('Hello, this is API :D :D')
+})
+
 app.listen(7777, () => {
   console.log('Server running on port 7777')
 });
