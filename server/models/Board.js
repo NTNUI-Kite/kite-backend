@@ -65,6 +65,21 @@ const Board = {
       res.json({ message: 'success' });
     });
   },
+  getPostById(res, id) {
+    return (
+      db.query('SELECT * FROM blog WHERE id = ?', [id], (err, rows) => {
+        if (err) throw err;
+        res.json(rows);
+      })
+    );
+  },
+  updatePost(body, res) {
+    console.log('Its here');
+    db.query('UPDATE blog SET ? where id = ?', [body, body.id], (err) => {
+      if (err) throw err;
+      res.json({ message: 'event updated' });
+    });
+  },
 };
 
 export default Board;

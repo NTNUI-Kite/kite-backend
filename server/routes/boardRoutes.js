@@ -3,6 +3,7 @@ import { Router } from 'express';
 import Event from '../models/Event';
 import About from '../models/About';
 import Board from '../models/Board';
+import Blog from '../models/Blog';
 
 import BoardSecurity from '../utilities/BoardSecurity';
 
@@ -48,6 +49,14 @@ router.post('/removeAttendee', (req, res) => {
 
 router.post('/addAttendee', (req, res) => {
   Board.addAttendee(req.body, res);
+});
+
+router.get('/postById/:id', (req, res) => {
+  Board.getPostById(res, req.params.id);
+});
+
+router.post('/addPost', (req, res) => {
+  Blog.addPost(res);
 });
 
 export default router;

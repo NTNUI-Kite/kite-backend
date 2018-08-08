@@ -7,13 +7,33 @@ const CURRENCY = 'NOK';
 
 const stripe = configureStripe(stripeSecret);
 
-const createEmail = (name, email) => {
-  return {
-    email,
-    subject: 'Payment recieved',
-    content: `<h3>Thanks for the payment ${name} and welcome to the trip!</h3><p>Best regards</p></p>NTNUI-kite</p>`,
-  };
-};
+const createEmail = (name, email, event) => ({
+  email,
+  subject: `Payment recieved - ${event.title}`,
+  content: `
+    <h3>
+      Thanks for the payment ${name}
+      <br>
+      and welcome to the trip!
+    </h3>
+    <br>
+    <p>
+      <b>
+        Receipt - ${event.title}
+      </b>
+      <br>
+      ------------------------------------------
+    </p>
+    <p>Paid: ${event.price}kr</p>
+    <p>
+      ------------------------------------------
+    </p>
+    <p>
+      Best regards
+      <br>
+      NTNUI-kite
+    </p>`,
+});
 
 const postStripeCharge = (req, res) => (stripeErr, stripeRes) => {
   if (stripeErr) {
@@ -21,9 +41,12 @@ const postStripeCharge = (req, res) => (stripeErr, stripeRes) => {
   } else {
     db.query('UPDATE event_signups SET has_paid = 1 WHERE event_id = ? AND user_id = ?; SELECT email FROM users WHERE id = ?', [req.body.eventId, req.user.userId, req.user.userId], (err, rows) => {
       if (err) throw err;
-      const emailBody = createEmail(req.user.name, rows[1][0].email);
-      Emailer.sendMail(emailBody);
-      res.status(200).send({ success: stripeRes });
+      db.query('SELECT e.title, e.price FROM events AS e WHERE e.id = ?', [req.body.eventId], (error, rowes) => {
+        if (error) throw error;
+        const emailBody = createEmail(req.user.name, rows[1][0].email, rowes[0]);
+        Emailer.sendMail(emailBody);
+        res.status(200).send({ success: stripeRes });
+      });
     });
     // req.body.has_paid = 1;
     // Event.register(req, res);
