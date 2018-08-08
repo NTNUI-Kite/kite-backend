@@ -2,6 +2,32 @@ import jwt from 'jsonwebtoken';
 import db from '../utilities/dbConnection';
 import AuthConfig from '../config/LocalAuthConfig';
 import TokenRefresher from '../utilities/TokenRefresher';
+import Emailer from '../utilities/Emailer';
+
+
+const createEmailToAdmin = (userInfo, email) => ({
+  email,
+  subject: 'Delete user',
+  content: `Delele this user ${userInfo}`,
+});
+
+const createEmailToUser = (userInfo, email) => ({
+  email,
+  subject: 'Delete your user',
+  content: `
+    <h3>
+      Hello ${userInfo.name}
+    </h3>
+    <p>
+      All your data will be deleted within 30 days.
+    </p>
+    <p>
+      Best regards
+      <br>
+      NTNUI-kite
+    </p>
+    `,
+});
 
 const User = {
   login(body, facebookId, res) {
@@ -64,7 +90,7 @@ const User = {
   },
   UpdateUser(token, body, res) {
     const id = jwt.decode(token).userId;
-    db.query('UPDATE users SET name = ?, phone = ?, email = ? WHERE id = ?', [body.name, body.phone, body.email, id], (err) => {
+    db.query('UPDATE users SET name = ?, phone = ?, email = ?, firstLogin = ? WHERE id = ?', [body.name, body.phone, body.email, body.firstLogin, id], (err) => {
       if (err) throw err;
       res.json({ message: 'User updated' });
     });
@@ -77,6 +103,14 @@ const User = {
       if (err) throw err;
       res.json(rows);
     });
+  },
+  deleteUser(userInfo, res) {
+    const emailBody = createEmailToAdmin(JSON.stringify(userInfo), 'emilp.schroder@gmail.com');
+    Emailer.sendMail(emailBody);
+
+    const emailToUserBody = createEmailToUser(userInfo, userInfo.email);
+    Emailer.sendMail(emailToUserBody);
+    res.status(200).send({ success: 'deleteMailSent' });
   },
 };
 

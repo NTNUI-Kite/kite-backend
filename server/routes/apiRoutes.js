@@ -32,6 +32,11 @@ router.post('/updateEvent', (req, res) => {
   Event.updateEvent(req.body, res);
 });
 
+router.post('/updatePost', (req, res) => {
+  console.log(req.body);
+  Board.updatePost(req.body, res);
+});
+
 router.post('/eventSignup', authCheck, (req, res) => {
   Event.register(req, res);
 });
@@ -46,7 +51,7 @@ router.post('/updateUser', authCheck, (req, res) => {
 });
 
 router.get('/allBlogPosts', (req, res) => {
-  res.json(Blog.getAllPosts());
+  Blog.getAllPosts(res);
 });
 
 router.get('/boardMembers', (req, res) => {
@@ -78,5 +83,10 @@ router.get('/newToken', (req, res) => {
 router.get('/userProfile', authCheck, (req, res) => {
   User.getProfile(req.user.userId, res);
 });
+
+router.post('/deleteUser', authCheck, (req, res) => {
+  User.deleteUser(req.body, res);
+});
+
 
 export default router;
