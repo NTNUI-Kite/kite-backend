@@ -16,8 +16,10 @@ const Board = {
     });
   },
   getEventById(res, id) {
-    return (
-      db.query('SELECT * FROM events WHERE id = ?; SELECT user_id, name, email, phone, signup_date, comment, has_car, has_paid, waiting_list FROM event_signups INNER JOIN users on event_signups.user_id = users.id WHERE event_id = ? order by signup_date ASC; SELECT esl.id, u.name,esl.action , esl.date from event_signup_log as esl INNER JOIN users as u WHERE u.id = esl.user_id AND esl.event_id = ?', [id, id, id], (err, rows) => {
+    return db.query(
+      'SELECT * FROM events WHERE id = ?; SELECT user_id, name, email, phone, signup_date, comment, has_car, has_paid, waiting_list FROM event_signups INNER JOIN users on event_signups.user_id = users.id WHERE event_id = ? order by signup_date ASC; SELECT esl.id, u.name,esl.action , esl.date from event_signup_log as esl INNER JOIN users as u WHERE u.id = esl.user_id AND esl.event_id = ?',
+      [id, id, id],
+      (err, rows) => {
         if (err) throw err;
         if (rows[0].length > 0) {
           const eventInfo = rows[0][0];
@@ -27,7 +29,7 @@ const Board = {
         } else {
           res.json();
         }
-      })
+      },
     );
   },
   getMembers(res) {
@@ -44,10 +46,14 @@ const Board = {
     });
   },
   removeAttendee(body, res) {
-    db.query('DELETE FROM event_signups WHERE event_id = ? AND user_id = ?', [body.eventId, body.userId], (err) => {
-      if (err) throw err;
-      res.json({ message: 'Signed off' });
-    });
+    db.query(
+      'DELETE FROM event_signups WHERE event_id = ? AND user_id = ?; UPDATE event_signups SET waiting_list = 0 WHERE waiting_list=1 and event_id = ? ORDER BY signup_date LIMIT 1;',
+      [body.eventId, body.userId, body.eventId],
+      (err) => {
+        if (err) throw err;
+        res.json({ message: 'Signed off' });
+      },
+    );
   },
   addAttendee(body, res) {
     const today = new Date();
@@ -66,12 +72,10 @@ const Board = {
     });
   },
   getPostById(res, id) {
-    return (
-      db.query('SELECT * FROM blog WHERE id = ?', [id], (err, rows) => {
-        if (err) throw err;
-        res.json(rows);
-      })
-    );
+    return db.query('SELECT * FROM blog WHERE id = ?', [id], (err, rows) => {
+      if (err) throw err;
+      res.json(rows);
+    });
   },
   updatePost(body, res) {
     console.log('Its here');
