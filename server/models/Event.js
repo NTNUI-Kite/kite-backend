@@ -142,7 +142,6 @@ const Event = {
       (err, rows) => {
         if (err) throw err;
         const event = rows[0];
-        console.log(rows);
         if (event.signups >= event.capacity) {
           info.waiting_list = true;
           logInfo.action = 'waitinglist signup';
