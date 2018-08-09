@@ -19,7 +19,7 @@
     "jsonwebtoken": "^7.4.3",
     "keymirror": "^0.1.1",
     "lodash.set": "^4.3.2",
-    "mailgun-js": "^0.14.1",
+    "mailgun-js": "^0.20.0",
     "mysql": "^2.14.0",
     "request": "^2.81.0",
     "rimraf": "^2.6.1",
