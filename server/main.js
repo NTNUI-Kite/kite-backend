@@ -29,11 +29,6 @@ app.get('/', (req, res) => {
   res.send('Hello, this is API :D :D')
 })
 
-app.get("/throw", function(request, response, next) {
-    var error = new Error("Express.js will delegate this error to the error handler.");
-    next(error);
-});
-
 app.listen(7777, () => {
   console.log('Server running on port 7777')
 });
