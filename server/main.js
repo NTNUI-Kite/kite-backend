@@ -8,6 +8,13 @@ import boardRoutes from './routes/boardRoutes';
 
 const app = express();
 
+const errorHandler = (error, req, res, next) => {
+  console.log(error.message)
+  response.status(500).json({ error: error.message });
+}
+
+app.use(errorHandler);
+
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -21,6 +28,11 @@ app.use('/api/board', boardRoutes);
 app.get('/', (req, res) => {
   res.send('Hello, this is API :D :D')
 })
+
+app.get("/throw", function(request, response, next) {
+    var error = new Error("Express.js will delegate this error to the error handler.");
+    next(error);
+});
 
 app.listen(7777, () => {
   console.log('Server running on port 7777')
