@@ -1,6 +1,6 @@
 import db from '../utilities/dbConnection';
 
-const checkEventIfOpen = event => {
+const checkEventIfOpen = (event) => {
   let open;
   if (event.length) {
     const thisDate = new Date();
@@ -10,19 +10,15 @@ const checkEventIfOpen = event => {
       open = 0;
     }
     if (event[0].is_Open !== open) {
-      db.query(
-        'UPDATE events SET is_open = ? WHERE id = ?',
-        [open, event[0].id],
-        err => {
-          if (err) throw err;
-        }
-      );
+      db.query('UPDATE events SET is_open = ? WHERE id = ?', [open, event[0].id], (err) => {
+        if (err) throw err;
+      });
     }
   }
   return open;
 };
 
-const checkEventListIfOpen = eventsList => {
+const checkEventListIfOpen = (eventsList) => {
   const openList = [];
   if (eventsList.length) {
     const thisDate = new Date();
@@ -30,20 +26,13 @@ const checkEventListIfOpen = eventsList => {
       let open;
       if (thisDate < eventsList[i].deadline && thisDate > eventsList[i].open) {
         open = 1;
-      } else if (
-        thisDate > eventsList[i].deadline ||
-        thisDate < eventsList[i].open
-      ) {
+      } else if (thisDate > eventsList[i].deadline || thisDate < eventsList[i].open) {
         open = 0;
       }
       if (eventsList[i].is_Open !== open) {
-        db.query(
-          'UPDATE events SET is_open = ? WHERE id = ?',
-          [open, eventsList[i].id],
-          err => {
-            if (err) throw err;
-          }
-        );
+        db.query('UPDATE events SET is_open = ? WHERE id = ?', [open, eventsList[i].id], (err) => {
+          if (err) throw err;
+        });
       }
       openList.push(open);
     }
@@ -65,7 +54,7 @@ const Event = {
           }
         }
         res.json(rows);
-      }
+      },
     );
   },
 
@@ -77,19 +66,16 @@ const Event = {
         if (err) throw err;
         const eventInfo = result[0][0];
         eventInfo.signups = result[1].filter(entry => entry.waiting_list === 0);
-        eventInfo.waitingList = result[1].filter(
-          entry => entry.waiting_list === 1
-        );
+        eventInfo.waitingList = result[1].filter(entry => entry.waiting_list === 1);
         eventInfo.is_open = checkEventIfOpen(result[0]);
         res.json(eventInfo);
-      }
+      },
     );
   },
 
   addEvent(res) {
     const today = new Date();
-    const date = `${today.getFullYear()}-${today.getMonth() +
-      1}-${today.getDate()}`;
+    const date = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
     const info = {
       title: '',
       abstract: '',
@@ -97,7 +83,7 @@ const Event = {
       end: date,
       deadline: date,
       open: date,
-      location: ''
+      location: '',
     };
     db.query('INSERT INTO events SET ?', info, (err, rows) => {
       if (err) throw err;
@@ -110,9 +96,9 @@ const Event = {
       db.query(
         'UPDATE event_signups SET waiting_list=0 WHERE waiting_list = 1 AND event_id =? ORDER BY signup_date ASC limit ?',
         [body.id, body.capacityChange],
-        uerr => {
+        (uerr) => {
           if (uerr) throw uerr;
-        }
+        },
       );
     }
     // Code below removes if capacity shrinks, which is complicates the payment process
@@ -124,7 +110,7 @@ const Event = {
     //   });
     // }
     delete body.capacityChange;
-    db.query('UPDATE events SET ? where id = ?', [body, body.id], err => {
+    db.query('UPDATE events SET ? where id = ?', [body, body.id], (err) => {
       if (err) throw err;
       res.json({ message: 'event updated' });
     });
@@ -140,23 +126,22 @@ const Event = {
       comment: body.comment,
       has_car: body.hasCar,
       has_paid: false,
-      waiting_list: false
+      waiting_list: false,
     };
 
     const logInfo = {
       event_id: info.event_id,
       user_id: info.user_id,
       date: new Date(),
-      action: 'signup'
+      action: 'signup',
     };
 
     db.query(
-      'SELECT e.capacity,count(*) AS signups FROM events AS e inner join event_signups AS es ON e.id=es.event_id WHERE e.id=?',
-      [body.eventId],
+      'SELECT signups, capacity from (SELECT count(*) as signups from event_signups where event_id = ?) as c inner join events as e where e.id=?',
+      [body.eventId, body.eventId],
       (err, rows) => {
         if (err) throw err;
         const event = rows[0];
-        console.log(event);
         if (event.signups >= event.capacity) {
           info.waiting_list = true;
           logInfo.action = 'waitinglist signup';
@@ -164,12 +149,12 @@ const Event = {
         db.query(
           'INSERT INTO event_signups SET ?; INSERT INTO event_signup_log SET ?',
           [info, logInfo],
-          signupErr => {
+          (signupErr) => {
             if (signupErr) throw signupErr;
             res.json({ message: 'success' });
-          }
+          },
         );
-      }
+      },
     );
   },
   signoff(userId, body, res) {
@@ -177,22 +162,22 @@ const Event = {
     db.query(
       'DELETE FROM event_signups WHERE event_id = ? AND user_id = ?; UPDATE event_signups SET waiting_list = 0 WHERE waiting_list=1 and event_id = ? ORDER BY signup_date LIMIT 1; ',
       [body.eventId, userId, body.eventId],
-      err => {
+      (err) => {
         if (err) throw err;
         const today = new Date();
         const logInfo = {
           event_id: body.eventId,
           user_id: userId,
           date: today,
-          action: 'signoff'
+          action: 'signoff',
         };
-        db.query('INSERT INTO event_signup_log SET ?', logInfo, error => {
+        db.query('INSERT INTO event_signup_log SET ?', logInfo, (error) => {
           if (error) throw error;
           res.json({ message: 'success' });
         });
-      }
+      },
     );
-  }
+  },
 };
 
 export default Event;
