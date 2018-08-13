@@ -10,7 +10,7 @@ const app = express();
 
 const errorHandler = (error, req, res, next) => {
   console.log(error.message);
-  response.status(500).json({ error: Something went wrong});
+  response.status(500).json({ error: 'Something went wrong' });
 };
 
 app.use(errorHandler);
