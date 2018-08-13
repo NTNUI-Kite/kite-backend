@@ -3,3 +3,4 @@ bower_components
 dist
 app/config
 app-env
+.DS_Store
