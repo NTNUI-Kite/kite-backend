@@ -43,17 +43,20 @@ const checkEventListIfOpen = (eventsList) => {
 const Event = {
   getActiveEvents(res, next) {
     db.query(
-      'sSELECT e.id, e.title, e.abstract, e.start, e.end, e.open, e.deadline, e.price, e.location, e.capacity, e.is_Open, IFNULL(es.spots_taken,0) as spots_taken FROM events AS e LEFT JOIN (select event_id, count(*) AS spots_taken FROM event_signups GROUP BY event_id) AS es ON e.id = es.event_id WHERE e.is_active = true AND e.end >= CURDATE()',
+      'DSELECT e.id, e.title, e.abstract, e.start, e.end, e.open, e.deadline, e.price, e.location, e.capacity, e.is_Open, IFNULL(es.spots_taken,0) as spots_taken FROM events AS e LEFT JOIN (select event_id, count(*) AS spots_taken FROM event_signups GROUP BY event_id) AS es ON e.id = es.event_id WHERE e.is_active = true AND e.end >= CURDATE()',
       (err, rows) => {
-        if (err) next(err);
-        const openList = checkEventListIfOpen(rows);
-        const events = rows;
-        if (openList.length) {
-          for (let i = 0; i < openList.length; i += 1) {
-            events[i].is_Open = openList[i];
+        if (err) {
+          next(err);
+        } else {
+          const openList = checkEventListIfOpen(rows);
+          const events = rows;
+          if (openList.length) {
+            for (let i = 0; i < openList.length; i += 1) {
+              events[i].is_Open = openList[i];
+            }
           }
+          res.json(rows);
         }
-        res.json(rows);
       },
     );
   },
