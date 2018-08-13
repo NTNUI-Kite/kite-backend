@@ -33,7 +33,6 @@ router.post('/updateEvent', (req, res) => {
 });
 
 router.post('/updatePost', (req, res) => {
-  console.log(req.body);
   Board.updatePost(req.body, res);
 });
 
