@@ -21,12 +21,12 @@ const authCheck = Security(LocalAuthConfig);
 // const boardCheck = BoardSecurity(LocalAuthConfig);
 
 router.get('/throw', (req, res, next) => {
-  const error = new Error("Express.js will delegate this error to the error handler.");
+  const error = new Error('Express.js will delegate this error to the error handler.');
   next(error);
-})
+});
 
-router.get('/allEvents', (req, res) => {
-  Event.getActiveEvents(res);
+router.get('/allEvents', (req, res, next) => {
+  Event.getActiveEvents(res, next);
 });
 
 router.get('/eventById/:id', (req, res) => {
@@ -92,6 +92,5 @@ router.get('/userProfile', authCheck, (req, res) => {
 router.post('/deleteUser', authCheck, (req, res) => {
   User.deleteUser(req.body, res);
 });
-
 
 export default router;
