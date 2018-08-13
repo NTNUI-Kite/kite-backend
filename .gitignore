@@ -1,5 +1,6 @@
 node_modules
 bower_components
-.dist
+dist
 app/config
 app-env
+.DS_Store
