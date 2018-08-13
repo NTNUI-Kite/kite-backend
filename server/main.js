@@ -9,7 +9,7 @@ import boardRoutes from './routes/boardRoutes';
 const app = express();
 
 const errorHandler = (error, req, res, next) => {
-  console.log(error);
+  console.log('hello');
   response.status(500).json({ error: error.message });
 };
 
