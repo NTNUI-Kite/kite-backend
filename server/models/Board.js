@@ -78,7 +78,6 @@ const Board = {
     });
   },
   updatePost(body, res) {
-    console.log('Its here');
     db.query('UPDATE blog SET ? where id = ?', [body, body.id], (err) => {
       if (err) throw err;
       res.json({ message: 'event updated' });
